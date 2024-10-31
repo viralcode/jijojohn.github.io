@@ -404,122 +404,67 @@
         </div>
     </section>
 
-    <!-- Patents Section - Update the section tag -->
-    <section id="patents" class="py-24 bg-gradient-to-br from-white to-gray-50 relative overflow-hidden">
-        <!-- Add floating elements -->
+    <!-- Patents Section -->
+    <section id="patents" class="py-24 bg-gradient-to-br from-gray-50 to-white relative overflow-hidden">
+        <!-- Background elements -->
         <div class="absolute inset-0 overflow-hidden pointer-events-none">
-            <div class="absolute w-96 h-96 bg-primary/5 rounded-full -top-48 -right-48 blur-3xl animate-pulse"></div>
-            <div class="absolute w-96 h-96 bg-secondary/5 rounded-full -bottom-48 -left-48 blur-3xl animate-pulse"></div>
-            
-            <!-- Add subtle floating icons -->
-            <div class="absolute inset-0 opacity-30">
-                <i class="fas fa-certificate absolute top-1/4 left-1/4 text-4xl text-primary/20 animate-float"></i>
-                <i class="fas fa-award absolute top-3/4 right-1/4 text-4xl text-secondary/20 animate-float" style="animation-delay: -2s"></i>
-                <i class="fas fa-medal absolute bottom-1/4 left-1/3 text-4xl text-primary/20 animate-float" style="animation-delay: -1s"></i>
-            </div>
+            <div class="absolute w-96 h-96 bg-primary/5 rounded-full -top-48 -left-48 blur-3xl animate-pulse"></div>
+            <div class="absolute w-96 h-96 bg-secondary/5 rounded-full -bottom-48 -right-48 blur-3xl animate-pulse"></div>
         </div>
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
             <h2 class="text-4xl font-bold text-center mb-12 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Patents</h2>
-            <!-- Patent cards will keep their structure but add hover animations -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <!-- Update each patent card div with these classes -->
-                <div class="bg-white/80 backdrop-blur-sm rounded-xl shadow-lg overflow-hidden hover:-translate-y-2 transition-all duration-300 hover:shadow-xl group">
-                    <div class="p-6">
-                        <div class="text-sm text-primary font-mono mb-3">US-12107848-B1</div>
-                        <h3 class="text-xl font-bold mb-3">Automated Login Framework for Application Security Testing</h3>
-                        <p class="text-gray-600 mb-2">Inventor: JIJO JOHN</p>
-                        <p class="text-gray-500 mb-4">2024-10-01</p>
-                        <a href="https://ppubs.uspto.gov/dirsearch-public/print/downloadBasicPdf/12107848" target="_blank" 
-                           class="inline-flex items-center text-primary hover:text-primary/80">
-                            View Patent <i class="fas fa-external-link-alt ml-2"></i>
-                        </a>
-                    </div>
-                </div>
+            
+            <!-- Patents Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Patent Card 1 -->
+                <a href="https://ppubs.uspto.gov/dirsearch-public/print/downloadBasicPdf/12107848" target="_blank" 
+                   class="group bg-white/80 backdrop-blur-sm rounded-xl shadow-lg p-6 hover:-translate-y-2 transition-all duration-300 hover:shadow-xl">
+                    <h3 class="text-xl font-bold text-primary mb-2">US-12107848-B1</h3>
+                    <p class="text-gray-600">Automated security testing system with dynamic analysis</p>
+                </a>
 
-                <!-- Patent 2 -->
-                <div class="bg-white/80 backdrop-blur-sm rounded-xl shadow-lg overflow-hidden hover:-translate-y-2 transition-all duration-300 hover:shadow-xl group">
-                    <div class="p-6">
-                        <div class="text-sm text-primary font-mono mb-3">US-11991202-B2</div>
-                        <h3 class="text-xl font-bold mb-3">Scanning Unexposed Web Applications for Vulnerabilities</h3>
-                        <p class="text-gray-600 mb-2">Inventor: JIJO JOHN</p>
-                        <p class="text-gray-500 mb-4">2024-05-21</p>
-                        <a href="https://ppubs.uspto.gov/dirsearch-public/print/downloadBasicPdf/11991202" target="_blank" 
-                           class="inline-flex items-center text-primary hover:text-primary/80">
-                            View Patent <i class="fas fa-external-link-alt ml-2"></i>
-                        </a>
-                    </div>
-                </div>
+                <!-- Patent Card 2 -->
+                <a href="https://ppubs.uspto.gov/dirsearch-public/print/downloadBasicPdf/11991202" target="_blank"
+                   class="group bg-white/80 backdrop-blur-sm rounded-xl shadow-lg p-6 hover:-translate-y-2 transition-all duration-300 hover:shadow-xl">
+                    <h3 class="text-xl font-bold text-primary mb-2">US-11991202-B2</h3>
+                    <p class="text-gray-600">Dynamic application security testing with automated login detection</p>
+                </a>
 
-                <!-- Patent 3 -->
-                <div class="bg-white/80 backdrop-blur-sm rounded-xl shadow-lg overflow-hidden hover:-translate-y-2 transition-all duration-300 hover:shadow-xl group">
-                    <div class="p-6">
-                        <div class="text-sm text-primary font-mono mb-3">US-11785039-B2</div>
-                        <h3 class="text-xl font-bold mb-3">Scanning Web Applications for Security Vulnerabilities</h3>
-                        <p class="text-gray-600 mb-2">Inventor: JIJO JOHN</p>
-                        <p class="text-gray-500 mb-4">2023-10-10</p>
-                        <a href="https://ppubs.uspto.gov/dirsearch-public/print/downloadBasicPdf/11785039" target="_blank" 
-                           class="inline-flex items-center text-primary hover:text-primary/80">
-                            View Patent <i class="fas fa-external-link-alt ml-2"></i>
-                        </a>
-                    </div>
-                </div>
+                <!-- Patent Card 3 -->
+                <a href="https://ppubs.uspto.gov/dirsearch-public/print/downloadBasicPdf/11785039" target="_blank"
+                   class="group bg-white/80 backdrop-blur-sm rounded-xl shadow-lg p-6 hover:-translate-y-2 transition-all duration-300 hover:shadow-xl">
+                    <h3 class="text-xl font-bold text-primary mb-2">US-11785039-B2</h3>
+                    <p class="text-gray-600">Security testing system with automated authentication handling</p>
+                </a>
 
-                <!-- Patent 4 -->
-                <div class="bg-white/80 backdrop-blur-sm rounded-xl shadow-lg overflow-hidden hover:-translate-y-2 transition-all duration-300 hover:shadow-xl group">
-                    <div class="p-6">
-                        <div class="text-sm text-primary font-mono mb-3">US-20220159032-A1</div>
-                        <h3 class="text-xl font-bold mb-3">Scanning Unexposed Web Applications for Vulnerabilities</h3>
-                        <p class="text-gray-600 mb-2">Inventor: JIJO JOHN</p>
-                        <p class="text-gray-500 mb-4">2022-05-19</p>
-                        <a href="https://ppubs.uspto.gov/dirsearch-public/print/downloadBasicPdf/20220159032" target="_blank" 
-                           class="inline-flex items-center text-primary hover:text-primary/80">
-                            View Patent <i class="fas fa-external-link-alt ml-2"></i>
-                        </a>
-                    </div>
-                </div>
+                <!-- Patent Card 4 -->
+                <a href="https://ppubs.uspto.gov/dirsearch-public/print/downloadBasicPdf/20220159032" target="_blank"
+                   class="group bg-white/80 backdrop-blur-sm rounded-xl shadow-lg p-6 hover:-translate-y-2 transition-all duration-300 hover:shadow-xl">
+                    <h3 class="text-xl font-bold text-primary mb-2">US-20220159032-A1</h3>
+                    <p class="text-gray-600">Dynamic security testing with automated session management</p>
+                </a>
 
-                <!-- Patent 5 -->
-                <div class="bg-white/80 backdrop-blur-sm rounded-xl shadow-lg overflow-hidden hover:-translate-y-2 transition-all duration-300 hover:shadow-xl group">
-                    <div class="p-6">
-                        <div class="text-sm text-primary font-mono mb-3">US-20220070205-A1</div>
-                        <h3 class="text-xl font-bold mb-3">Enhanced Crawling of Unexposed Web Applications</h3>
-                        <p class="text-gray-600 mb-2">Inventor: JIJO JOHN</p>
-                        <p class="text-gray-500 mb-4">2022-03-03</p>
-                        <a href="https://ppubs.uspto.gov/dirsearch-public/print/downloadBasicPdf/20220070205" target="_blank" 
-                           class="inline-flex items-center text-primary hover:text-primary/80">
-                            View Patent <i class="fas fa-external-link-alt ml-2"></i>
-                        </a>
-                    </div>
-                </div>
+                <!-- Patent Card 5 -->
+                <a href="https://ppubs.uspto.gov/dirsearch-public/print/downloadBasicPdf/20220070205" target="_blank"
+                   class="group bg-white/80 backdrop-blur-sm rounded-xl shadow-lg p-6 hover:-translate-y-2 transition-all duration-300 hover:shadow-xl">
+                    <h3 class="text-xl font-bold text-primary mb-2">US-20220070205-A1</h3>
+                    <p class="text-gray-600">Security testing with automated authentication detection</p>
+                </a>
 
-                <!-- Patent 6 -->
-                <div class="bg-white/80 backdrop-blur-sm rounded-xl shadow-lg overflow-hidden hover:-translate-y-2 transition-all duration-300 hover:shadow-xl group">
-                    <div class="p-6">
-                        <div class="text-sm text-primary font-mono mb-3">US-11228611-B1</div>
-                        <h3 class="text-xl font-bold mb-3">Scanning Unexposed Web Applications for Vulnerabilities</h3>
-                        <p class="text-gray-600 mb-2">Inventor: JIJO JOHN</p>
-                        <p class="text-gray-500 mb-4">2022-01-18</p>
-                        <a href="https://ppubs.uspto.gov/dirsearch-public/print/downloadBasicPdf/11228611" target="_blank" 
-                           class="inline-flex items-center text-primary hover:text-primary/80">
-                            View Patent <i class="fas fa-external-link-alt ml-2"></i>
-                        </a>
-                    </div>
-                </div>
+                <!-- Patent Card 6 -->
+                <a href="https://ppubs.uspto.gov/dirsearch-public/print/downloadBasicPdf/11228611" target="_blank"
+                   class="group bg-white/80 backdrop-blur-sm rounded-xl shadow-lg p-6 hover:-translate-y-2 transition-all duration-300 hover:shadow-xl">
+                    <h3 class="text-xl font-bold text-primary mb-2">US-11228611-B1</h3>
+                    <p class="text-gray-600">Automated security testing with dynamic analysis capabilities</p>
+                </a>
 
-                <!-- Patent 7 -->
-                <div class="bg-white/80 backdrop-blur-sm rounded-xl shadow-lg overflow-hidden hover:-translate-y-2 transition-all duration-300 hover:shadow-xl group">
-                    <div class="p-6">
-                        <div class="text-sm text-primary font-mono mb-3">US-11201892-B1</div>
-                        <h3 class="text-xl font-bold mb-3">Enhanced Crawling of Unexposed Web Applications</h3>
-                        <p class="text-gray-600 mb-2">Inventor: JIJO JOHN</p>
-                        <p class="text-gray-500 mb-4">2021-12-14</p>
-                        <a href="https://ppubs.uspto.gov/dirsearch-public/print/downloadBasicPdf/11201892" target="_blank" 
-                           class="inline-flex items-center text-primary hover:text-primary/80">
-                            View Patent <i class="fas fa-external-link-alt ml-2"></i>
-                        </a>
-                    </div>
-                </div>
+                <!-- Patent Card 7 -->
+                <a href="https://ppubs.uspto.gov/dirsearch-public/print/downloadBasicPdf/11201892" target="_blank"
+                   class="group bg-white/80 backdrop-blur-sm rounded-xl shadow-lg p-6 hover:-translate-y-2 transition-all duration-300 hover:shadow-xl">
+                    <h3 class="text-xl font-bold text-primary mb-2">US-11201892-B1</h3>
+                    <p class="text-gray-600">Security testing system with automated session handling</p>
+                </a>
             </div>
         </div>
     </section>
@@ -541,15 +486,20 @@
                 <div class="absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-gradient-to-b from-primary via-secondary to-primary"></div>
                 
                 <!-- Timeline items - Add hover effects -->
-                <div class="space-y-24">
-                    <!-- Update each timeline item div with these classes -->
+                <div class="space-y-12 md:space-y-24">
+                    <!-- Euna Solutions -->
                     <div class="relative group">
-                        <div class="absolute left-1/2 transform -translate-x-1/2 -mt-3">
+                        <div class="absolute left-1/2 transform -translate-x-1/2 -mt-3 hidden md:block">
                             <div class="w-6 h-6 bg-[#7F00FF] rounded-full border-4 border-white shadow-lg"></div>
                         </div>
-                        <div class="ml-auto w-1/2 pl-12 group">
-                            <div class="bg-white/80 backdrop-blur-sm rounded-xl shadow-lg p-6 hover:-translate-y-2 transition-all duration-300 group-hover:shadow-xl">
-                                <div class="absolute left-0 top-1/2 transform -translate-y-1/2 w-12 h-0.5 bg-gradient-to-r from-[#7F00FF] to-transparent"></div>
+                        <!-- Update card positioning and layout -->
+                        <div class="md:ml-auto md:w-1/2 md:pl-12 group">
+                            <div class="bg-white/80 backdrop-blur-sm rounded-xl shadow-lg p-6 hover:-translate-y-2 transition-all duration-300 group-hover:shadow-xl relative">
+                                <!-- Timeline connector - visible only on desktop -->
+                                <div class="absolute left-0 top-1/2 transform -translate-y-1/2 w-12 h-0.5 bg-gradient-to-r from-[#7F00FF] to-transparent hidden md:block"></div>
+                                <!-- Mobile timeline indicator -->
+                                <div class="w-4 h-4 bg-[#7F00FF] rounded-full absolute -left-2 top-7 md:hidden"></div>
+                                <!-- Content -->
                                 <span class="inline-block px-4 py-1 rounded-full text-sm bg-[#7F00FF]/10 text-[#7F00FF] mb-4">2023</span>
                                 <h3 class="text-2xl font-bold text-[#7F00FF]">Senior Software Developer (R&D)</h3>
                                 <h4 class="text-xl text-gray-600 mb-2">Euna Solutions</h4>
@@ -565,12 +515,16 @@
 
                     <!-- Rapid7 Software Engineer II -->
                     <div class="relative group">
-                        <div class="absolute left-1/2 transform -translate-x-1/2 -mt-3">
+                        <div class="absolute left-1/2 transform -translate-x-1/2 -mt-3 hidden md:block">
                             <div class="w-6 h-6 bg-[#E100FF] rounded-full border-4 border-white shadow-lg"></div>
                         </div>
-                        <div class="w-1/2 pr-12 group">
-                            <div class="bg-white/80 backdrop-blur-sm rounded-xl shadow-lg p-6 hover:-translate-y-2 transition-all duration-300 group-hover:shadow-xl">
-                                <div class="absolute right-0 top-1/2 transform -translate-y-1/2 w-12 h-0.5 bg-gradient-to-l from-[#E100FF] to-transparent"></div>
+                        <div class="md:w-1/2 md:pr-12 group">
+                            <div class="bg-white/80 backdrop-blur-sm rounded-xl shadow-lg p-6 hover:-translate-y-2 transition-all duration-300 group-hover:shadow-xl relative">
+                                <!-- Timeline connector - visible only on desktop -->
+                                <div class="absolute right-0 top-1/2 transform -translate-y-1/2 w-12 h-0.5 bg-gradient-to-l from-[#E100FF] to-transparent hidden md:block"></div>
+                                <!-- Mobile timeline indicator -->
+                                <div class="w-4 h-4 bg-[#E100FF] rounded-full absolute -left-2 top-7 md:hidden"></div>
+                                <!-- Content -->
                                 <span class="inline-block px-4 py-1 rounded-full text-sm bg-[#E100FF]/10 text-[#E100FF] mb-4">2020-2022</span>
                                 <h3 class="text-2xl font-bold text-[#E100FF]">Software Engineer II</h3>
                                 <h4 class="text-xl text-gray-600 mb-2">Rapid7</h4>
