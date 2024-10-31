@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Jijo John | Inventor, Engineer, Pilot</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#2D00F7',
+                        secondary: '#F20089',
+                        dark: '#1A1A1A',
+                    },
+                    fontFamily: {
+                        space: ['Space Grotesk', 'sans-serif'],
+                    },
+                    animation: {
+                        'spin-slow': 'spin 20s linear infinite',
+                        'pulse': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                        'fade-in-out': 'fadeInOut 4s ease-in-out infinite',
+                        'shooting-star': 'shootingstar 4s linear infinite',
+                        'fade-up': 'fadeUp 0.5s ease-out forwards',
+                        'fade-down': 'fadeDown 0.5s ease-out forwards',
+                        'fade-left': 'fadeLeft 0.5s ease-out forwards',
+                        'fade-right': 'fadeRight 0.5s ease-out forwards',
+                        'twinkle': 'twinkle 3s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        fadeInOut: {
+                            '0%, 100%': { opacity: '1' },
+                            '50%': { opacity: '0' },
+                        },
+                        shootingstar: {
+                            '0%': { transform: 'translateX(0) translateY(0) rotate(-45deg)', opacity: 1 },
+                            '100%': { transform: 'translateX(-400px) translateY(400px) rotate(-45deg)', opacity: 0 }
+                        },
+                        fadeUp: {
+                            '0%': { opacity: '0', transform: 'translateY(30px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' }
+                        },
+                        fadeDown: {
+                            '0%': { opacity: '0', transform: 'translateY(-30px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' }
+                        },
+                        fadeLeft: {
+                            '0%': { opacity: '0', transform: 'translateX(30px)' },
+                            '100%': { opacity: '1', transform: 'translateX(0)' }
+                        },
+                        fadeRight: {
+                            '0%': { opacity: '0', transform: 'translateX(-30px)' },
+                            '100%': { opacity: '1', transform: 'translateX(0)' }
+                        },
+                        twinkle: {
+                            '0%, 100%': { opacity: '1' },
+                            '50%': { opacity: '0.1' },
+                        },
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="font-space bg-white">
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-white/90 backdrop-blur-lg shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="text-2xl font-bold text-primary">JJ</div>
+                <!-- Mobile menu button -->
+                <button id="mobile-menu-button" class="md:hidden text-dark hover:text-primary">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+                <!-- Desktop menu -->
+                <div class="hidden md:flex space-x-8">
+                    <a href="#home" class="text-dark hover:text-primary transition-colors">Home</a>
+                    <a href="#about" class="text-dark hover:text-primary transition-colors">About</a>
+                    <a href="#personal-projects" class="text-dark hover:text-primary transition-colors">Personal Projects</a>
+                    <a href="#professional-projects" class="text-dark hover:text-primary transition-colors">Professional Projects</a>
+                    <a href="#patents" class="text-dark hover:text-primary transition-colors">Patents</a>
+                    <a href="#experience" class="text-dark hover:text-primary transition-colors">Experience</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile menu (hidden by default) -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white/95 backdrop-blur-lg">
+            <div class="px-4 pt-2 pb-4 space-y-4">
+                <a href="#home" class="block text-dark hover:text-primary transition-colors py-2">Home</a>
+                <a href="#about" class="block text-dark hover:text-primary transition-colors py-2">About</a>
+                <a href="#personal-projects" class="block text-dark hover:text-primary transition-colors py-2">Personal Projects</a>
+                <a href="#professional-projects" class="block text-dark hover:text-primary transition-colors py-2">Professional Projects</a>
+                <a href="#patents" class="block text-dark hover:text-primary transition-colors py-2">Patents</a>
+                <a href="#experience" class="block text-dark hover:text-primary transition-colors py-2">Experience</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section - Updated gradient colors -->
+    <section id="home" class="min-h-[85vh] flex items-center justify-center relative overflow-hidden bg-gradient-to-br from-[#111827] via-[#1E293B] to-[#0F172A] px-4 py-16">
+        <!-- Background Effects -->
+        <div class="absolute inset-0">
+            <!-- Updated gradient mesh with more subtle colors -->
+            <div class="absolute inset-0">
+                <div class="absolute w-[800px] h-[800px] bg-gradient-to-r from-[#38BDF8]/5 via-[#818CF8]/5 to-transparent rounded-full blur-[120px] -top-1/4 -left-1/4 animate-pulse"></div>
+                <div class="absolute w-[600px] h-[600px] bg-gradient-to-r from-[#818CF8]/5 via-[#C084FC]/5 to-transparent rounded-full blur-[100px] -bottom-1/4 -right-1/4 animate-pulse"></div>
+            </div>
+            
+            <!-- Updated grid pattern with more subtle lines -->
+            <div class="absolute inset-0 bg-[linear-gradient(to_right,#ffffff03_1px,transparent_1px),linear-gradient(to_bottom,#ffffff03_1px,transparent_1px)] bg-[size:14px_14px]"></div>
+            
+            <!-- Updated star field -->
+            <div class="absolute inset-0">
+                <!-- Static stars -->
+                <div class="absolute h-1 w-1 bg-white/40 rounded-full top-[15%] left-[25%] animate-twinkle"></div>
+                <div class="absolute h-1.5 w-1.5 bg-white/40 rounded-full top-[35%] left-[15%] animate-twinkle" style="animation-delay: -1s;"></div>
+                <div class="absolute h-1 w-1 bg-white/40 rounded-full top-[25%] left-[45%] animate-twinkle" style="animation-delay: -2s;"></div>
+                <div class="absolute h-2 w-2 bg-white/40 rounded-full top-[45%] left-[75%] animate-twinkle" style="animation-delay: -0.5s;"></div>
+                <div class="absolute h-1 w-1 bg-white/40 rounded-full top-[55%] left-[85%] animate-twinkle" style="animation-delay: -1.5s;"></div>
+                <div class="absolute h-1.5 w-1.5 bg-white/40 rounded-full top-[65%] left-[35%] animate-twinkle" style="animation-delay: -2.5s;"></div>
+                
+                <!-- Shooting stars -->
+                <div class="absolute h-0.5 w-32 bg-gradient-to-r from-transparent via-[#38BDF8]/40 to-transparent -right-32 top-[10%] animate-shooting-star" style="animation-delay: 0s;"></div>
+                <div class="absolute h-0.5 w-32 bg-gradient-to-r from-transparent via-[#818CF8]/40 to-transparent -right-32 top-[20%] animate-shooting-star" style="animation-delay: -3s;"></div>
+                <div class="absolute h-0.5 w-32 bg-gradient-to-r from-transparent via-[#C084FC]/40 to-transparent -right-32 top-[35%] animate-shooting-star" style="animation-delay: -5s;"></div>
+                <div class="absolute h-0.5 w-32 bg-gradient-to-r from-transparent via-[#38BDF8]/40 to-transparent -right-32 top-[50%] animate-shooting-star" style="animation-delay: -7s;"></div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="max-w-7xl mx-auto w-full relative z-10">
+            <div class="grid lg:grid-cols-[2.5fr_1fr] gap-12 items-center">
+                <!-- Left Column - Text Content -->
+                <div class="space-y-10 text-center lg:text-left">
+                    <!-- Main Heading -->
+                    <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight">
+                        <div class="space-y-4">
+                            <span class="block text-[#38BDF8]">JIJO JOHN</span>
+                            <span class="block">
+                                <span class="bg-gradient-to-r from-[#38BDF8] via-[#818CF8] to-[#C084FC] bg-clip-text text-transparent">Innovator & Engineer</span>
+                            </span>
+                            <div class="flex flex-col gap-1">
+                                <span class="text-2xl md:text-3xl lg:text-4xl text-gray-400 font-medium">Bridging the Gap Between</span>
+                                <span class="text-2xl md:text-3xl lg:text-4xl text-gray-400 font-medium">Technology and Aviation</span>
+                            </div>
+                        </div>
+                    </h1>
+
+                    <!-- Subtitle -->
+                    <div class="space-y-4">
+                        <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 text-xl">
+                            <span class="px-4 py-1.5 rounded-full bg-[#38BDF8]/10 text-[#38BDF8]">Software Architect</span>
+                            <span class="px-4 py-1.5 rounded-full bg-[#818CF8]/10 text-[#818CF8]">Patent Holder</span>
+                            <span class="px-4 py-1.5 rounded-full bg-[#C084FC]/10 text-[#C084FC]">Tech Entrepreneur</span>
+                            <span class="px-4 py-1.5 rounded-full bg-[#38BDF8]/10 text-[#38BDF8]">Aviation Expert</span>
+                        </div>
+                        <p class="text-gray-400 text-lg max-w-2xl mx-auto lg:mx-0">
+                            A visionary technologist with multiple patents, combining expertise in software engineering and aviation to create groundbreaking solutions. Leading innovation in cybersecurity and enterprise software development.
+                        </p>
+                    </div>
+
+                    <!-- CTA Buttons -->
+                    <div class="flex flex-wrap gap-4 justify-center lg:justify-start">
+                        <a href="#about" 
+                           class="px-8 py-4 bg-gradient-to-r from-[#38BDF8] to-[#818CF8] text-white rounded-xl hover:opacity-90 transition-all duration-300 shadow-lg hover:shadow-[#818CF8]/40 transform hover:-translate-y-1">
+                            Explore My Work
+                        </a>
+                        <a href="https://www.linkedin.com/in/jijo-john-44169724/" 
+                           target="_blank" 
+                           class="px-8 py-4 border-2 border-[#38BDF8] text-[#38BDF8] rounded-xl hover:bg-[#38BDF8]/10 transition-all duration-300 transform hover:-translate-y-1">
+                            Get in Touch
+                        </a>
+                    </div>
+
+                    <!-- Stats Grid -->
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mt-12">
+                        <div class="p-6 rounded-2xl bg-gradient-to-br from-white/5 to-white/0 border border-white/10 backdrop-blur-sm">
+                            <div class="text-3xl font-bold text-[#38BDF8]">7+</div>
+                            <div class="text-gray-400 mt-1">Patents</div>
+                        </div>
+                        <div class="p-6 rounded-2xl bg-gradient-to-br from-white/5 to-white/0 border border-white/10 backdrop-blur-sm">
+                            <div class="text-3xl font-bold text-[#818CF8]">240+</div>
+                            <div class="text-gray-400 mt-1">Flight Hours</div>
+                        </div>
+                        <div class="p-6 rounded-2xl bg-gradient-to-br from-white/5 to-white/0 border border-white/10 backdrop-blur-sm">
+                            <div class="text-3xl font-bold text-[#C084FC]">15+</div>
+                            <div class="text-gray-400 mt-1">Years Coding</div>
+                        </div>
+                        <div class="p-6 rounded-2xl bg-gradient-to-br from-white/5 to-white/0 border border-white/10 backdrop-blur-sm">
+                            <div class="text-3xl font-bold text-[#38BDF8]">4+</div>
+                            <div class="text-gray-400 mt-1">Startups</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column - Visual Element -->
+                <div class="hidden lg:block relative">
+                    <div class="relative w-full aspect-square">
+                        <!-- Outer ring -->
+                        <div class="absolute inset-0 rounded-full border border-[#38BDF8]/20 animate-spin-slow"></div>
+                        
+                        <!-- Middle ring -->
+                        <div class="absolute inset-4 rounded-full border border-[#818CF8]/20 animate-spin-slow" style="animation-direction: reverse;"></div>
+                        
+                        <!-- Inner circle with icons -->
+                        <div class="absolute inset-8 rounded-full bg-gradient-to-br from-[#38BDF8]/10 via-[#818CF8]/10 to-[#C084FC]/10 backdrop-blur-sm border border-white/10">
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <div class="relative">
+                                    <!-- Updated icons with better transitions -->
+                                    <i class="fas fa-code text-6xl text-white/80 absolute inset-0 flex items-center justify-center transition-all duration-1000 animate-fade-in-out"></i>
+                                    <i class="fas fa-plane text-6xl text-white/80 absolute inset-0 flex items-center justify-center transition-all duration-1000 animate-fade-in-out" style="animation-delay: -2s;"></i>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Floating dots -->
+                        <div class="absolute inset-0 animate-spin-slow" style="animation-duration: 15s;">
+                            <div class="absolute top-0 left-1/2 -translate-x-1/2 w-2 h-2 bg-[#38BDF8]/50 rounded-full blur-[2px]"></div>
+                            <div class="absolute top-1/4 right-0 w-2 h-2 bg-[#818CF8]/50 rounded-full blur-[2px]"></div>
+                            <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-2 h-2 bg-[#C084FC]/50 rounded-full blur-[2px]"></div>
+                            <div class="absolute top-1/4 left-0 w-2 h-2 bg-[#38BDF8]/50 rounded-full blur-[2px]"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section - Update the section tag -->
+    <section id="about" class="py-24 bg-gradient-to-br from-gray-50 to-gray-100 relative overflow-hidden">
+        <!-- Add floating elements -->
+        <div class="absolute inset-0 overflow-hidden pointer-events-none">
+            <div class="absolute w-64 h-64 bg-primary/5 rounded-full -top-20 -left-20 blur-3xl animate-pulse"></div>
+            <div class="absolute w-64 h-64 bg-secondary/5 rounded-full -bottom-20 -right-20 blur-3xl animate-pulse"></div>
+        </div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+            <h2 class="text-4xl font-bold text-center mb-12 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">About Me</h2>
+            <div class="max-w-3xl mx-auto text-lg text-gray-600 mb-12 bg-white/50 backdrop-blur-sm rounded-xl p-8 shadow-xl hover:shadow-2xl transition-all duration-300">
+                <p class="mb-6 leading-relaxed">
+                    I'm a dynamic entrepreneur and computer engineer/inventor with a passion for software development, cyber security, and aviation. With over 240 hours of flying experience and multiple patents under my belt, I blend technical expertise with creative innovation.
+                </p>
+            </div>
+            <div class="flex flex-wrap justify-center gap-4">
+                <!-- Update skill tags with animation and hover effects -->
+                <span class="px-4 py-2 bg-white rounded-full shadow-sm text-primary hover:scale-110 hover:shadow-lg transition-all duration-300 cursor-default">JavaScript</span>
+                <span class="px-4 py-2 bg-white rounded-full shadow-sm text-primary hover:scale-110 hover:shadow-lg transition-all duration-300 cursor-default">React</span>
+                <span class="px-4 py-2 bg-white rounded-full shadow-sm text-primary hover:scale-110 hover:shadow-lg transition-all duration-300 cursor-default">Node.js</span>
+                <span class="px-4 py-2 bg-white rounded-full shadow-sm text-primary hover:scale-110 hover:shadow-lg transition-all duration-300 cursor-default">Python</span>
+                <span class="px-4 py-2 bg-white rounded-full shadow-sm text-primary hover:scale-110 hover:shadow-lg transition-all duration-300 cursor-default">Cybersecurity</span>
+                <span class="px-4 py-2 bg-white rounded-full shadow-sm text-primary hover:scale-110 hover:shadow-lg transition-all duration-300 cursor-default">AWS</span>
+                <span class="px-4 py-2 bg-white rounded-full shadow-sm text-primary hover:scale-110 hover:shadow-lg transition-all duration-300 cursor-default">Kubernetes</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Personal Projects Section - Update the section tag -->
+    <section id="personal-projects" class="py-24 bg-gradient-to-br from-white to-gray-50 relative overflow-hidden">
+        <!-- Add animated background elements -->
+        <div class="absolute inset-0 overflow-hidden pointer-events-none">
+            <div class="absolute w-96 h-96 bg-primary/5 rounded-full -top-48 -right-48 blur-3xl animate-pulse"></div>
+            <div class="absolute w-96 h-96 bg-secondary/5 rounded-full -bottom-48 -left-48 blur-3xl animate-pulse"></div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+            <h2 class="text-4xl font-bold text-center mb-12 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Personal Projects</h2>
+            <!-- Project cards will keep their existing structure but add hover animations -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Update each project card div with these classes -->
+                <div class="bg-white/80 backdrop-blur-sm rounded-xl shadow-lg overflow-hidden hover:-translate-y-2 transition-all duration-300 hover:shadow-xl group">
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold text-primary mb-3">SoundChat</h3>
+                        <p class="text-gray-600 mb-4">World's first private audio social network (WIP)</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">Audio</span>
+                            <span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">Social</span>
+                            <span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">Privacy</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SocialSignal AI -->
+                <div class="bg-white/80 backdrop-blur-sm rounded-xl shadow-lg overflow-hidden hover:-translate-y-2 transition-all duration-300 hover:shadow-xl group">
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold text-primary mb-3">SocialSignal AI</h3>
+                        <p class="text-gray-600 mb-4">AI-powered social media conversation tracker with smart keyword tracking and sentiment analysis.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">AI</span>
+                            <span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">Social Media</span>
+                        </div>
+                        <a href="https://socialsignalai.com" target="_blank" 
+                           class="inline-flex items-center text-primary hover:text-primary/80">
+                            Visit Site <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- PasteZen -->
+                <div class="bg-white/80 backdrop-blur-sm rounded-xl shadow-lg overflow-hidden hover:-translate-y-2 transition-all duration-300 hover:shadow-xl group">
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold text-primary mb-3">PasteZen</h3>
+                        <p class="text-gray-600 mb-4">Share code and text securely without platform limits.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">Security</span>
+                            <span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">Collaboration</span>
+                        </div>
+                        <a href="https://pastezen.com" target="_blank" 
+                           class="inline-flex items-center text-primary hover:text-primary/80">
+                            Visit Site <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- TextCraft AI -->
+                <div class="bg-white/80 backdrop-blur-sm rounded-xl shadow-lg overflow-hidden hover:-translate-y-2 transition-all duration-300 hover:shadow-xl group">
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold text-primary mb-3">TextCraft AI</h3>
+                        <p class="text-gray-600 mb-4">AI co-pilot for Gmail, Outlook, and Office 365 email drafting. Write confidently in your style.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">AI</span>
+                            <span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">Productivity</span>
+                            <span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">Email</span>
+                        </div>
+                        <a href="https://chromewebstore.google.com/detail/textcraft-ai-co-pilot-for/hifkcigdddheloapjflemfjojhfhopmh" target="_blank" 
+                           class="inline-flex items-center text-primary hover:text-primary/80">
+                            Chrome Store <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Professional Projects Section - Update the section tag -->
+    <section id="professional-projects" class="py-24 bg-gradient-to-br from-gray-50 to-white relative overflow-hidden">
+        <!-- Add floating elements -->
+        <div class="absolute inset-0 overflow-hidden pointer-events-none">
+            <div class="absolute w-96 h-96 bg-primary/5 rounded-full -top-48 -left-48 blur-3xl animate-pulse"></div>
+            <div class="absolute w-96 h-96 bg-secondary/5 rounded-full -bottom-48 -right-48 blur-3xl animate-pulse"></div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+            <h2 class="text-4xl font-bold text-center mb-12 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Professional Projects</h2>
+            <!-- Project cards structure remains the same but with enhanced hover effects -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- iXRLibForWebXR -->
+                <div class="bg-white/80 backdrop-blur-sm rounded-xl shadow-lg overflow-hidden hover:-translate-y-2 transition-all duration-300 hover:shadow-xl group">
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold text-primary mb-3">iXRLibForWebXR</h3>
+                        <p class="text-gray-600 mb-4">Powerful JavaScript/TypeScript library for XR analytics and services integration, featuring advanced event tracking, telemetry, and AI integrations.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">XR</span>
+                            <span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">Analytics</span>
+                            <span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">Enterprise</span>
+                        </div>
+                        <a href="https://www.npmjs.com/package/ixrlibforwebxr" target="_blank" 
+                           class="inline-flex items-center text-primary hover:text-primary/80">
+                            NPM Package <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- AppSpider -->
+                <div class="bg-white/80 backdrop-blur-sm rounded-xl shadow-lg overflow-hidden hover:-translate-y-2 transition-all duration-300 hover:shadow-xl group">
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold text-primary mb-3">AppSpider</h3>
+                        <p class="text-gray-600 mb-4">Advanced scan engine for application security testing, featuring customizable interface and comprehensive vulnerability detection. Built for teams of one on a single machine.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">Security</span>
+                            <span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">Enterprise</span>
+                        </div>
+                        <a href="https://docs.rapid7.com/appspider/" target="_blank" 
+                           class="inline-flex items-center text-primary hover:text-primary/80">
+                            Learn More <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Rapid7 AppSec Plugin -->
+                <div class="bg-white/80 backdrop-blur-sm rounded-xl shadow-lg overflow-hidden hover:-translate-y-2 transition-all duration-300 hover:shadow-xl group">
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold text-primary mb-3">Rapid7 AppSec Plugin</h3>
+                        <p class="text-gray-600 mb-4">Chrome extension for enhanced application security testing, featuring login recording and attack replay capabilities.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">Security</span>
+                            <span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">Browser Extension</span>
+                        </div>
+                        <a href="https://chromewebstore.google.com/detail/rapid7-appsec-plugin/mnmlipalillmakdiildpclhocfgcddnp" target="_blank" 
+                           class="inline-flex items-center text-primary hover:text-primary/80">
+                            Chrome Store <i class="fas fa-arrow-right ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Patents Section - Update the section tag -->
+    <section id="patents" class="py-24 bg-gradient-to-br from-white to-gray-50 relative overflow-hidden">
+        <!-- Add floating elements -->
+        <div class="absolute inset-0 overflow-hidden pointer-events-none">
+            <div class="absolute w-96 h-96 bg-primary/5 rounded-full -top-48 -right-48 blur-3xl animate-pulse"></div>
+            <div class="absolute w-96 h-96 bg-secondary/5 rounded-full -bottom-48 -left-48 blur-3xl animate-pulse"></div>
+            
+            <!-- Add subtle floating icons -->
+            <div class="absolute inset-0 opacity-30">
+                <i class="fas fa-certificate absolute top-1/4 left-1/4 text-4xl text-primary/20 animate-float"></i>
+                <i class="fas fa-award absolute top-3/4 right-1/4 text-4xl text-secondary/20 animate-float" style="animation-delay: -2s"></i>
+                <i class="fas fa-medal absolute bottom-1/4 left-1/3 text-4xl text-primary/20 animate-float" style="animation-delay: -1s"></i>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+            <h2 class="text-4xl font-bold text-center mb-12 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Patents</h2>
+            <!-- Patent cards will keep their structure but add hover animations -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Update each patent card div with these classes -->
+                <div class="bg-white/80 backdrop-blur-sm rounded-xl shadow-lg overflow-hidden hover:-translate-y-2 transition-all duration-300 hover:shadow-xl group">
+                    <div class="p-6">
+                        <div class="text-sm text-primary font-mono mb-3">US-12107848-B1</div>
+                        <h3 class="text-xl font-bold mb-3">Automated Login Framework for Application Security Testing</h3>
+                        <p class="text-gray-600 mb-2">Inventor: JIJO JOHN</p>
+                        <p class="text-gray-500 mb-4">2024-10-01</p>
+                        <a href="https://ppubs.uspto.gov/dirsearch-public/print/downloadBasicPdf/12107848" target="_blank" 
+                           class="inline-flex items-center text-primary hover:text-primary/80">
+                            View Patent <i class="fas fa-external-link-alt ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Patent 2 -->
+                <div class="bg-white/80 backdrop-blur-sm rounded-xl shadow-lg overflow-hidden hover:-translate-y-2 transition-all duration-300 hover:shadow-xl group">
+                    <div class="p-6">
+                        <div class="text-sm text-primary font-mono mb-3">US-11991202-B2</div>
+                        <h3 class="text-xl font-bold mb-3">Scanning Unexposed Web Applications for Vulnerabilities</h3>
+                        <p class="text-gray-600 mb-2">Inventor: JIJO JOHN</p>
+                        <p class="text-gray-500 mb-4">2024-05-21</p>
+                        <a href="https://ppubs.uspto.gov/dirsearch-public/print/downloadBasicPdf/11991202" target="_blank" 
+                           class="inline-flex items-center text-primary hover:text-primary/80">
+                            View Patent <i class="fas fa-external-link-alt ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Patent 3 -->
+                <div class="bg-white/80 backdrop-blur-sm rounded-xl shadow-lg overflow-hidden hover:-translate-y-2 transition-all duration-300 hover:shadow-xl group">
+                    <div class="p-6">
+                        <div class="text-sm text-primary font-mono mb-3">US-11785039-B2</div>
+                        <h3 class="text-xl font-bold mb-3">Scanning Web Applications for Security Vulnerabilities</h3>
+                        <p class="text-gray-600 mb-2">Inventor: JIJO JOHN</p>
+                        <p class="text-gray-500 mb-4">2023-10-10</p>
+                        <a href="https://ppubs.uspto.gov/dirsearch-public/print/downloadBasicPdf/11785039" target="_blank" 
+                           class="inline-flex items-center text-primary hover:text-primary/80">
+                            View Patent <i class="fas fa-external-link-alt ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Patent 4 -->
+                <div class="bg-white/80 backdrop-blur-sm rounded-xl shadow-lg overflow-hidden hover:-translate-y-2 transition-all duration-300 hover:shadow-xl group">
+                    <div class="p-6">
+                        <div class="text-sm text-primary font-mono mb-3">US-20220159032-A1</div>
+                        <h3 class="text-xl font-bold mb-3">Scanning Unexposed Web Applications for Vulnerabilities</h3>
+                        <p class="text-gray-600 mb-2">Inventor: JIJO JOHN</p>
+                        <p class="text-gray-500 mb-4">2022-05-19</p>
+                        <a href="https://ppubs.uspto.gov/dirsearch-public/print/downloadBasicPdf/20220159032" target="_blank" 
+                           class="inline-flex items-center text-primary hover:text-primary/80">
+                            View Patent <i class="fas fa-external-link-alt ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Patent 5 -->
+                <div class="bg-white/80 backdrop-blur-sm rounded-xl shadow-lg overflow-hidden hover:-translate-y-2 transition-all duration-300 hover:shadow-xl group">
+                    <div class="p-6">
+                        <div class="text-sm text-primary font-mono mb-3">US-20220070205-A1</div>
+                        <h3 class="text-xl font-bold mb-3">Enhanced Crawling of Unexposed Web Applications</h3>
+                        <p class="text-gray-600 mb-2">Inventor: JIJO JOHN</p>
+                        <p class="text-gray-500 mb-4">2022-03-03</p>
+                        <a href="https://ppubs.uspto.gov/dirsearch-public/print/downloadBasicPdf/20220070205" target="_blank" 
+                           class="inline-flex items-center text-primary hover:text-primary/80">
+                            View Patent <i class="fas fa-external-link-alt ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Patent 6 -->
+                <div class="bg-white/80 backdrop-blur-sm rounded-xl shadow-lg overflow-hidden hover:-translate-y-2 transition-all duration-300 hover:shadow-xl group">
+                    <div class="p-6">
+                        <div class="text-sm text-primary font-mono mb-3">US-11228611-B1</div>
+                        <h3 class="text-xl font-bold mb-3">Scanning Unexposed Web Applications for Vulnerabilities</h3>
+                        <p class="text-gray-600 mb-2">Inventor: JIJO JOHN</p>
+                        <p class="text-gray-500 mb-4">2022-01-18</p>
+                        <a href="https://ppubs.uspto.gov/dirsearch-public/print/downloadBasicPdf/11228611" target="_blank" 
+                           class="inline-flex items-center text-primary hover:text-primary/80">
+                            View Patent <i class="fas fa-external-link-alt ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Patent 7 -->
+                <div class="bg-white/80 backdrop-blur-sm rounded-xl shadow-lg overflow-hidden hover:-translate-y-2 transition-all duration-300 hover:shadow-xl group">
+                    <div class="p-6">
+                        <div class="text-sm text-primary font-mono mb-3">US-11201892-B1</div>
+                        <h3 class="text-xl font-bold mb-3">Enhanced Crawling of Unexposed Web Applications</h3>
+                        <p class="text-gray-600 mb-2">Inventor: JIJO JOHN</p>
+                        <p class="text-gray-500 mb-4">2021-12-14</p>
+                        <a href="https://ppubs.uspto.gov/dirsearch-public/print/downloadBasicPdf/11201892" target="_blank" 
+                           class="inline-flex items-center text-primary hover:text-primary/80">
+                            View Patent <i class="fas fa-external-link-alt ml-2"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section - Update the section tag -->
+    <section id="experience" class="py-24 bg-gradient-to-br from-gray-50 to-white relative overflow-hidden">
+        <!-- Add floating elements -->
+        <div class="absolute inset-0 overflow-hidden pointer-events-none">
+            <div class="absolute w-96 h-96 bg-primary/5 rounded-full -top-48 -left-48 blur-3xl animate-pulse"></div>
+            <div class="absolute w-96 h-96 bg-secondary/5 rounded-full -bottom-48 -right-48 blur-3xl animate-pulse"></div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+            <h2 class="text-4xl font-bold text-center mb-12 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Professional Journey</h2>
+            
+            <!-- Timeline container - Add subtle animations -->
+            <div class="relative">
+                <!-- Update timeline line with gradient -->
+                <div class="absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-gradient-to-b from-primary via-secondary to-primary"></div>
+                
+                <!-- Timeline items - Add hover effects -->
+                <div class="space-y-24">
+                    <!-- Update each timeline item div with these classes -->
+                    <div class="relative group">
+                        <div class="absolute left-1/2 transform -translate-x-1/2 -mt-3">
+                            <div class="w-6 h-6 bg-[#7F00FF] rounded-full border-4 border-white shadow-lg"></div>
+                        </div>
+                        <div class="ml-auto w-1/2 pl-12 group">
+                            <div class="bg-white/80 backdrop-blur-sm rounded-xl shadow-lg p-6 hover:-translate-y-2 transition-all duration-300 group-hover:shadow-xl">
+                                <div class="absolute left-0 top-1/2 transform -translate-y-1/2 w-12 h-0.5 bg-gradient-to-r from-[#7F00FF] to-transparent"></div>
+                                <span class="inline-block px-4 py-1 rounded-full text-sm bg-[#7F00FF]/10 text-[#7F00FF] mb-4">2023</span>
+                                <h3 class="text-2xl font-bold text-[#7F00FF]">Senior Software Developer (R&D)</h3>
+                                <h4 class="text-xl text-gray-600 mb-2">Euna Solutions</h4>
+                                <ul class="list-disc pl-5 space-y-2 text-gray-600">
+                                    <li>Led technical excellence and innovation using Agile methodologies</li>
+                                    <li>Enhanced core applications with Angular, React, Redux, RTK QUERY</li>
+                                    <li>Maintained Kubernetes infrastructure and optimized CI/CD pipelines</li>
+                                    <li>Mentored junior team members and drove adoption of cutting-edge technologies</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Rapid7 Software Engineer II -->
+                    <div class="relative group">
+                        <div class="absolute left-1/2 transform -translate-x-1/2 -mt-3">
+                            <div class="w-6 h-6 bg-[#E100FF] rounded-full border-4 border-white shadow-lg"></div>
+                        </div>
+                        <div class="w-1/2 pr-12 group">
+                            <div class="bg-white/80 backdrop-blur-sm rounded-xl shadow-lg p-6 hover:-translate-y-2 transition-all duration-300 group-hover:shadow-xl">
+                                <div class="absolute right-0 top-1/2 transform -translate-y-1/2 w-12 h-0.5 bg-gradient-to-l from-[#E100FF] to-transparent"></div>
+                                <span class="inline-block px-4 py-1 rounded-full text-sm bg-[#E100FF]/10 text-[#E100FF] mb-4">2020-2022</span>
+                                <h3 class="text-2xl font-bold text-[#E100FF]">Software Engineer II</h3>
+                                <h4 class="text-xl text-gray-600 mb-2">Rapid7</h4>
+                                <ul class="list-disc pl-5 space-y-2 text-gray-600">
+                                    <li>Pioneered Automated Login Framework and SPA hooks</li>
+                                    <li>Contributed to cybersecurity innovations with multiple patents</li>
+                                    <li>Developed the Rapid7 Appsec Chrome plugin</li>
+                                    <li>Led infrastructure management with Kubernetes and Helm</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Rapid7 Software Engineer I -->
+                    <div class="relative group">
+                        <div class="absolute left-1/2 transform -translate-x-1/2 -mt-3">
+                            <div class="w-6 h-6 bg-[#00FFC6] rounded-full border-4 border-white shadow-lg"></div>
+                        </div>
+                        <div class="ml-auto w-1/2 pl-12 group">
+                            <div class="bg-white/80 backdrop-blur-sm rounded-xl shadow-lg p-6 hover:-translate-y-2 transition-all duration-300 group-hover:shadow-xl">
+                                <div class="absolute left-0 top-1/2 transform -translate-y-1/2 w-12 h-0.5 bg-gradient-to-r from-[#00FFC6] to-transparent"></div>
+                                <span class="inline-block px-4 py-1 rounded-full text-sm bg-[#00FFC6]/10 text-[#00FFC6] mb-4">2017-2020</span>
+                                <h3 class="text-2xl font-bold text-[#00FFC6]">Software Engineer I</h3>
+                                <h4 class="text-xl text-gray-600 mb-2">Rapid7</h4>
+                                <ul class="list-disc pl-5 space-y-2 text-gray-600">
+                                    <li>Core developer for AppSpider and InsightAppSec</li>
+                                    <li>Implemented critical security features and improvements</li>
+                                    <li>Collaborated on innovative cybersecurity solutions</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Zedvalley -->
+                    <div class="relative group">
+                        <div class="absolute left-1/2 transform -translate-x-1/2 -mt-3">
+                            <div class="w-6 h-6 bg-[#7F00FF] rounded-full border-4 border-white shadow-lg"></div>
+                        </div>
+                        <div class="w-1/2 pr-12 group">
+                            <div class="bg-white/80 backdrop-blur-sm rounded-xl shadow-lg p-6 hover:-translate-y-2 transition-all duration-300 group-hover:shadow-xl">
+                                <div class="absolute right-0 top-1/2 transform -translate-y-1/2 w-12 h-0.5 bg-gradient-to-l from-[#7F00FF] to-transparent"></div>
+                                <span class="inline-block px-4 py-1 rounded-full text-sm bg-[#7F00FF]/10 text-[#7F00FF] mb-4">2015-2017</span>
+                                <h3 class="text-2xl font-bold text-[#7F00FF]">Founder & CTO</h3>
+                                <h4 class="text-xl text-gray-600 mb-2">Zedvalley</h4>
+                                <ul class="list-disc pl-5 space-y-2 text-gray-600">
+                                    <li>Co-founded leading digital solutions company</li>
+                                    <li>Developed zedguru - innovative ed-tech product</li>
+                                    <li>Earned spot at Kerala Startup Mission technology incubator</li>
+                                    <li>Led strategic digital solutions and infrastructure design</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Singlelinelogics -->
+                    <div class="relative group">
+                        <div class="absolute left-1/2 transform -translate-x-1/2 -mt-3">
+                            <div class="w-6 h-6 bg-[#E100FF] rounded-full border-4 border-white shadow-lg"></div>
+                        </div>
+                        <div class="ml-auto w-1/2 pl-12 group">
+                            <div class="bg-white/80 backdrop-blur-sm rounded-xl shadow-lg p-6 hover:-translate-y-2 transition-all duration-300 group-hover:shadow-xl">
+                                <div class="absolute left-0 top-1/2 transform -translate-y-1/2 w-12 h-0.5 bg-gradient-to-r from-[#E100FF] to-transparent"></div>
+                                <span class="inline-block px-4 py-1 rounded-full text-sm bg-[#E100FF]/10 text-[#E100FF] mb-4">2011-2013</span>
+                                <h3 class="text-2xl font-bold text-[#E100FF]">Founder</h3>
+                                <h4 class="text-xl text-gray-600 mb-2">Singlelinelogics</h4>
+                                <ul class="list-disc pl-5 space-y-2 text-gray-600">
+                                    <li>Built global remote team of 6 developers</li>
+                                    <li>Developed EVIX media software</li>
+                                    <li>Created security tools (XSS Evasion Calculator, Click Jack Pro)</li>
+                                    <li>Provided software solutions worldwide</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Early Startups -->
+                    <div class="relative group">
+                        <div class="absolute left-1/2 transform -translate-x-1/2 -mt-3">
+                            <div class="w-6 h-6 bg-[#00FFC6] rounded-full border-4 border-white shadow-lg"></div>
+                        </div>
+                        <div class="w-1/2 pr-12 group">
+                            <div class="bg-white/80 backdrop-blur-sm rounded-xl shadow-lg p-6 hover:-translate-y-2 transition-all duration-300 group-hover:shadow-xl">
+                                <div class="absolute right-0 top-1/2 transform -translate-y-1/2 w-12 h-0.5 bg-gradient-to-l from-[#00FFC6] to-transparent"></div>
+                                <span class="inline-block px-4 py-1 rounded-full text-sm bg-[#00FFC6]/10 text-[#00FFC6] mb-4">2008-2012</span>
+                                <h3 class="text-2xl font-bold text-[#00FFC6]">Early Entrepreneurship</h3>
+                                <h4 class="text-xl text-gray-600 mb-2">Multiple Ventures</h4>
+                                <ul class="list-disc pl-5 space-y-2 text-gray-600">
+                                    <li>Founded CubicCodes.com (2008-2011) - Built first Malayalam Facebook App with 2M+ users</li>
+                                    <li>Created Solutionsgeek (2010-2012) - Popular technology blog</li>
+                                    <li>Successfully sold CubicCodes.com</li>
+                                    <li>Started first business venture at age 14</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Update the footer section -->
+    <footer class="bg-[#0a0a2e] text-white py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                <!-- Brand Section -->
+                <div class="text-center md:text-left">
+                    <h3 class="text-2xl font-bold mb-4 bg-gradient-to-r from-[#7F00FF] to-[#E100FF] bg-clip-text text-transparent">Jijo John</h3>
+                    <p class="text-gray-400">Innovating at the intersection of technology and aviation</p>
+                </div>
+                
+                <!-- Quick Links -->
+                <div class="text-center">
+                    <h4 class="text-xl font-semibold mb-4 text-[#00FFC6]">Quick Links</h4>
+                    <div class="flex flex-col space-y-2">
+                        <a href="#about" class="text-gray-400 hover:text-[#00FFC6] transition-colors">About</a>
+                        <a href="#personal-projects" class="text-gray-400 hover:text-[#00FFC6] transition-colors">Personal Projects</a>
+                        <a href="#professional-projects" class="text-gray-400 hover:text-[#00FFC6] transition-colors">Professional Projects</a>
+                        <a href="#patents" class="text-gray-400 hover:text-[#00FFC6] transition-colors">Patents</a>
+                        <a href="#experience" class="text-gray-400 hover:text-[#00FFC6] transition-colors">Experience</a>
+                    </div>
+                </div>
+                
+                <!-- Social Links -->
+                <div class="text-center md:text-right">
+                    <h4 class="text-xl font-semibold mb-4 text-[#00FFC6]">Connect</h4>
+                    <div class="flex justify-center md:justify-end space-x-6">
+                        <a href="https://github.com/viralcode" target="_blank" 
+                           class="text-gray-400 hover:text-[#00FFC6] transition-colors transform hover:scale-110">
+                            <i class="fab fa-github text-2xl"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/in/jijo-john-44169724/" target="_blank" 
+                           class="text-gray-400 hover:text-[#00FFC6] transition-colors transform hover:scale-110">
+                            <i class="fab fa-linkedin text-2xl"></i>
+                        </a>
+                        <a href="https://x.com/jijojohnz" target="_blank" 
+                           class="text-gray-400 hover:text-[#00FFC6] transition-colors transform hover:scale-110">
+                            <i class="fab fa-twitter text-2xl"></i>
+                        </a>
+                        <a href="mailto:jijo@jijojohn.com" 
+                           class="text-gray-400 hover:text-[#00FFC6] transition-colors transform hover:scale-110">
+                            <i class="fas fa-envelope text-2xl"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-12 pt-8 border-t border-gray-800 text-center">
+                <p class="text-gray-400">&copy; 2024 Jijo John. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Add this script just before closing body tag -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate-fade-up', 'opacity-100');
+                        entry.target.classList.remove('opacity-0', 'translate-y-10');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            // Add animation classes to sections
+            document.querySelectorAll('section').forEach((section, index) => {
+                if (section.id !== 'home') {  // Skip hero section
+                    section.classList.add('opacity-0', 'translate-y-10', 'transition-all', 'duration-700');
+                    observer.observe(section);
+                }
+            });
+
+            // Add animation to project cards
+            document.querySelectorAll('.grid > div').forEach((card, index) => {
+                card.classList.add('opacity-0', 'translate-y-10', 'transition-all', 'duration-700');
+                card.style.transitionDelay = `${index * 100}ms`;
+                observer.observe(card);
+            });
+
+            // Add animation to skill tags
+            document.querySelectorAll('.flex.flex-wrap.justify-center.gap-4 > span').forEach((tag, index) => {
+                tag.classList.add('opacity-0', 'translate-y-10', 'transition-all', 'duration-500');
+                tag.style.transitionDelay = `${index * 50}ms`;
+                observer.observe(tag);
+            });
+
+            // Smooth scroll for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+
+    <!-- Add this script at the end of the body -->
+    <script>
+        // Mobile menu functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            mobileMenuButton.addEventListener('click', function() {
+                mobileMenu.classList.toggle('hidden');
+                // Toggle menu icon
+                const menuIcon = mobileMenuButton.querySelector('i');
+                menuIcon.classList.toggle('fa-bars');
+                menuIcon.classList.toggle('fa-times');
+            });
+
+            // Close mobile menu when clicking a link
+            document.querySelectorAll('#mobile-menu a').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                    const menuIcon = mobileMenuButton.querySelector('i');
+                    menuIcon.classList.add('fa-bars');
+                    menuIcon.classList.remove('fa-times');
+                });
+            });
+
+            // Close mobile menu when clicking outside
+            document.addEventListener('click', function(event) {
+                if (!mobileMenuButton.contains(event.target) && !mobileMenu.contains(event.target)) {
+                    mobileMenu.classList.add('hidden');
+                    const menuIcon = mobileMenuButton.querySelector('i');
+                    menuIcon.classList.add('fa-bars');
+                    menuIcon.classList.remove('fa-times');
+                }
+            });
+
+            // Add smooth scroll behavior for mobile
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        // Add offset for fixed header
+                        const headerOffset = 80;
+                        const elementPosition = target.getBoundingClientRect().top;
+                        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+        });
+
+        // Responsive grid layouts
+        const updateGridLayout = () => {
+            const width = window.innerWidth;
+            const projectGrids = document.querySelectorAll('.grid');
+            
+            projectGrids.forEach(grid => {
+                if (width < 640) { // mobile
+                    grid.classList.remove('md:grid-cols-2', 'lg:grid-cols-3');
+                    grid.classList.add('grid-cols-1');
+                } else if (width < 1024) { // tablet
+                    grid.classList.remove('grid-cols-1', 'lg:grid-cols-3');
+                    grid.classList.add('md:grid-cols-2');
+                } else { // desktop
+                    grid.classList.remove('grid-cols-1', 'md:grid-cols-2');
+                    grid.classList.add('lg:grid-cols-3');
+                }
+            });
+        };
+
+        // Initial call and event listener for resize
+        window.addEventListener('resize', updateGridLayout);
+        updateGridLayout();
+    </script>
+</body>
+</html> 

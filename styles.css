@@ -1,0 +1,220 @@
+:root {
+    --primary: #2D00F7;
+    --secondary: #F20089;
+    --accent: #8900F2;
+    --text: #1A1A1A;
+    --background: #FFFFFF;
+    --card-bg: #F8F9FA;
+    --gradient: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Space Grotesk', sans-serif;
+    background: var(--background);
+    color: var(--text);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+/* Navbar */
+.navbar {
+    padding: 1.5rem 0;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+}
+
+.navbar .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--primary);
+}
+
+.nav-links {
+    display: flex;
+    gap: 2rem;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--text);
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: var(--primary);
+}
+
+/* About Section */
+.about {
+    padding: 8rem 0;
+    background: var(--card-bg);
+}
+
+/* Projects Section */
+.projects {
+    padding: 8rem 0;
+    background: var(--background);
+}
+
+/* Patents Section */
+.patents {
+    padding: 8rem 0;
+    background: var(--card-bg);
+}
+
+/* Experience Section */
+.experience {
+    padding: 8rem 0;
+    background: var(--background);
+}
+
+/* Footer */
+.footer {
+    background: #0a0a2e;
+    color: white;
+    padding: 4rem 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .nav-links {
+        display: none;
+    }
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in {
+    animation: fadeIn 0.6s ease-out forwards;
+}
+
+/* Add these responsive styles */
+@media (max-width: 768px) {
+    /* Adjust text sizes for mobile */
+    h1 {
+        font-size: 2.5rem !important;
+        line-height: 1.2 !important;
+    }
+
+    h2 {
+        font-size: 2rem !important;
+    }
+
+    h3 {
+        font-size: 1.5rem !important;
+    }
+
+    /* Adjust padding for mobile */
+    section {
+        padding: 4rem 1rem !important;
+    }
+
+    /* Make cards full width on mobile */
+    .grid > div {
+        width: 100% !important;
+    }
+
+    /* Adjust timeline for mobile */
+    .timeline-container {
+        padding-left: 1rem;
+    }
+
+    /* Center align text on mobile */
+    .text-left {
+        text-align: center !important;
+    }
+
+    /* Adjust button sizes */
+    .btn {
+        padding: 0.75rem 1.5rem !important;
+        font-size: 1rem !important;
+    }
+
+    /* Adjust spacing */
+    .space-y-8 > * + * {
+        margin-top: 1.5rem !important;
+    }
+
+    /* Make footer stack on mobile */
+    footer .grid {
+        grid-template-columns: 1fr !important;
+        text-align: center !important;
+    }
+
+    footer .flex {
+        justify-content: center !important;
+    }
+}
+
+/* Add smooth transition for mobile menu */
+#mobile-menu {
+    transition: all 0.3s ease-in-out;
+    max-height: 0;
+    overflow: hidden;
+}
+
+#mobile-menu.hidden {
+    max-height: 0;
+}
+
+#mobile-menu:not(.hidden) {
+    max-height: 100vh;
+}
+
+/* Add touch-friendly tap targets */
+button, 
+a {
+    min-height: 44px;
+    min-width: 44px;
+}
+
+/* Improve scroll performance */
+* {
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Prevent horizontal scroll */
+html, body {
+    overflow-x: hidden;
+    width: 100%;
+}
+
+/* Add active states for touch devices */
+@media (hover: none) {
+    a:active,
+    button:active {
+        opacity: 0.7;
+    }
+}
