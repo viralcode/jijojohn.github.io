@@ -494,6 +494,32 @@
                 
                 <!-- Timeline items - Add hover effects -->
                 <div class="space-y-12 md:space-y-24">
+                    <!-- Add this new position at the start of your timeline items -->
+                    <div class="relative group">
+                        <div class="absolute left-1/2 transform -translate-x-1/2 -mt-3 hidden md:block">
+                            <div class="w-6 h-6 bg-[#7F00FF] rounded-full border-4 border-white shadow-lg"></div>
+                        </div>
+                        <div class="md:ml-auto md:w-1/2 md:pl-12 group">
+                            <div class="bg-white/80 backdrop-blur-sm rounded-xl shadow-lg p-6 hover:-translate-y-2 transition-all duration-300 group-hover:shadow-xl relative">
+                                <!-- Timeline connector - visible only on desktop -->
+                                <div class="absolute left-0 top-1/2 transform -translate-y-1/2 w-12 h-0.5 bg-gradient-to-r from-[#7F00FF] to-transparent hidden md:block"></div>
+                                <!-- Mobile timeline indicator -->
+                                <div class="w-4 h-4 bg-[#7F00FF] rounded-full absolute -left-2 top-7 md:hidden"></div>
+                                <!-- Content -->
+                                <span class="inline-block px-4 py-1 rounded-full text-sm bg-[#7F00FF]/10 text-[#7F00FF] mb-4">Dec 2023 - Present</span>
+                                <h3 class="text-2xl font-bold text-[#7F00FF]">Contractor - Software Development</h3>
+                                <h4 class="text-xl text-gray-600 mb-2">informXR</h4>
+                                <ul class="list-disc pl-5 space-y-2 text-gray-600">
+                                    <li>Developed iXRLibForWebXR - an advanced JavaScript/TypeScript library for XR analytics and services integration</li>
+                                    <li>Implemented comprehensive event tracking and telemetry systems for web-based XR experiences</li>
+                                    <li>Built robust data collection systems for performance monitoring and user experience optimization</li>
+                                    <li>Technologies: TypeScript, Node.js, Bash</li>
+                                    <li><a href="https://www.npmjs.com/package/ixrlibforwebxr" target="_blank" class="text-[#7F00FF] hover:underline">View on NPM</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
                     <!-- Euna Solutions -->
                     <div class="relative group">
                         <div class="absolute left-1/2 transform -translate-x-1/2 -mt-3 hidden md:block">
