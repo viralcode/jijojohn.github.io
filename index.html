@@ -1,77 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Jijo John | Inventor, Engineer, Pilot</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jijo John | Inventor & Pilot</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
     <script>
         tailwind.config = {
             theme: {
                 extend: {
-                    colors: {
-                        primary: '#2D00F7',
-                        secondary: '#F20089',
-                        dark: '#1A1A1A',
-                    },
                     fontFamily: {
-                        space: ['Space Grotesk', 'sans-serif'],
+                        sans: ['Space Grotesk', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    },
+                    colors: {
+                        bg: '#050505',
+                        panel: '#0a0a0a',
+                        border: '#1f1f1f',
+                        primary: '#3b82f6', // Electric Blue
+                        accent: '#a855f7', // Purple
+                        area30: '#ffffff', // Area30 clean white
                     },
                     animation: {
-                        'spin-slow': 'spin 20s linear infinite',
-                        'pulse': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                        'float': 'float 6s ease-in-out infinite',
-                        'fade-in-out': 'fadeInOut 4s ease-in-out infinite',
-                        'shooting-star': 'shootingStar 2s ease-out infinite',
-                        'fade-up': 'fadeUp 0.5s ease-out forwards',
-                        'fade-down': 'fadeDown 0.5s ease-out forwards',
-                        'fade-left': 'fadeLeft 0.5s ease-out forwards',
-                        'fade-right': 'fadeRight 0.5s ease-out forwards',
-                        'twinkle': 'twinkle 4s ease-in-out infinite',
-                        'star-float': 'starFloat 3s ease-in-out infinite',
+                        'pulse-glow': 'pulse-glow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
                     },
                     keyframes: {
-                        float: {
-                            '0%, 100%': { transform: 'translateY(0)' },
-                            '50%': { transform: 'translateY(-20px)' },
-                        },
-                        fadeInOut: {
-                            '0%, 100%': { opacity: '1' },
-                            '50%': { opacity: '0' },
-                        },
-                        shootingstar: {
-                            '0%': { transform: 'translateX(0) translateY(0) rotate(-45deg)', opacity: 1 },
-                            '100%': { transform: 'translateX(-400px) translateY(400px) rotate(-45deg)', opacity: 0 }
-                        },
-                        fadeUp: {
-                            '0%': { opacity: '0', transform: 'translateY(30px)' },
-                            '100%': { opacity: '1', transform: 'translateY(0)' }
-                        },
-                        fadeDown: {
-                            '0%': { opacity: '0', transform: 'translateY(-30px)' },
-                            '100%': { opacity: '1', transform: 'translateY(0)' }
-                        },
-                        fadeLeft: {
-                            '0%': { opacity: '0', transform: 'translateX(30px)' },
-                            '100%': { opacity: '1', transform: 'translateX(0)' }
-                        },
-                        fadeRight: {
-                            '0%': { opacity: '0', transform: 'translateX(-30px)' },
-                            '100%': { opacity: '1', transform: 'translateX(0)' }
-                        },
-                        twinkle: {
-                            '0%, 100%': { opacity: '1' },
-                            '50%': { opacity: '0.1' },
-                        },
-                        shootingStar: {
-                            '0%': { transform: 'translateX(0) translateY(0)', opacity: 1 },
-                            '100%': { transform: 'translateX(-120px) translateY(120px)', opacity: 0 }
-                        },
-                        starFloat: {
-                            '0%, 100%': { transform: 'translateY(0)' },
-                            '50%': { transform: 'translateY(-20px)' }
+                        'pulse-glow': {
+                            '0%, 100%': { borderColor: 'rgba(59, 130, 246, 0.3)' },
+                            '50%': { borderColor: 'rgba(59, 130, 246, 0.8)' },
                         }
                     }
                 }
@@ -79,813 +38,444 @@
         }
     </script>
     <style>
-        .space-bg {
-            background: radial-gradient(circle at center, #0f172a 0%, #020617 100%);
+        body {
+            background-color: #050505;
+            color: #e5e5e5;
+            overflow-x: hidden;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #050505; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+
+        /* HUD Card Effect */
+        .hud-card {
+            background: rgba(10, 10, 10, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid #1f1f1f;
             position: relative;
             overflow: hidden;
+            transition: all 0.3s ease;
         }
-        .star {
+
+        .hud-card::before {
+            content: '';
             position: absolute;
-            background: white;
-            border-radius: 50%;
+            top: 0; left: 0; width: 100%; height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.5), transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
         }
-        .shooting-star {
-            position: absolute;
-            width: 100px;
-            height: 1px;
-            background: linear-gradient(90deg, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 100%);
-            transform: rotate(-45deg);
-            animation: shootingStar 2s ease-out infinite;
+
+        .hud-card:hover {
+            border-color: #3b82f6;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 40px -10px rgba(59, 130, 246, 0.15);
+        }
+
+        .hud-card:hover::before { opacity: 1; }
+
+        /* Grid Background for sections */
+        .grid-bg {
+            background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
         }
     </style>
 </head>
-<body class="font-space bg-white">
-    <!-- Navigation -->
-    <nav class="fixed w-full z-50 bg-white/90 backdrop-blur-lg shadow-sm">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16 items-center">
-                <div class="text-2xl font-bold text-primary">JJ</div>
-                <!-- Mobile menu button -->
-                <button id="mobile-menu-button" class="md:hidden text-dark hover:text-primary p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20">
-                    <i class="fas fa-bars text-2xl"></i>
-                </button>
-                <!-- Desktop menu -->
-                <div class="hidden md:flex space-x-8">
-                    <a href="#home" class="text-dark hover:text-primary transition-colors">Home</a>
-                    <a href="#about" class="text-dark hover:text-primary transition-colors">About</a>
-                    <a href="#personal-projects" class="text-dark hover:text-primary transition-colors">Personal Projects</a>
-                    <a href="#professional-projects" class="text-dark hover:text-primary transition-colors">Professional Projects</a>
-                    <a href="#patents" class="text-dark hover:text-primary transition-colors">Patents</a>
-                    <a href="#experience" class="text-dark hover:text-primary transition-colors">Experience</a>
-                </div>
+<body class="antialiased">
+
+    <nav class="fixed w-full z-50 top-0 border-b border-white/5 bg-bg/80 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+            <div class="font-bold text-xl tracking-tighter">JJ<span class="text-primary">.</span></div>
+            <div class="hidden md:flex space-x-8 text-sm font-mono text-gray-400">
+                <a href="#ventures" class="hover:text-white transition-colors">/ VENTURES</a>
+                <a href="#patents" class="hover:text-white transition-colors">/ PATENTS</a>
+                <a href="#experience" class="hover:text-white transition-colors">/ EXPERIENCE</a>
             </div>
-        </div>
-        
-        <!-- Mobile menu (hidden by default) -->
-        <div id="mobile-menu" class="hidden md:hidden bg-white/95 backdrop-blur-lg border-t border-gray-100">
-            <div class="px-4 py-2 space-y-1">
-                <a href="#home" class="block text-dark hover:text-primary transition-colors py-3 px-4 rounded-lg hover:bg-primary/5">Home</a>
-                <a href="#about" class="block text-dark hover:text-primary transition-colors py-3 px-4 rounded-lg hover:bg-primary/5">About</a>
-                <a href="#personal-projects" class="block text-dark hover:text-primary transition-colors py-3 px-4 rounded-lg hover:bg-primary/5">Personal Projects</a>
-                <a href="#professional-projects" class="block text-dark hover:text-primary transition-colors py-3 px-4 rounded-lg hover:bg-primary/5">Professional Projects</a>
-                <a href="#patents" class="block text-dark hover:text-primary transition-colors py-3 px-4 rounded-lg hover:bg-primary/5">Patents</a>
-                <a href="#experience" class="block text-dark hover:text-primary transition-colors py-3 px-4 rounded-lg hover:bg-primary/5">Experience</a>
-            </div>
+            <a href="mailto:jijojohn@area30.app" class="text-xs font-mono border border-white/20 px-3 py-1 rounded hover:bg-white hover:text-black transition-all">
+                CONTACT
+            </a>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section id="home" class="min-h-[85vh] pt-24 px-4 py-16 flex items-center justify-center relative overflow-hidden space-bg">
-        <!-- Space Background Elements -->
-        <div class="absolute inset-0 overflow-hidden">
-            <!-- Stars Layer -->
-            <div class="absolute inset-0">
-                <!-- Static stars -->
-                <div class="star w-1 h-1 top-[10%] left-[20%] opacity-70 animate-twinkle"></div>
-                <div class="star w-2 h-2 top-[15%] left-[85%] opacity-60 animate-twinkle" style="animation-delay: -1s;"></div>
-                <div class="star w-1 h-1 top-[25%] left-[30%] opacity-80 animate-twinkle" style="animation-delay: -2s;"></div>
-                <div class="star w-1.5 h-1.5 top-[35%] left-[70%] opacity-70 animate-twinkle" style="animation-delay: -0.5s;"></div>
-                <div class="star w-1 h-1 top-[45%] left-[15%] opacity-60 animate-twinkle" style="animation-delay: -1.5s;"></div>
-                <div class="star w-2 h-2 top-[55%] left-[75%] opacity-80 animate-twinkle" style="animation-delay: -2.5s;"></div>
-                <div class="star w-1 h-1 top-[65%] left-[45%] opacity-70 animate-twinkle" style="animation-delay: -3s;"></div>
-                <div class="star w-1.5 h-1.5 top-[75%] left-[60%] opacity-60 animate-twinkle" style="animation-delay: -3.5s;"></div>
-                <div class="star w-1 h-1 top-[85%] left-[25%] opacity-80 animate-twinkle" style="animation-delay: -4s;"></div>
-                
-                <!-- Larger glowing stars -->
-                <div class="star w-3 h-3 top-[20%] left-[40%] opacity-80 animate-starFloat" 
-                     style="box-shadow: 0 0 10px 2px rgba(255,255,255,0.3); animation-delay: -1s;"></div>
-                <div class="star w-4 h-4 top-[60%] left-[80%] opacity-70 animate-starFloat" 
-                     style="box-shadow: 0 0 15px 3px rgba(255,255,255,0.3); animation-delay: -2s;"></div>
-                <div class="star w-3 h-3 top-[80%] left-[30%] opacity-75 animate-starFloat" 
-                     style="box-shadow: 0 0 12px 2px rgba(255,255,255,0.3); animation-delay: -3s;"></div>
+    <section class="relative h-screen flex items-center justify-center overflow-hidden">
+        <canvas id="starfield" class="absolute inset-0 z-0"></canvas>
+        
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-bg/50 to-bg z-10 pointer-events-none"></div>
+
+        <div class="relative z-20 text-center px-4 max-w-5xl mx-auto">
+            
+            <h1 class="text-6xl md:text-8xl lg:text-9xl font-bold tracking-tighter mb-6 mix-blend-screen text-white">
+                JIJO JOHN
+            </h1>
+            
+            <div class="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8 text-gray-400 font-mono text-sm md:text-base">
+                <span class="flex items-center gap-2"><i class="fas fa-rocket text-white"></i> FOUNDER</span>
+                <span class="hidden md:inline text-white/20">|</span>
+                <span class="flex items-center gap-2"><i class="fas fa-microchip text-accent"></i> INVENTOR</span>
+                <span class="hidden md:inline text-white/20">|</span>
+                <span class="flex items-center gap-2"><i class="fas fa-plane text-primary"></i> PILOT (240+ HRS)</span>
             </div>
 
-            <!-- Shooting Stars Layer -->
-            <div class="absolute inset-0">
-                <div class="shooting-star top-[10%] right-[5%] animate-shooting-star" style="animation-delay: 0s;"></div>
-                <div class="shooting-star top-[15%] right-[25%] animate-shooting-star" style="animation-delay: -1s;"></div>
-                <div class="shooting-star top-[25%] right-[15%] animate-shooting-star" style="animation-delay: -2s;"></div>
-                <div class="shooting-star top-[35%] right-[35%] animate-shooting-star" style="animation-delay: -3s;"></div>
-                <div class="shooting-star top-[45%] right-[10%] animate-shooting-star" style="animation-delay: -4s;"></div>
-                <div class="shooting-star top-[55%] right-[30%] animate-shooting-star" style="animation-delay: -5s;"></div>
-                <div class="shooting-star top-[65%] right-[20%] animate-shooting-star" style="animation-delay: -6s;"></div>
-                <div class="shooting-star top-[75%] right-[40%] animate-shooting-star" style="animation-delay: -7s;"></div>
-                <div class="shooting-star top-[85%] right-[15%] animate-shooting-star" style="animation-delay: -8s;"></div>
-            </div>
-
-            <!-- Nebula/Galaxy Effect -->
-            <div class="absolute inset-0">
-                <div class="absolute w-[800px] h-[800px] bg-gradient-to-r from-[#7F00FF]/10 via-[#E100FF]/5 to-transparent rounded-full blur-[120px] -top-1/4 -left-1/4 animate-pulse"></div>
-                <div class="absolute w-[600px] h-[600px] bg-gradient-to-r from-[#00FFC6]/10 via-[#38BDF8]/5 to-transparent rounded-full blur-[100px] -bottom-1/4 -right-1/4 animate-pulse"></div>
+            <div class="mt-12 flex justify-center gap-4">
+                <a href="#ventures" class="bg-white text-black px-8 py-3 font-bold hover:scale-105 transition-transform">
+                    VIEW WORK
+                </a>
+                <a href="https://github.com/viralcode" target="_blank" class="border border-white/20 bg-black/50 backdrop-blur px-8 py-3 text-white hover:border-white transition-colors">
+                    GITHUB
+                </a>
             </div>
         </div>
 
-        <!-- Main Content -->
-        <div class="max-w-7xl mx-auto w-full relative z-10">
-            <div class="grid lg:grid-cols-[2.5fr_1fr] gap-8 lg:gap-12 items-center">
-                <!-- Left Column - Text Content -->
-                <div class="space-y-8 lg:space-y-10 text-center lg:text-left">
-                    <!-- Main Heading -->
-                    <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold tracking-tight">
-                        <div class="space-y-4">
-                            <span class="block text-[#38BDF8]">JIJO JOHN</span>
-                            <span class="block">
-                                <span class="bg-gradient-to-r from-[#38BDF8] via-[#818CF8] to-[#C084FC] bg-clip-text text-transparent">Innovator, Engineer, Pilot</span>
-                            </span>
-                            <div class="flex flex-col gap-1">
-                                <span class="text-xl sm:text-2xl md:text-3xl lg:text-4xl text-gray-400 font-medium">Bridging the Gap Between</span>
-                                <span class="text-xl sm:text-2xl md:text-3xl lg:text-4xl text-gray-400 font-medium">Technology and Aviation</span>
+        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-2 opacity-50">
+            <span class="text-[10px] font-mono tracking-widest uppercase">Scroll</span>
+            <div class="w-[1px] h-12 bg-gradient-to-b from-white to-transparent"></div>
+        </div>
+    </section>
+
+    <section id="ventures" class="py-32 relative grid-bg border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-end justify-between mb-16 border-b border-white/10 pb-4">
+                <h2 class="text-4xl md:text-5xl font-bold tracking-tight">ACTIVE_DEPLOYMENTS</h2>
+                <span class="font-mono text-primary text-sm">STATUS: LIVE</span>
+            </div>
+
+            <div class="mb-8">
+                <div class="hud-card rounded-xl p-8 lg:p-12 border-primary/40 shadow-[0_0_50px_-15px_rgba(59,130,246,0.15)] animate-pulse-glow group">
+                    <div class="grid lg:grid-cols-2 gap-12 items-center">
+                        <div>
+                            <div class="flex items-center gap-4 mb-6">
+                                <img src="https://area30.app/logo.png" alt="Area30 Logo" class="w-16 h-16 rounded-xl bg-white/5 p-2 backdrop-blur-sm">
+                                <div>
+                                    <h3 class="text-4xl font-bold text-white mb-1">Area30</h3>
+                                    <div class="flex items-center gap-2">
+                                        <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+                                        <span class="text-xs font-mono text-green-400">WAITLIST OPEN</span>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </h1>
+                            
+                            <h4 class="text-2xl md:text-3xl font-bold mb-4 bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
+                                Build Apps in Minutes.
+                            </h4>
+                            <p class="text-lg text-gray-400 mb-8 leading-relaxed">
+                                Turn text prompts into fully functional iOS & Android apps. One-shot generation creates your backend, database, and UI instantly.
+                            </p>
 
-                    <!-- Stats Grid -->
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mt-8 md:mt-12">
-                        <div class="p-4 md:p-6 rounded-2xl bg-gradient-to-br from-white/5 to-white/0 border border-white/10 backdrop-blur-sm">
-                            <div class="text-2xl md:text-3xl font-bold text-[#38BDF8]">7</div>
-                            <div class="text-gray-400 text-sm md:text-base mt-1">Patents</div>
-                        </div>
-                        <div class="p-4 md:p-6 rounded-2xl bg-gradient-to-br from-white/5 to-white/0 border border-white/10 backdrop-blur-sm">
-                            <div class="text-2xl md:text-3xl font-bold text-[#818CF8]">240+</div>
-                            <div class="text-gray-400 text-sm md:text-base mt-1">Flight Hours</div>
-                        </div>
-                        <div class="p-4 md:p-6 rounded-2xl bg-gradient-to-br from-white/5 to-white/0 border border-white/10 backdrop-blur-sm">
-                            <div class="text-2xl md:text-3xl font-bold text-[#C084FC]">15+</div>
-                            <div class="text-gray-400 text-sm md:text-base mt-1">Years Coding</div>
-                        </div>
-                        <div class="p-4 md:p-6 rounded-2xl bg-gradient-to-br from-white/5 to-white/0 border border-white/10 backdrop-blur-sm">
-                            <div class="text-2xl md:text-3xl font-bold text-[#38BDF8]">4+</div>
-                            <div class="text-gray-400 text-sm md:text-base mt-1">Startups</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Right Column - Visual Element -->
-                <div class="hidden lg:block relative">
-                    <div class="relative w-full aspect-square">
-                        <!-- Outer ring -->
-                        <div class="absolute inset-0 rounded-full border border-[#38BDF8]/20 animate-spin-slow"></div>
-                        
-                        <!-- Middle ring -->
-                        <div class="absolute inset-4 rounded-full border border-[#818CF8]/20 animate-spin-slow" style="animation-direction: reverse;"></div>
-                        
-                        <!-- Inner circle with icons -->
-                        <div class="absolute inset-8 rounded-full bg-gradient-to-br from-[#38BDF8]/10 via-[#818CF8]/10 to-[#C084FC]/10 backdrop-blur-sm border border-white/10">
-                            <div class="absolute inset-0 flex items-center justify-center">
-                                <div class="relative">
-                                    <!-- Updated icons with better transitions -->
-                                    <i class="fas fa-code text-6xl text-white/80 absolute inset-0 flex items-center justify-center transition-all duration-1000 animate-fade-in-out"></i>
-                                    <i class="fas fa-plane text-6xl text-white/80 absolute inset-0 flex items-center justify-center transition-all duration-1000 animate-fade-in-out" style="animation-delay: -2s;"></i>
+                            <div class="flex flex-wrap gap-4 mb-8">
+                                <a href="https://area30.app" target="_blank" class="bg-primary hover:bg-blue-600 text-white px-6 py-3 rounded-lg font-bold transition-all flex items-center gap-2">
+                                    Join Waitlist <i class="fas fa-arrow-right text-sm"></i>
+                                </a>
+                                <div class="flex items-center gap-2 px-4 py-3 bg-white/5 rounded-lg border border-white/10">
+                                    <i class="fas fa-users text-gray-400"></i>
+                                    <span class="font-mono text-sm">1,000+ Developers Joined</span>
                                 </div>
                             </div>
                         </div>
-                        
-                        <!-- Floating dots -->
-                        <div class="absolute inset-0 animate-spin-slow" style="animation-duration: 15s;">
-                            <div class="absolute top-0 left-1/2 -translate-x-1/2 w-2 h-2 bg-[#38BDF8]/50 rounded-full blur-[2px]"></div>
-                            <div class="absolute top-1/4 right-0 w-2 h-2 bg-[#818CF8]/50 rounded-full blur-[2px]"></div>
-                            <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-2 h-2 bg-[#C084FC]/50 rounded-full blur-[2px]"></div>
-                            <div class="absolute top-1/4 left-0 w-2 h-2 bg-[#38BDF8]/50 rounded-full blur-[2px]"></div>
+
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="bg-white/5 p-4 rounded-lg border border-white/10 hover:border-primary/50 transition-colors">
+                                <i class="fas fa-server text-primary mb-3 text-xl"></i>
+                                <h5 class="font-bold text-white mb-1">Instant Backend</h5>
+                                <p class="text-xs text-gray-400">Auto-generated APIs & logic.</p>
+                            </div>
+                            <div class="bg-white/5 p-4 rounded-lg border border-white/10 hover:border-primary/50 transition-colors">
+                                <i class="fas fa-database text-accent mb-3 text-xl"></i>
+                                <h5 class="font-bold text-white mb-1">Smart Database</h5>
+                                <p class="text-xs text-gray-400">Schema designed by AI.</p>
+                            </div>
+                            <div class="bg-white/5 p-4 rounded-lg border border-white/10 hover:border-primary/50 transition-colors">
+                                <i class="fas fa-mobile-alt text-green-400 mb-3 text-xl"></i>
+                                <h5 class="font-bold text-white mb-1">Native UI</h5>
+                                <p class="text-xs text-gray-400">Real iOS & Android components.</p>
+                            </div>
+                            <div class="bg-white/5 p-4 rounded-lg border border-white/10 hover:border-primary/50 transition-colors">
+                                <i class="fas fa-share-nodes text-yellow-400 mb-3 text-xl"></i>
+                                <h5 class="font-bold text-white mb-1">One-Click Share</h5>
+                                <p class="text-xs text-gray-400">Deploy without app stores.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
 
-    <!-- About Section - Update the section tag -->
-    <section id="about" class="py-24 bg-gradient-to-br from-gray-50 to-gray-100 relative overflow-hidden">
-        <!-- Add floating elements -->
-        <div class="absolute inset-0 overflow-hidden pointer-events-none">
-            <div class="absolute w-64 h-64 bg-primary/5 rounded-full -top-20 -left-20 blur-3xl animate-pulse"></div>
-            <div class="absolute w-64 h-64 bg-secondary/5 rounded-full -bottom-20 -right-20 blur-3xl animate-pulse"></div>
-        </div>
-        
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-            <h2 class="text-4xl font-bold text-center mb-12 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">About Me</h2>
-            <div class="max-w-3xl mx-auto text-lg text-gray-600 mb-12 bg-white/50 backdrop-blur-sm rounded-xl p-8 shadow-xl hover:shadow-2xl transition-all duration-300">
-                <p class="mb-6 leading-relaxed">
-                    I'm a dynamic entrepreneur and computer engineer/inventor with a passion for software development, cyber security, and aviation. With over 240 hours of flying experience and multiple patents under my belt, I blend technical expertise with creative innovation.
-                </p>
-            </div>
-            <div class="flex flex-wrap justify-center gap-4">
-                <!-- Update skill tags with animation and hover effects -->
-                <span class="px-4 py-2 bg-white rounded-full shadow-sm text-primary hover:scale-110 hover:shadow-lg transition-all duration-300 cursor-default">JavaScript</span>
-                 <span class="px-4 py-2 bg-white rounded-full shadow-sm text-primary hover:scale-110 hover:shadow-lg transition-all duration-300 cursor-default">TypeScript</span>
-                <span class="px-4 py-2 bg-white rounded-full shadow-sm text-primary hover:scale-110 hover:shadow-lg transition-all duration-300 cursor-default">React</span>
-                 <span class="px-4 py-2 bg-white rounded-full shadow-sm text-primary hover:scale-110 hover:shadow-lg transition-all duration-300 cursor-default">Next</span>
-                 <span class="px-4 py-2 bg-white rounded-full shadow-sm text-primary hover:scale-110 hover:shadow-lg transition-all duration-300 cursor-default">Vue</span>
-                <span class="px-4 py-2 bg-white rounded-full shadow-sm text-primary hover:scale-110 hover:shadow-lg transition-all duration-300 cursor-default">Node.js</span>
-                <span class="px-4 py-2 bg-white rounded-full shadow-sm text-primary hover:scale-110 hover:shadow-lg transition-all duration-300 cursor-default">Python</span>
-                <span class="px-4 py-2 bg-white rounded-full shadow-sm text-primary hover:scale-110 hover:shadow-lg transition-all duration-300 cursor-default">Mongo</span>
-                <span class="px-4 py-2 bg-white rounded-full shadow-sm text-primary hover:scale-110 hover:shadow-lg transition-all duration-300 cursor-default">SQL</span>
-                <span class="px-4 py-2 bg-white rounded-full shadow-sm text-primary hover:scale-110 hover:shadow-lg transition-all duration-300 cursor-default">Cybersecurity</span>
-                <span class="px-4 py-2 bg-white rounded-full shadow-sm text-primary hover:scale-110 hover:shadow-lg transition-all duration-300 cursor-default">AWS</span>
-                <span class="px-4 py-2 bg-white rounded-full shadow-sm text-primary hover:scale-110 hover:shadow-lg transition-all duration-300 cursor-default">Render</span>
-                <span class="px-4 py-2 bg-white rounded-full shadow-sm text-primary hover:scale-110 hover:shadow-lg transition-all duration-300 cursor-default">Docker</span>
-                <span class="px-4 py-2 bg-white rounded-full shadow-sm text-primary hover:scale-110 hover:shadow-lg transition-all duration-300 cursor-default">Kubernetes</span>
-            </div>
-        </div>
-    </section>
-
-    <!-- Personal Projects Section -->
-    <section id="personal-projects" class="py-16 md:py-24 bg-gradient-to-br from-white to-gray-50 relative overflow-hidden">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-            <h2 class="text-3xl md:text-4xl font-bold text-center mb-8 md:mb-12 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Personal Projects</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-                <!-- Wavelength Mail -->
-                <div class="bg-white/80 backdrop-blur-sm rounded-xl shadow-lg overflow-hidden hover:-translate-y-2 transition-all duration-300 hover:shadow-xl group">
-                    <div class="p-4 md:p-6">
-                        <h3 class="text-xl md:text-2xl font-bold text-primary mb-2 md:mb-3">Wavelength Mail</h3>
-                        <p class="text-sm md:text-base text-gray-600 mb-3 md:mb-4">Your complete workspace powered by AI. Smart inbox, calendar, tasks, and notes with AI assistance.</p>
-                        <div class="flex flex-wrap gap-2 mb-4">
-                            <span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">AI</span>
-                            <span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">Productivity</span>
-                            <span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">Email</span>
-                            <span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">Calendar</span>
-                        </div>
-                        <a href="https://mywavelength.email" target="_blank" 
-                           class="inline-flex items-center text-primary hover:text-primary/80">
-                            Visit Site <i class="fas fa-arrow-right ml-2"></i>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- SoundChat -->
-                <div class="bg-white/80 backdrop-blur-sm rounded-xl shadow-lg overflow-hidden hover:-translate-y-2 transition-all duration-300 hover:shadow-xl group">
-                    <div class="p-4 md:p-6">
-                        <h3 class="text-xl md:text-2xl font-bold text-primary mb-2 md:mb-3">SoundChat</h3>
-                        <p class="text-sm md:text-base text-gray-600 mb-3 md:mb-4">World's first private audio social network (WIP)</p>
-                        <div class="flex flex-wrap gap-2 mb-4">
-                            <span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">Audio</span>
-                            <span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">Social</span>
-                            <span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">Privacy</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- SocialSignal AI -->
-                <div class="bg-white/80 backdrop-blur-sm rounded-xl shadow-lg overflow-hidden hover:-translate-y-2 transition-all duration-300 hover:shadow-xl group">
-                    <div class="p-4 md:p-6">
-                        <h3 class="text-xl md:text-2xl font-bold text-primary mb-2 md:mb-3">SocialSignal AI</h3>
-                        <p class="text-sm md:text-base text-gray-600 mb-3 md:mb-4">AI-powered social media conversation tracker with smart keyword tracking and sentiment analysis.</p>
-                        <div class="flex flex-wrap gap-2 mb-4">
-                            <span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">AI</span>
-                            <span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">Social Media</span>
-                        </div>
-                        <a href="https://socialsignalai.com" target="_blank" 
-                           class="inline-flex items-center text-primary hover:text-primary/80">
-                            Visit Site <i class="fas fa-arrow-right ml-2"></i>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- PasteZen -->
-                <div class="bg-white/80 backdrop-blur-sm rounded-xl shadow-lg overflow-hidden hover:-translate-y-2 transition-all duration-300 hover:shadow-xl group">
-                    <div class="p-4 md:p-6">
-                        <h3 class="text-xl md:text-2xl font-bold text-primary mb-2 md:mb-3">PasteZen</h3>
-                        <p class="text-sm md:text-base text-gray-600 mb-3 md:mb-4">Share code and text securely without platform limits.</p>
-                        <div class="flex flex-wrap gap-2 mb-4">
-                            <span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">Security</span>
-                            <span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">Collaboration</span>
-                        </div>
-                        <a href="https://pastezen.com" target="_blank" 
-                           class="inline-flex items-center text-primary hover:text-primary/80">
-                            Visit Site <i class="fas fa-arrow-right ml-2"></i>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- TextCraft AI -->
-                <div class="bg-white/80 backdrop-blur-sm rounded-xl shadow-lg overflow-hidden hover:-translate-y-2 transition-all duration-300 hover:shadow-xl group">
-                    <div class="p-4 md:p-6">
-                        <h3 class="text-xl md:text-2xl font-bold text-primary mb-2 md:mb-3">TextCraft AI</h3>
-                        <p class="text-sm md:text-base text-gray-600 mb-3 md:mb-4">AI co-pilot for Gmail, Outlook, and Office 365 email drafting. Write confidently in your style.</p>
-                        <div class="flex flex-wrap gap-2 mb-4">
-                            <span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">AI</span>
-                            <span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">Productivity</span>
-                            <span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">Email</span>
-                        </div>
-                        <a href="https://chromewebstore.google.com/detail/textcraft-ai-co-pilot-for/hifkcigdddheloapjflemfjojhfhopmh" target="_blank" 
-                           class="inline-flex items-center text-primary hover:text-primary/80">
-                            Chrome Store <i class="fas fa-arrow-right ml-2"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Professional Projects Section - Update the section tag -->
-    <section id="professional-projects" class="py-24 bg-gradient-to-br from-gray-50 to-white relative overflow-hidden">
-        <!-- Add floating elements -->
-        <div class="absolute inset-0 overflow-hidden pointer-events-none">
-            <div class="absolute w-96 h-96 bg-primary/5 rounded-full -top-48 -left-48 blur-3xl animate-pulse"></div>
-            <div class="absolute w-96 h-96 bg-secondary/5 rounded-full -bottom-48 -right-48 blur-3xl animate-pulse"></div>
-        </div>
-
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-            <h2 class="text-4xl font-bold text-center mb-12 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Professional Projects</h2>
-            <!-- Project cards structure remains the same but with enhanced hover effects -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- iXRLibForWebXR -->
-                <div class="bg-white/80 backdrop-blur-sm rounded-xl shadow-lg overflow-hidden hover:-translate-y-2 transition-all duration-300 hover:shadow-xl group">
-                    <div class="p-6">
-                        <h3 class="text-2xl font-bold text-primary mb-3">iXRLibForWebXR</h3>
-                        <p class="text-gray-600 mb-4">Powerful JavaScript/TypeScript library for XR analytics and services integration, featuring advanced event tracking, telemetry, and AI integrations.</p>
-                        <div class="flex flex-wrap gap-2 mb-4">
-                            <span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">XR</span>
-                            <span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">Analytics</span>
-                            <span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">Enterprise</span>
-                        </div>
-                        <a href="https://www.npmjs.com/package/ixrlibforwebxr" target="_blank" 
-                           class="inline-flex items-center text-primary hover:text-primary/80">
-                            NPM Package <i class="fas fa-arrow-right ml-2"></i>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- AppSpider -->
-                <div class="bg-white/80 backdrop-blur-sm rounded-xl shadow-lg overflow-hidden hover:-translate-y-2 transition-all duration-300 hover:shadow-xl group">
-                    <div class="p-6">
-                        <h3 class="text-2xl font-bold text-primary mb-3">AppSpider</h3>
-                        <p class="text-gray-600 mb-4">Advanced scan engine for application security testing, featuring customizable interface and comprehensive vulnerability detection. Built for teams of one on a single machine.</p>
-                        <div class="flex flex-wrap gap-2 mb-4">
-                            <span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">Security</span>
-                            <span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">Enterprise</span>
-                        </div>
-                        <a href="https://docs.rapid7.com/appspider/" target="_blank" 
-                           class="inline-flex items-center text-primary hover:text-primary/80">
-                            Learn More <i class="fas fa-arrow-right ml-2"></i>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Rapid7 AppSec Plugin -->
-                <div class="bg-white/80 backdrop-blur-sm rounded-xl shadow-lg overflow-hidden hover:-translate-y-2 transition-all duration-300 hover:shadow-xl group">
-                    <div class="p-6">
-                        <h3 class="text-2xl font-bold text-primary mb-3">Rapid7 AppSec Plugin</h3>
-                        <p class="text-gray-600 mb-4">Chrome extension for enhanced application security testing, featuring login recording and attack replay capabilities.</p>
-                        <div class="flex flex-wrap gap-2 mb-4">
-                            <span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">Security</span>
-                            <span class="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">Browser Extension</span>
-                        </div>
-                        <a href="https://chromewebstore.google.com/detail/rapid7-appsec-plugin/mnmlipalillmakdiildpclhocfgcddnp" target="_blank" 
-                           class="inline-flex items-center text-primary hover:text-primary/80">
-                            Chrome Store <i class="fas fa-arrow-right ml-2"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Patents Section -->
-    <section id="patents" class="py-24 bg-gradient-to-br from-gray-50 to-white relative overflow-hidden">
-        <!-- Background elements -->
-        <div class="absolute inset-0 overflow-hidden pointer-events-none">
-            <div class="absolute w-96 h-96 bg-primary/5 rounded-full -top-48 -left-48 blur-3xl animate-pulse"></div>
-            <div class="absolute w-96 h-96 bg-secondary/5 rounded-full -bottom-48 -right-48 blur-3xl animate-pulse"></div>
-        </div>
-
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-            <h2 class="text-4xl font-bold text-center mb-12 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Patents</h2>
-            
-            <!-- Patents Grid -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Patent Card 1 -->
-                <a href="https://ppubs.uspto.gov/dirsearch-public/print/downloadBasicPdf/12107848" target="_blank" 
-                   class="group bg-white/80 backdrop-blur-sm rounded-xl shadow-lg p-6 hover:-translate-y-2 transition-all duration-300 hover:shadow-xl">
-                    <h3 class="text-xl font-bold text-primary mb-2">US-12107848-B1</h3>
-                    <p class="text-gray-600">Automated login framework for application security testing</p>
-                </a>
+                
+                <div class="hud-card rounded-xl p-6 group">
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-gray-700 to-gray-900 flex items-center justify-center font-bold text-white">S8</div>
+                            <h3 class="text-xl font-bold group-hover:text-primary transition-colors">Syntax8</h3>
+                        </div>
+                        <span class="font-mono text-[10px] bg-white/5 px-2 py-1 rounded border border-white/10">ACTIVE</span>
+                    </div>
+                    <p class="text-sm text-gray-400 mb-4">
+                        Building software the way it should be built: clear, clean, and without drama. Custom apps and AI features for business growth.
+                    </p>
+                    <div class="flex flex-wrap gap-2 mt-auto">
+                        <span class="text-[10px] font-mono text-gray-500 border border-gray-800 px-2 py-1">AGENCY</span>
+                        <span class="text-[10px] font-mono text-gray-500 border border-gray-800 px-2 py-1">BUILDER</span>
+                    </div>
+                </div>
 
-                <!-- Patent Card 2 -->
-                <a href="https://ppubs.uspto.gov/dirsearch-public/print/downloadBasicPdf/11991202" target="_blank"
-                   class="group bg-white/80 backdrop-blur-sm rounded-xl shadow-lg p-6 hover:-translate-y-2 transition-all duration-300 hover:shadow-xl">
-                    <h3 class="text-xl font-bold text-primary mb-2">US-11991202-B2</h3>
-                    <p class="text-gray-600">Scanning unexposed web applications for vulnerabilities</p>
-                </a>
+                <div class="hud-card rounded-xl p-6 flex flex-col">
+                    <div class="flex justify-between items-center mb-4">
+                        <i class="fas fa-satellite-dish text-2xl text-accent"></i>
+                        <a href="https://socialsignalai.com" target="_blank" class="text-xs font-mono hover:text-primary"><i class="fas fa-external-link-alt"></i> VISIT</a>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">SocialSignal AI</h3>
+                    <p class="text-sm text-gray-400 flex-grow">
+                        Scaled to 100+ customers in 60 days. AI social intelligence platform that turns conversations into leads.
+                    </p>
+                    <div class="mt-4 pt-4 border-t border-white/5 text-[10px] font-mono text-green-400">
+                        <i class="fas fa-rocket"></i> 300+ PRODUCT HUNT FOLLOWERS
+                    </div>
+                </div>
 
-                <!-- Patent Card 3 -->
-                <a href="https://ppubs.uspto.gov/dirsearch-public/print/downloadBasicPdf/11785039" target="_blank"
-                   class="group bg-white/80 backdrop-blur-sm rounded-xl shadow-lg p-6 hover:-translate-y-2 transition-all duration-300 hover:shadow-xl">
-                    <h3 class="text-xl font-bold text-primary mb-2">US-11785039-B2</h3>
-                    <p class="text-gray-600">Scanning web applications for security vulnerabilities</p>
-                </a>
+                <div class="hud-card rounded-xl p-6">
+                    <div class="flex justify-between items-center mb-4">
+                        <i class="fas fa-envelope-open-text text-2xl text-blue-400"></i>
+                        <a href="https://mywavelength.email" target="_blank" class="text-xs font-mono hover:text-primary"><i class="fas fa-external-link-alt"></i> VISIT</a>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">MyWavelength</h3>
+                    <p class="text-sm text-gray-400 mb-4">
+                        The future of email, supercharged by AI. Built for Gmail users who want a smarter inbox.
+                    </p>
+                </div>
 
-                <!-- Patent Card 4 -->
-                <a href="https://ppubs.uspto.gov/dirsearch-public/print/downloadBasicPdf/20220159032" target="_blank"
-                   class="group bg-white/80 backdrop-blur-sm rounded-xl shadow-lg p-6 hover:-translate-y-2 transition-all duration-300 hover:shadow-xl">
-                    <h3 class="text-xl font-bold text-primary mb-2">US-20220159032-A1</h3>
-                    <p class="text-gray-600">Scanning unexposed web applications for vulnerabilities</p>
-                </a>
+                 <div class="hud-card rounded-xl p-6">
+                    <div class="flex justify-between items-center mb-4">
+                        <i class="fas fa-code text-2xl text-yellow-500"></i>
+                        <a href="https://pastezen.com" target="_blank" class="text-xs font-mono hover:text-primary"><i class="fas fa-external-link-alt"></i> VISIT</a>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Pastezen</h3>
+                    <p class="text-sm text-gray-400 mb-4">
+                        Share code and text securely. E2E encryption, no character limits, real-time collaboration.
+                    </p>
+                </div>
 
-                <!-- Patent Card 5 -->
-                <a href="https://ppubs.uspto.gov/dirsearch-public/print/downloadBasicPdf/20220070205" target="_blank"
-                   class="group bg-white/80 backdrop-blur-sm rounded-xl shadow-lg p-6 hover:-translate-y-2 transition-all duration-300 hover:shadow-xl">
-                    <h3 class="text-xl font-bold text-primary mb-2">US-20220070205-A1</h3>
-                    <p class="text-gray-600">Enhanced crawling of unexposed web applications</p>
-                </a>
+                <div class="hud-card rounded-xl p-6">
+                    <div class="flex justify-between items-center mb-4">
+                        <i class="fas fa-search-dollar text-2xl text-white"></i>
+                        <span class="text-xs font-mono text-gray-500">2025</span>
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">LvlUp Ventures</h3>
+                    <p class="text-sm text-gray-400 mb-4">
+                        Senior Venture Scout. Sourcing early-stage startups for top-tier VCs and investors.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-                <!-- Patent Card 6 -->
-                <a href="https://ppubs.uspto.gov/dirsearch-public/print/downloadBasicPdf/11228611" target="_blank"
-                   class="group bg-white/80 backdrop-blur-sm rounded-xl shadow-lg p-6 hover:-translate-y-2 transition-all duration-300 hover:shadow-xl">
-                    <h3 class="text-xl font-bold text-primary mb-2">US-11228611-B1</h3>
-                    <p class="text-gray-600">Scanning unexposed web applications for vulnerabilities</p>
-                </a>
+    <section id="patents" class="py-32 bg-black relative">
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-blue-900/10 via-transparent to-transparent opacity-50"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="flex items-center gap-4 mb-12">
+                <h2 class="text-3xl font-bold font-mono">INTELLECTUAL_PROPERTY</h2>
+                <div class="h-px flex-grow bg-white/10"></div>
+                <span class="text-4xl font-bold text-white/10">07</span>
+            </div>
 
-                <!-- Patent Card 7 -->
-                <a href="https://ppubs.uspto.gov/dirsearch-public/print/downloadBasicPdf/11201892" target="_blank"
-                   class="group bg-white/80 backdrop-blur-sm rounded-xl shadow-lg p-6 hover:-translate-y-2 transition-all duration-300 hover:shadow-xl">
-                    <h3 class="text-xl font-bold text-primary mb-2">US-11201892-B1</h3>
-                    <p class="text-gray-600">Enhanced crawling of unexposed web applications</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <a href="https://ppubs.uspto.gov/dirsearch-public/print/downloadBasicPdf/12107848" target="_blank" class="hud-card p-6 rounded group">
+                    <div class="text-xs font-mono text-primary mb-2 opacity-70 group-hover:opacity-100">US-12107848-B1</div>
+                    <h3 class="font-bold text-white leading-tight mb-2">Automated Login Framework</h3>
+                    <p class="text-xs text-gray-500 font-mono">Application Security Testing</p>
+                </a>
+                <a href="https://ppubs.uspto.gov/dirsearch-public/print/downloadBasicPdf/11991202" target="_blank" class="hud-card p-6 rounded group">
+                    <div class="text-xs font-mono text-primary mb-2 opacity-70 group-hover:opacity-100">US-11991202-B2</div>
+                    <h3 class="font-bold text-white leading-tight mb-2">Scanning Unexposed Web Apps</h3>
+                    <p class="text-xs text-gray-500 font-mono">Vulnerability Detection</p>
+                </a>
+                <a href="https://ppubs.uspto.gov/dirsearch-public/print/downloadBasicPdf/11785039" target="_blank" class="hud-card p-6 rounded group">
+                    <div class="text-xs font-mono text-primary mb-2 opacity-70 group-hover:opacity-100">US-11785039-B2</div>
+                    <h3 class="font-bold text-white leading-tight mb-2">Scanning Web Applications</h3>
+                    <p class="text-xs text-gray-500 font-mono">Security Systems</p>
+                </a>
+                <a href="https://ppubs.uspto.gov/dirsearch-public/print/downloadBasicPdf/20220159032" target="_blank" class="hud-card p-6 rounded group">
+                    <div class="text-xs font-mono text-primary mb-2 opacity-70 group-hover:opacity-100">US-20220159032-A1</div>
+                    <h3 class="font-bold text-white leading-tight mb-2">Unexposed App Methodology</h3>
+                    <p class="text-xs text-gray-500 font-mono">Cybersecurity Process</p>
+                </a>
+                <a href="https://ppubs.uspto.gov/dirsearch-public/print/downloadBasicPdf/20220070205" target="_blank" class="hud-card p-6 rounded group">
+                    <div class="text-xs font-mono text-primary mb-2 opacity-70 group-hover:opacity-100">US-20220070205-A1</div>
+                    <h3 class="font-bold text-white leading-tight mb-2">Enhanced Crawling Systems</h3>
+                    <p class="text-xs text-gray-500 font-mono">Deep Web Scanning</p>
+                </a>
+                <a href="https://ppubs.uspto.gov/dirsearch-public/print/downloadBasicPdf/11228611" target="_blank" class="hud-card p-6 rounded group">
+                    <div class="text-xs font-mono text-primary mb-2 opacity-70 group-hover:opacity-100">US-11228611-B1</div>
+                    <h3 class="font-bold text-white leading-tight mb-2">Scanning System V1</h3>
+                    <p class="text-xs text-gray-500 font-mono">Vulnerability Assessment</p>
+                </a>
+                <a href="https://ppubs.uspto.gov/dirsearch-public/print/downloadBasicPdf/11201892" target="_blank" class="hud-card p-6 rounded group">
+                    <div class="text-xs font-mono text-primary mb-2 opacity-70 group-hover:opacity-100">US-11201892-B1</div>
+                    <h3 class="font-bold text-white leading-tight mb-2">Enhanced Crawling V1</h3>
+                    <p class="text-xs text-gray-500 font-mono">Data Retrieval</p>
                 </a>
             </div>
         </div>
     </section>
 
-    <!-- Experience Section -->
-    <section id="experience" class="py-24 bg-gradient-to-br from-gray-50 to-white relative overflow-hidden">
-        <!-- Background elements -->
-        <div class="absolute inset-0 overflow-hidden pointer-events-none">
-            <div class="absolute w-96 h-96 bg-primary/5 rounded-full -top-48 -left-48 blur-3xl animate-pulse"></div>
-            <div class="absolute w-96 h-96 bg-secondary/5 rounded-full -bottom-48 -right-48 blur-3xl animate-pulse"></div>
-        </div>
+    <section id="experience" class="py-32 grid-bg border-t border-white/5">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold font-mono mb-16 text-center">EXPERIENCE</h2>
 
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-            <h2 class="text-4xl font-bold text-center mb-16 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Professional Journey</h2>
-            
-            <!-- Timeline container -->
-            <div class="relative">
-                <!-- Timeline line - visible on all screens -->
-                <div class="absolute left-8 md:left-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-[#7F00FF] via-[#E100FF] to-[#00FFC6]"></div>
+            <div class="space-y-8">
                 
-                <!-- Timeline items -->
-                <div class="space-y-12">
-                    <!-- informXR -->
-                    <div class="relative flex flex-col md:flex-row items-center md:justify-center group">
-                        <div class="flex-1 md:w-[42%] md:pr-12 order-2 md:order-1 w-full md:text-right">
-                            <div class="bg-white/80 backdrop-blur-sm rounded-xl shadow-lg p-6 hover:-translate-y-2 transition-all duration-300 hover:shadow-xl ml-12 md:ml-0">
-                                <span class="inline-block px-4 py-1 rounded-full text-sm bg-[#7F00FF]/10 text-[#7F00FF] mb-4">Dec 2023 - Present</span>
-                                <h3 class="text-xl md:text-2xl font-bold text-[#7F00FF]">Contractor - Software Development</h3>
-                                <h4 class="text-lg md:text-xl text-gray-600 mb-2">informXR</h4>
-                                <ul class="list-disc pl-5 md:pl-0 md:list-none space-y-2 text-gray-600 text-sm md:text-base">
-                                    <li class="md:text-right">Developed iXRLibForWebXR - an advanced JavaScript/TypeScript library for XR analytics</li>
-                                    <li class="md:text-right">Implemented comprehensive event tracking and telemetry systems</li>
-                                    <li class="md:text-right">Built robust data collection systems</li>
-                                    <li class="md:text-right">Technologies: TypeScript, Node.js, Bash</li>
-                                </ul>
-                            </div>
-                        </div>
-                        
-                        <!-- Timeline node -->
-                        <div class="absolute left-8 md:left-1/2 transform -translate-x-1/2 flex items-center justify-center order-1 md:order-2">
-                            <div class="w-8 h-8 bg-[#7F00FF] rounded-full border-4 border-white shadow-lg"></div>
-                        </div>
-
-                        <!-- Empty div for right side on first item -->
-                        <div class="flex-1 md:w-[42%] md:pl-12 hidden md:block order-3"></div>
+                <div class="flex flex-col md:flex-row gap-6 hover:bg-white/5 p-6 rounded-xl transition-colors border border-transparent hover:border-white/5">
+                    <div class="md:w-32 flex-shrink-0">
+                        <span class="font-mono text-xs text-primary">PRESENT</span>
                     </div>
-
-                    <!-- Euna Solutions -->
-                    <div class="relative flex flex-col md:flex-row items-center md:justify-center group">
-                        <!-- Empty div for left side -->
-                        <div class="flex-1 md:w-[42%] md:pr-12 hidden md:block"></div>
-                        
-                        <!-- Timeline node -->
-                        <div class="absolute left-8 md:left-1/2 transform -translate-x-1/2 flex items-center justify-center">
-                            <div class="w-8 h-8 bg-[#E100FF] rounded-full border-4 border-white shadow-lg"></div>
-                        </div>
-
-                        <!-- Content -->
-                        <div class="flex-1 md:w-[42%] md:pl-12 w-full">
-                            <div class="bg-white/80 backdrop-blur-sm rounded-xl shadow-lg p-6 hover:-translate-y-2 transition-all duration-300 hover:shadow-xl ml-12 md:ml-0">
-                                <span class="inline-block px-4 py-1 rounded-full text-sm bg-[#E100FF]/10 text-[#E100FF] mb-4">2023</span>
-                                <h3 class="text-xl md:text-2xl font-bold text-[#E100FF]">Senior Software Developer (R&D)</h3>
-                                <h4 class="text-lg md:text-xl text-gray-600 mb-2">Euna Solutions</h4>
-                                <ul class="list-disc pl-5 space-y-2 text-gray-600 text-sm md:text-base">
-                                    <li>Led technical excellence and innovation using Agile methodologies</li>
-                                    <li>Enhanced core applications with Angular, React, Redux, RTK Query</li>
-                                    <li>Maintained Kubernetes infrastructure and optimized CI/CD pipelines</li>
-                                    <li>Mentored junior team members and drove adoption of cutting-edge technologies</li>
-                                </ul>
-                            </div>
-                        </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-white">Founder</h3>
+                        <div class="text-gray-400 mb-2">Area30</div>
+                        <p class="text-gray-500 text-sm">Turning text prompts into native iOS & Android apps. One-shot generation of backend, database, and UI.</p>
                     </div>
+                </div>
 
-                    <!-- Continue this alternating pattern for other experiences -->
-                    <!-- Rapid7 Software Engineer II -->
-                    <div class="relative flex flex-col md:flex-row items-center md:justify-center group">
-                        <div class="flex-1 md:w-[42%] md:pr-12 order-2 md:order-1 w-full md:text-right">
-                            <div class="bg-white/80 backdrop-blur-sm rounded-xl shadow-lg p-6 hover:-translate-y-2 transition-all duration-300 hover:shadow-xl ml-12 md:ml-0">
-                                <span class="inline-block px-4 py-1 rounded-full text-sm bg-[#00FFC6]/10 text-[#00FFC6] mb-4">2020-2022</span>
-                                <h3 class="text-xl md:text-2xl font-bold text-[#00FFC6]">Software Engineer II</h3>
-                                <h4 class="text-lg md:text-xl text-gray-600 mb-2">Rapid7</h4>
-                                <ul class="list-disc pl-5 md:pl-0 md:list-none space-y-2 text-gray-600 text-sm md:text-base">
-                                    <li class="md:text-right">Pioneered Automated Login Framework and SPA hooks</li>
-                                    <li class="md:text-right">Contributed to cybersecurity innovations with multiple patents</li>
-                                    <li class="md:text-right">Developed the Rapid7 Appsec Chrome plugin</li>
-                                    <li class="md:text-right">Led infrastructure management with Kubernetes and Helm</li>
-                                </ul>
-                            </div>
-                        </div>
-                        
-                        <div class="absolute left-8 md:left-1/2 transform -translate-x-1/2 flex items-center justify-center order-1 md:order-2">
-                            <div class="w-8 h-8 bg-[#00FFC6] rounded-full border-4 border-white shadow-lg"></div>
-                        </div>
-
-                        <div class="flex-1 md:w-[42%] md:pl-12 hidden md:block order-3"></div>
+                <div class="flex flex-col md:flex-row gap-6 hover:bg-white/5 p-6 rounded-xl transition-colors border border-transparent hover:border-white/5">
+                    <div class="md:w-32 flex-shrink-0">
+                        <span class="font-mono text-xs text-gray-500">2025</span>
                     </div>
-
-                    <!-- Add remaining experiences following the same pattern -->
-                    <!-- Rapid7 Software Engineer I -->
-                    <div class="relative flex flex-col md:flex-row items-center md:justify-center group">
-                        <!-- Empty div for left side -->
-                        <div class="flex-1 md:w-[42%] md:pr-12 hidden md:block"></div>
-                        
-                        <!-- Timeline node -->
-                        <div class="absolute left-8 md:left-1/2 transform -translate-x-1/2 flex items-center justify-center">
-                            <div class="w-8 h-8 bg-[#00FFC6] rounded-full border-4 border-white shadow-lg"></div>
-                        </div>
-
-                        <!-- Content -->
-                        <div class="flex-1 md:w-[42%] md:pl-12 w-full">
-                            <div class="bg-white/80 backdrop-blur-sm rounded-xl shadow-lg p-6 hover:-translate-y-2 transition-all duration-300 hover:shadow-xl ml-12 md:ml-0">
-                                <span class="inline-block px-4 py-1 rounded-full text-sm bg-[#00FFC6]/10 text-[#00FFC6] mb-4">2017-2020</span>
-                                <h3 class="text-xl md:text-2xl font-bold text-[#00FFC6]">Software Engineer I</h3>
-                                <h4 class="text-lg md:text-xl text-gray-600 mb-2">Rapid7</h4>
-                                <ul class="list-disc pl-5 space-y-2 text-gray-600 text-sm md:text-base">
-                                    <li>Core developer for AppSpider and InsightAppSec</li>
-                                    <li>Implemented critical security features and improvements</li>
-                                    <li>Collaborated on innovative cybersecurity solutions</li>
-                                </ul>
-                            </div>
-                        </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-white">Software Engineer (Contract)</h3>
+                        <div class="text-gray-400 mb-2">Auth0 / Okta</div>
+                        <p class="text-gray-500 text-sm">Working on the world-famous Auth0 platform. Infrastructure and authentication services.</p>
                     </div>
+                </div>
 
-                    <!-- Zedvalley -->
-                    <div class="relative flex flex-col md:flex-row items-center md:justify-center group">
-                        <div class="flex-1 md:w-[42%] md:pr-12 order-2 md:order-1 w-full md:text-right">
-                            <div class="bg-white/80 backdrop-blur-sm rounded-xl shadow-lg p-6 hover:-translate-y-2 transition-all duration-300 hover:shadow-xl ml-12 md:ml-0">
-                                <span class="inline-block px-4 py-1 rounded-full text-sm bg-[#7F00FF]/10 text-[#7F00FF] mb-4">2015-2017</span>
-                                <h3 class="text-xl md:text-2xl font-bold text-[#7F00FF]">Founder & CTO</h3>
-                                <h4 class="text-lg md:text-xl text-gray-600 mb-2">Zedvalley</h4>
-                                <ul class="list-disc pl-5 md:pl-0 md:list-none space-y-2 text-gray-600 text-sm md:text-base">
-                                    <li class="md:text-right">Co-founded leading digital solutions company</li>
-                                    <li class="md:text-right">Developed zedguru - innovative ed-tech product</li>
-                                    <li class="md:text-right">Earned spot at Kerala Startup Mission technology incubator</li>
-                                    <li class="md:text-right">Led strategic digital solutions and infrastructure design</li>
-                                </ul>
-                            </div>
-                        </div>
-                        
-                        <div class="absolute left-8 md:left-1/2 transform -translate-x-1/2 flex items-center justify-center order-1 md:order-2">
-                            <div class="w-8 h-8 bg-[#7F00FF] rounded-full border-4 border-white shadow-lg"></div>
-                        </div>
-
-                        <div class="flex-1 md:w-[42%] md:pl-12 hidden md:block order-3"></div>
+                <div class="flex flex-col md:flex-row gap-6 hover:bg-white/5 p-6 rounded-xl transition-colors border border-transparent hover:border-white/5">
+                    <div class="md:w-32 flex-shrink-0">
+                        <span class="font-mono text-xs text-gray-500">2023 - 2025</span>
                     </div>
-
-                    <!-- Singlelinelogics -->
-                    <div class="relative flex flex-col md:flex-row items-center md:justify-center group">
-                        <!-- Empty div for left side -->
-                        <div class="flex-1 md:w-[42%] md:pr-12 hidden md:block"></div>
-                        
-                        <!-- Timeline node -->
-                        <div class="absolute left-8 md:left-1/2 transform -translate-x-1/2 flex items-center justify-center">
-                            <div class="w-8 h-8 bg-[#E100FF] rounded-full border-4 border-white shadow-lg"></div>
-                        </div>
-
-                        <!-- Content -->
-                        <div class="flex-1 md:w-[42%] md:pl-12 w-full">
-                            <div class="bg-white/80 backdrop-blur-sm rounded-xl shadow-lg p-6 hover:-translate-y-2 transition-all duration-300 hover:shadow-xl ml-12 md:ml-0">
-                                <span class="inline-block px-4 py-1 rounded-full text-sm bg-[#E100FF]/10 text-[#E100FF] mb-4">2011-2013</span>
-                                <h3 class="text-xl md:text-2xl font-bold text-[#E100FF]">Founder</h3>
-                                <h4 class="text-lg md:text-xl text-gray-600 mb-2">Singlelinelogics</h4>
-                                <ul class="list-disc pl-5 space-y-2 text-gray-600 text-sm md:text-base">
-                                    <li>Built global remote team of 6 developers</li>
-                                    <li>Developed EVIX media software</li>
-                                    <li>Created security tools (XSS Evasion Calculator, Click Jack Pro)</li>
-                                    <li>Provided software solutions worldwide</li>
-                                </ul>
-                            </div>
-                        </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-white">Software Contractor</h3>
+                        <div class="text-gray-400 mb-2">informXR</div>
+                        <p class="text-gray-500 text-sm">Developed iXRLibForWebXR for XR analytics and telemetry.</p>
                     </div>
+                </div>
 
-                    <!-- Early Startups -->
-                    <div class="relative flex flex-col md:flex-row items-center md:justify-center group">
-                        <div class="flex-1 md:w-[42%] md:pr-12 order-2 md:order-1 w-full md:text-right">
-                            <div class="bg-white/80 backdrop-blur-sm rounded-xl shadow-lg p-6 hover:-translate-y-2 transition-all duration-300 hover:shadow-xl ml-12 md:ml-0">
-                                <span class="inline-block px-4 py-1 rounded-full text-sm bg-[#00FFC6]/10 text-[#00FFC6] mb-4">2008-2012</span>
-                                <h3 class="text-xl md:text-2xl font-bold text-[#00FFC6]">Early Entrepreneurship</h3>
-                                <h4 class="text-lg md:text-xl text-gray-600 mb-2">Multiple Ventures</h4>
-                                <ul class="list-disc pl-5 md:pl-0 md:list-none space-y-2 text-gray-600 text-sm md:text-base">
-                                    <li class="md:text-right">Founded CubicCodes.com (2008-2011) - Built first Malayalam Facebook App with 2M+ users</li>
-                                    <li class="md:text-right">Created Solutionsgeek (2010-2012) - Popular technology blog</li>
-                                    <li class="md:text-right">Successfully sold CubicCodes.com</li>
-                                    <li class="md:text-right">Started first business venture at age 14</li>
-                                </ul>
-                            </div>
-                        </div>
-                        
-                        <div class="absolute left-8 md:left-1/2 transform -translate-x-1/2 flex items-center justify-center order-1 md:order-2">
-                            <div class="w-8 h-8 bg-[#00FFC6] rounded-full border-4 border-white shadow-lg"></div>
-                        </div>
+                <div class="flex flex-col md:flex-row gap-6 hover:bg-white/5 p-6 rounded-xl transition-colors border border-transparent hover:border-white/5">
+                    <div class="md:w-32 flex-shrink-0">
+                        <span class="font-mono text-xs text-gray-500">2017 - 2022</span>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-white">Software Engineer II</h3>
+                        <div class="text-gray-400 mb-2">Rapid7</div>
+                        <p class="text-gray-500 text-sm">Core engine development for AppSpider. 7 Patents filed. Created Chrome AppSec plugin.</p>
+                    </div>
+                </div>
 
-                        <div class="flex-1 md:w-[42%] md:pl-12 hidden md:block order-3"></div>
+                <div class="flex flex-col md:flex-row gap-6 hover:bg-white/5 p-6 rounded-xl transition-colors border border-transparent hover:border-white/5">
+                    <div class="md:w-32 flex-shrink-0">
+                        <span class="font-mono text-xs text-gray-500">2015 - 2017</span>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-white">Founder & CTO</h3>
+                        <div class="text-gray-400 mb-2">Zedvalley</div>
+                        <p class="text-gray-500 text-sm">Co-founded digital solutions company. Incubated at Kerala Startup Mission.</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Update the footer section -->
-    <footer class="bg-[#0a0a2e] text-white py-16">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
-                <!-- Brand Section -->
-                <div class="text-center md:text-left">
-                    <h3 class="text-2xl font-bold mb-4 bg-gradient-to-r from-[#7F00FF] to-[#E100FF] bg-clip-text text-transparent">Jijo John</h3>
-                    <p class="text-gray-400">Innovating at the intersection of technology and aviation</p>
-                </div>
-                
-                <!-- Quick Links -->
-                <div class="text-center">
-                    <h4 class="text-xl font-semibold mb-4 text-[#00FFC6]">Quick Links</h4>
-                    <div class="flex flex-col space-y-2">
-                        <a href="#about" class="text-gray-400 hover:text-[#00FFC6] transition-colors">About</a>
-                        <a href="#personal-projects" class="text-gray-400 hover:text-[#00FFC6] transition-colors">Personal Projects</a>
-                        <a href="#professional-projects" class="text-gray-400 hover:text-[#00FFC6] transition-colors">Professional Projects</a>
-                        <a href="#patents" class="text-gray-400 hover:text-[#00FFC6] transition-colors">Patents</a>
-                        <a href="#experience" class="text-gray-400 hover:text-[#00FFC6] transition-colors">Experience</a>
-                    </div>
-                </div>
-                
-                <!-- Social Links -->
-                <div class="text-center md:text-right">
-                    <h4 class="text-xl font-semibold mb-4 text-[#00FFC6]">Connect</h4>
-                    <div class="flex justify-center md:justify-end space-x-6">
-                        <a href="https://github.com/viralcode" target="_blank" 
-                           class="text-gray-400 hover:text-[#00FFC6] transition-colors transform hover:scale-110">
-                            <i class="fab fa-github text-2xl"></i>
-                        </a>
-                        <a href="https://www.linkedin.com/in/jijo-john-44169724/" target="_blank" 
-                           class="text-gray-400 hover:text-[#00FFC6] transition-colors transform hover:scale-110">
-                            <i class="fab fa-linkedin text-2xl"></i>
-                        </a>
-                        <a href="https://x.com/jijojohnz" target="_blank" 
-                           class="text-gray-400 hover:text-[#00FFC6] transition-colors transform hover:scale-110">
-                            <i class="fab fa-twitter text-2xl"></i>
-                        </a>
-                        <a href="mailto:jijo@jijojohn.com" 
-                           class="text-gray-400 hover:text-[#00FFC6] transition-colors transform hover:scale-110">
-                            <i class="fas fa-envelope text-2xl"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="mt-12 pt-8 border-t border-gray-800 text-center">
-                <p class="text-gray-400">&copy; 2024 Jijo John. All rights reserved.</p>
-            </div>
+    <footer class="py-12 bg-black border-t border-white/10 text-center">
+        <div class="font-mono text-sm text-gray-500">
+            &copy; 2025 JIJO JOHN.
+        </div>
+        <div class="flex justify-center gap-6 mt-4 text-gray-600">
+            <a href="mailto:jijojohn@area30.app" class="hover:text-white transition-colors"><i class="fas fa-envelope"></i></a>
+            <a href="https://github.com/viralcode" target="_blank" class="hover:text-white transition-colors"><i class="fab fa-github"></i></a>
+            <a href="https://www.linkedin.com/in/jijo-john-44169724/" target="_blank" class="hover:text-white transition-colors"><i class="fab fa-linkedin"></i></a>
+            <a href="https://x.com/jijojohnz" target="_blank" class="hover:text-white transition-colors"><i class="fab fa-twitter"></i></a>
         </div>
     </footer>
 
-    <!-- Add this script just before closing body tag -->
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const observerOptions = {
-                root: null,
-                rootMargin: '0px',
-                threshold: 0.1
-            };
+        const canvas = document.getElementById('starfield');
+        const ctx = canvas.getContext('2d');
 
-            const observer = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('animate-fade-up', 'opacity-100');
-                        entry.target.classList.remove('opacity-0', 'translate-y-10');
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, observerOptions);
+        let width, height;
+        let stars = [];
+        const numStars = 400;
+        let mouseX = 0;
+        let mouseY = 0;
 
-            // Add animation classes to sections
-            document.querySelectorAll('section').forEach((section, index) => {
-                if (section.id !== 'home') {  // Skip hero section
-                    section.classList.add('opacity-0', 'translate-y-10', 'transition-all', 'duration-700');
-                    observer.observe(section);
+        function resize() {
+            width = window.innerWidth;
+            height = window.innerHeight;
+            canvas.width = width;
+            canvas.height = height;
+        }
+
+        class Star {
+            constructor() {
+                this.x = Math.random() * width - width / 2;
+                this.y = Math.random() * height - height / 2;
+                this.z = Math.random() * width; 
+                this.pz = this.z; 
+            }
+
+            update() {
+                let speed = 10 + (mouseY / height) * 20;
+                this.z = this.z - speed;
+
+                if (this.z < 1) {
+                    this.z = width;
+                    this.x = Math.random() * width - width / 2;
+                    this.y = Math.random() * height - height / 2;
+                    this.pz = this.z;
                 }
-            });
+            }
 
-            // Add animation to project cards
-            document.querySelectorAll('.grid > div').forEach((card, index) => {
-                card.classList.add('opacity-0', 'translate-y-10', 'transition-all', 'duration-700');
-                card.style.transitionDelay = `${index * 100}ms`;
-                observer.observe(card);
-            });
+            draw() {
+                let x = (this.x / this.z) * width/2 + width / 2;
+                let y = (this.y / this.z) * height/2 + height / 2;
+                let r = (width / this.z) * 1.5;
+                let px = (this.x / this.pz) * width/2 + width / 2;
+                let py = (this.y / this.pz) * height/2 + height / 2;
+                this.pz = this.z;
 
-            // Add animation to skill tags
-            document.querySelectorAll('.flex.flex-wrap.justify-center.gap-4 > span').forEach((tag, index) => {
-                tag.classList.add('opacity-0', 'translate-y-10', 'transition-all', 'duration-500');
-                tag.style.transitionDelay = `${index * 50}ms`;
-                observer.observe(tag);
-            });
+                ctx.beginPath();
+                ctx.strokeStyle = "rgba(255, 255, 255, " + (1 - this.z / width) + ")";
+                ctx.lineWidth = r;
+                ctx.moveTo(px, py);
+                ctx.lineTo(x, y);
+                ctx.stroke();
+            }
+        }
 
-            // Smooth scroll for navigation links
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    const target = document.querySelector(this.getAttribute('href'));
-                    if (target) {
-                        target.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'start'
-                        });
-                    }
-                });
-            });
-        });
-    </script>
+        function init() {
+            resize();
+            for (let i = 0; i < numStars; i++) {
+                stars.push(new Star());
+            }
+        }
 
-    <!-- Add this script at the end of the body -->
-    <script>
-        // Mobile menu functionality
-        document.addEventListener('DOMContentLoaded', function() {
-            const mobileMenuButton = document.getElementById('mobile-menu-button');
-            const mobileMenu = document.getElementById('mobile-menu');
-            
-            mobileMenuButton.addEventListener('click', function() {
-                mobileMenu.classList.toggle('hidden');
-                // Toggle menu icon
-                const menuIcon = mobileMenuButton.querySelector('i');
-                menuIcon.classList.toggle('fa-bars');
-                menuIcon.classList.toggle('fa-times');
-            });
+        function animate() {
+            ctx.fillStyle = "rgba(5, 5, 5, 0.4)"; 
+            ctx.fillRect(0, 0, width, height);
 
-            // Close mobile menu when clicking a link
-            document.querySelectorAll('#mobile-menu a').forEach(link => {
-                link.addEventListener('click', () => {
-                    mobileMenu.classList.add('hidden');
-                    const menuIcon = mobileMenuButton.querySelector('i');
-                    menuIcon.classList.add('fa-bars');
-                    menuIcon.classList.remove('fa-times');
-                });
+            stars.forEach(star => {
+                star.update();
+                star.draw();
             });
+            requestAnimationFrame(animate);
+        }
 
-            // Close mobile menu when clicking outside
-            document.addEventListener('click', function(event) {
-                if (!mobileMenuButton.contains(event.target) && !mobileMenu.contains(event.target)) {
-                    mobileMenu.classList.add('hidden');
-                    const menuIcon = mobileMenuButton.querySelector('i');
-                    menuIcon.classList.add('fa-bars');
-                    menuIcon.classList.remove('fa-times');
-                }
-            });
-
-            // Add smooth scroll behavior for mobile
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    const target = document.querySelector(this.getAttribute('href'));
-                    if (target) {
-                        // Add offset for fixed header
-                        const headerOffset = 80;
-                        const elementPosition = target.getBoundingClientRect().top;
-                        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-
-                        window.scrollTo({
-                            top: offsetPosition,
-                            behavior: 'smooth'
-                        });
-                    }
-                });
-            });
+        window.addEventListener('resize', resize);
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX - width / 2;
+            mouseY = e.clientY - height / 2;
         });
 
-        // Responsive grid layouts
-        const updateGridLayout = () => {
-            const width = window.innerWidth;
-            const projectGrids = document.querySelectorAll('.grid');
-            
-            projectGrids.forEach(grid => {
-                if (width < 640) { // mobile
-                    grid.classList.remove('md:grid-cols-2', 'lg:grid-cols-3');
-                    grid.classList.add('grid-cols-1');
-                } else if (width < 1024) { // tablet
-                    grid.classList.remove('grid-cols-1', 'lg:grid-cols-3');
-                    grid.classList.add('md:grid-cols-2');
-                } else { // desktop
-                    grid.classList.remove('grid-cols-1', 'md:grid-cols-2');
-                    grid.classList.add('lg:grid-cols-3');
-                }
-            });
-        };
-
-        // Initial call and event listener for resize
-        window.addEventListener('resize', updateGridLayout);
-        updateGridLayout();
+        init();
+        animate();
     </script>
 </body>
-</html> 
+</html>
