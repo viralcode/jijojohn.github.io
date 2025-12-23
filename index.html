@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jijo John | Inventor & Pilot</title>
+    <title>Jijo John | Founder & Engineer</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -22,15 +22,14 @@
                         border: '#1f1f1f',
                         primary: '#3b82f6', // Electric Blue
                         accent: '#a855f7', // Purple
-                        area30: '#ffffff', // Area30 clean white
                     },
                     animation: {
                         'pulse-glow': 'pulse-glow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
                     },
                     keyframes: {
                         'pulse-glow': {
-                            '0%, 100%': { borderColor: 'rgba(59, 130, 246, 0.3)' },
-                            '50%': { borderColor: 'rgba(59, 130, 246, 0.8)' },
+                            '0%, 100%': { borderColor: 'rgba(59, 130, 246, 0.3)', boxShadow: '0 0 0 rgba(59, 130, 246, 0)' },
+                            '50%': { borderColor: 'rgba(59, 130, 246, 0.6)', boxShadow: '0 0 20px rgba(59, 130, 246, 0.1)' },
                         }
                     }
                 }
@@ -142,56 +141,56 @@
                 <span class="font-mono text-primary text-sm">STATUS: LIVE</span>
             </div>
 
-            <div class="mb-8">
-                <div class="hud-card rounded-xl p-8 lg:p-12 border-primary/40 shadow-[0_0_50px_-15px_rgba(59,130,246,0.15)] animate-pulse-glow group">
+            <div class="mb-12">
+                <div class="hud-card rounded-2xl p-8 lg:p-12 border-primary/40 animate-pulse-glow group">
                     <div class="grid lg:grid-cols-2 gap-12 items-center">
                         <div>
-                            <div class="flex items-center gap-4 mb-6">
-                                <img src="https://area30.app/logo.png" alt="Area30 Logo" class="w-16 h-16 rounded-xl bg-white/5 p-2 backdrop-blur-sm">
+                            <div class="flex items-center gap-4 mb-8">
+                                <img src="https://area30.app/logo.png" alt="Area30 Logo" class="w-16 h-16 rounded-xl bg-white/5 p-2 backdrop-blur-sm border border-white/10">
                                 <div>
-                                    <h3 class="text-4xl font-bold text-white mb-1">Area30</h3>
-                                    <div class="flex items-center gap-2">
+                                    <h3 class="text-4xl font-bold text-white tracking-tight">Area30</h3>
+                                    <div class="flex items-center gap-2 mt-1">
                                         <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
                                         <span class="text-xs font-mono text-green-400">WAITLIST OPEN</span>
                                     </div>
                                 </div>
                             </div>
                             
-                            <h4 class="text-2xl md:text-3xl font-bold mb-4 bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
-                                Build Apps in Minutes.
+                            <h4 class="text-3xl lg:text-4xl font-bold mb-4 leading-tight">
+                                Build Apps in <span class="text-primary">Minutes</span>.
                             </h4>
-                            <p class="text-lg text-gray-400 mb-8 leading-relaxed">
+                            <p class="text-lg text-gray-400 mb-8 leading-relaxed max-w-lg">
                                 Turn text prompts into fully functional iOS & Android apps. One-shot generation creates your backend, database, and UI instantly.
                             </p>
 
                             <div class="flex flex-wrap gap-4 mb-8">
-                                <a href="https://area30.app" target="_blank" class="bg-primary hover:bg-blue-600 text-white px-6 py-3 rounded-lg font-bold transition-all flex items-center gap-2">
+                                <a href="https://area30.app" target="_blank" class="bg-white text-black hover:bg-gray-200 px-6 py-3 rounded-lg font-bold transition-all flex items-center gap-2">
                                     Join Waitlist <i class="fas fa-arrow-right text-sm"></i>
                                 </a>
                                 <div class="flex items-center gap-2 px-4 py-3 bg-white/5 rounded-lg border border-white/10">
                                     <i class="fas fa-users text-gray-400"></i>
-                                    <span class="font-mono text-sm">1,000+ Developers Joined</span>
+                                    <span class="font-mono text-sm text-gray-300">1,000+ Developers Joined</span>
                                 </div>
                             </div>
                         </div>
 
                         <div class="grid grid-cols-2 gap-4">
-                            <div class="bg-white/5 p-4 rounded-lg border border-white/10 hover:border-primary/50 transition-colors">
+                            <div class="bg-black/40 p-5 rounded-xl border border-white/10 hover:border-primary/50 transition-colors">
                                 <i class="fas fa-server text-primary mb-3 text-xl"></i>
                                 <h5 class="font-bold text-white mb-1">Instant Backend</h5>
                                 <p class="text-xs text-gray-400">Auto-generated APIs & logic.</p>
                             </div>
-                            <div class="bg-white/5 p-4 rounded-lg border border-white/10 hover:border-primary/50 transition-colors">
+                            <div class="bg-black/40 p-5 rounded-xl border border-white/10 hover:border-primary/50 transition-colors">
                                 <i class="fas fa-database text-accent mb-3 text-xl"></i>
                                 <h5 class="font-bold text-white mb-1">Smart Database</h5>
                                 <p class="text-xs text-gray-400">Schema designed by AI.</p>
                             </div>
-                            <div class="bg-white/5 p-4 rounded-lg border border-white/10 hover:border-primary/50 transition-colors">
+                            <div class="bg-black/40 p-5 rounded-xl border border-white/10 hover:border-primary/50 transition-colors">
                                 <i class="fas fa-mobile-alt text-green-400 mb-3 text-xl"></i>
                                 <h5 class="font-bold text-white mb-1">Native UI</h5>
                                 <p class="text-xs text-gray-400">Real iOS & Android components.</p>
                             </div>
-                            <div class="bg-white/5 p-4 rounded-lg border border-white/10 hover:border-primary/50 transition-colors">
+                            <div class="bg-black/40 p-5 rounded-xl border border-white/10 hover:border-primary/50 transition-colors">
                                 <i class="fas fa-share-nodes text-yellow-400 mb-3 text-xl"></i>
                                 <h5 class="font-bold text-white mb-1">One-Click Share</h5>
                                 <p class="text-xs text-gray-400">Deploy without app stores.</p>
@@ -203,66 +202,66 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 
-                <div class="hud-card rounded-xl p-6 group">
+                <div class="hud-card rounded-xl p-6 group flex flex-col">
                     <div class="flex justify-between items-start mb-4">
                         <div class="flex items-center gap-3">
-                            <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-gray-700 to-gray-900 flex items-center justify-center font-bold text-white">S8</div>
+                            <div class="w-10 h-10 rounded-lg bg-gray-800 flex items-center justify-center font-bold text-white border border-white/10">S8</div>
                             <h3 class="text-xl font-bold group-hover:text-primary transition-colors">Syntax8</h3>
                         </div>
-                        <span class="font-mono text-[10px] bg-white/5 px-2 py-1 rounded border border-white/10">ACTIVE</span>
+                        <span class="font-mono text-[10px] bg-white/5 px-2 py-1 rounded border border-white/10 text-gray-400">ACTIVE</span>
                     </div>
-                    <p class="text-sm text-gray-400 mb-4">
+                    <p class="text-sm text-gray-400 mb-6 flex-grow">
                         Building software the way it should be built: clear, clean, and without drama. Custom apps and AI features for business growth.
                     </p>
-                    <div class="flex flex-wrap gap-2 mt-auto">
-                        <span class="text-[10px] font-mono text-gray-500 border border-gray-800 px-2 py-1">AGENCY</span>
-                        <span class="text-[10px] font-mono text-gray-500 border border-gray-800 px-2 py-1">BUILDER</span>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="text-[10px] font-mono text-gray-500 border border-gray-800 px-2 py-1 rounded">AGENCY</span>
+                        <span class="text-[10px] font-mono text-gray-500 border border-gray-800 px-2 py-1 rounded">BUILDER</span>
                     </div>
                 </div>
 
                 <div class="hud-card rounded-xl p-6 flex flex-col">
                     <div class="flex justify-between items-center mb-4">
                         <i class="fas fa-satellite-dish text-2xl text-accent"></i>
-                        <a href="https://socialsignalai.com" target="_blank" class="text-xs font-mono hover:text-primary"><i class="fas fa-external-link-alt"></i> VISIT</a>
+                        <a href="https://socialsignalai.com" target="_blank" class="text-xs font-mono hover:text-primary flex items-center gap-1">VISIT <i class="fas fa-external-link-alt"></i></a>
                     </div>
                     <h3 class="text-xl font-bold mb-2">SocialSignal AI</h3>
                     <p class="text-sm text-gray-400 flex-grow">
                         Scaled to 100+ customers in 60 days. AI social intelligence platform that turns conversations into leads.
                     </p>
-                    <div class="mt-4 pt-4 border-t border-white/5 text-[10px] font-mono text-green-400">
+                    <div class="mt-4 pt-4 border-t border-white/5 text-[10px] font-mono text-green-400 flex items-center gap-2">
                         <i class="fas fa-rocket"></i> 300+ PRODUCT HUNT FOLLOWERS
                     </div>
                 </div>
 
-                <div class="hud-card rounded-xl p-6">
+                <div class="hud-card rounded-xl p-6 flex flex-col">
                     <div class="flex justify-between items-center mb-4">
                         <i class="fas fa-envelope-open-text text-2xl text-blue-400"></i>
-                        <a href="https://mywavelength.email" target="_blank" class="text-xs font-mono hover:text-primary"><i class="fas fa-external-link-alt"></i> VISIT</a>
+                        <a href="https://mywavelength.email" target="_blank" class="text-xs font-mono hover:text-primary flex items-center gap-1">VISIT <i class="fas fa-external-link-alt"></i></a>
                     </div>
                     <h3 class="text-xl font-bold mb-2">MyWavelength</h3>
-                    <p class="text-sm text-gray-400 mb-4">
-                        The future of email, supercharged by AI. Built for Gmail users who want a smarter inbox.
+                    <p class="text-sm text-gray-400 flex-grow">
+                        The future of email, supercharged by AI. Built for Gmail users who want a smarter, cleaner inbox.
                     </p>
                 </div>
 
-                 <div class="hud-card rounded-xl p-6">
+                <div class="hud-card rounded-xl p-6 flex flex-col">
                     <div class="flex justify-between items-center mb-4">
                         <i class="fas fa-code text-2xl text-yellow-500"></i>
-                        <a href="https://pastezen.com" target="_blank" class="text-xs font-mono hover:text-primary"><i class="fas fa-external-link-alt"></i> VISIT</a>
+                        <a href="https://pastezen.com" target="_blank" class="text-xs font-mono hover:text-primary flex items-center gap-1">VISIT <i class="fas fa-external-link-alt"></i></a>
                     </div>
                     <h3 class="text-xl font-bold mb-2">Pastezen</h3>
-                    <p class="text-sm text-gray-400 mb-4">
+                    <p class="text-sm text-gray-400 flex-grow">
                         Share code and text securely. E2E encryption, no character limits, real-time collaboration.
                     </p>
                 </div>
 
-                <div class="hud-card rounded-xl p-6">
+                <div class="hud-card rounded-xl p-6 flex flex-col">
                     <div class="flex justify-between items-center mb-4">
                         <i class="fas fa-search-dollar text-2xl text-white"></i>
                         <span class="text-xs font-mono text-gray-500">2025</span>
                     </div>
                     <h3 class="text-xl font-bold mb-2">LvlUp Ventures</h3>
-                    <p class="text-sm text-gray-400 mb-4">
+                    <p class="text-sm text-gray-400 flex-grow">
                         Senior Venture Scout. Sourcing early-stage startups for top-tier VCs and investors.
                     </p>
                 </div>
@@ -281,37 +280,43 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                <a href="https://ppubs.uspto.gov/dirsearch-public/print/downloadBasicPdf/12107848" target="_blank" class="hud-card p-6 rounded group">
+                <a href="https://patents.google.com/patent/US12107848B1/en" target="_blank" class="hud-card p-6 rounded group">
                     <div class="text-xs font-mono text-primary mb-2 opacity-70 group-hover:opacity-100">US-12107848-B1</div>
                     <h3 class="font-bold text-white leading-tight mb-2">Automated Login Framework</h3>
                     <p class="text-xs text-gray-500 font-mono">Application Security Testing</p>
                 </a>
-                <a href="https://ppubs.uspto.gov/dirsearch-public/print/downloadBasicPdf/11991202" target="_blank" class="hud-card p-6 rounded group">
+
+                <a href="https://patents.google.com/patent/US11991202B2/en" target="_blank" class="hud-card p-6 rounded group">
                     <div class="text-xs font-mono text-primary mb-2 opacity-70 group-hover:opacity-100">US-11991202-B2</div>
                     <h3 class="font-bold text-white leading-tight mb-2">Scanning Unexposed Web Apps</h3>
                     <p class="text-xs text-gray-500 font-mono">Vulnerability Detection</p>
                 </a>
-                <a href="https://ppubs.uspto.gov/dirsearch-public/print/downloadBasicPdf/11785039" target="_blank" class="hud-card p-6 rounded group">
+
+                <a href="https://patents.google.com/patent/US11785039B2/en" target="_blank" class="hud-card p-6 rounded group">
                     <div class="text-xs font-mono text-primary mb-2 opacity-70 group-hover:opacity-100">US-11785039-B2</div>
                     <h3 class="font-bold text-white leading-tight mb-2">Scanning Web Applications</h3>
                     <p class="text-xs text-gray-500 font-mono">Security Systems</p>
                 </a>
-                <a href="https://ppubs.uspto.gov/dirsearch-public/print/downloadBasicPdf/20220159032" target="_blank" class="hud-card p-6 rounded group">
+
+                <a href="https://patents.google.com/patent/US20220159032A1/en" target="_blank" class="hud-card p-6 rounded group">
                     <div class="text-xs font-mono text-primary mb-2 opacity-70 group-hover:opacity-100">US-20220159032-A1</div>
                     <h3 class="font-bold text-white leading-tight mb-2">Unexposed App Methodology</h3>
                     <p class="text-xs text-gray-500 font-mono">Cybersecurity Process</p>
                 </a>
-                <a href="https://ppubs.uspto.gov/dirsearch-public/print/downloadBasicPdf/20220070205" target="_blank" class="hud-card p-6 rounded group">
+
+                <a href="https://patents.google.com/patent/US20220070205A1/en" target="_blank" class="hud-card p-6 rounded group">
                     <div class="text-xs font-mono text-primary mb-2 opacity-70 group-hover:opacity-100">US-20220070205-A1</div>
                     <h3 class="font-bold text-white leading-tight mb-2">Enhanced Crawling Systems</h3>
                     <p class="text-xs text-gray-500 font-mono">Deep Web Scanning</p>
                 </a>
-                <a href="https://ppubs.uspto.gov/dirsearch-public/print/downloadBasicPdf/11228611" target="_blank" class="hud-card p-6 rounded group">
+
+                <a href="https://patents.google.com/patent/US11228611B1/en" target="_blank" class="hud-card p-6 rounded group">
                     <div class="text-xs font-mono text-primary mb-2 opacity-70 group-hover:opacity-100">US-11228611-B1</div>
                     <h3 class="font-bold text-white leading-tight mb-2">Scanning System V1</h3>
                     <p class="text-xs text-gray-500 font-mono">Vulnerability Assessment</p>
                 </a>
-                <a href="https://ppubs.uspto.gov/dirsearch-public/print/downloadBasicPdf/11201892" target="_blank" class="hud-card p-6 rounded group">
+
+                <a href="https://patents.google.com/patent/US11201892B1/en" target="_blank" class="hud-card p-6 rounded group">
                     <div class="text-xs font-mono text-primary mb-2 opacity-70 group-hover:opacity-100">US-11201892-B1</div>
                     <h3 class="font-bold text-white leading-tight mb-2">Enhanced Crawling V1</h3>
                     <p class="text-xs text-gray-500 font-mono">Data Retrieval</p>
@@ -326,12 +331,12 @@
 
             <div class="space-y-8">
                 
-                <div class="flex flex-col md:flex-row gap-6 hover:bg-white/5 p-6 rounded-xl transition-colors border border-transparent hover:border-white/5">
+                <div class="flex flex-col md:flex-row gap-6 hover:bg-white/5 p-6 rounded-xl transition-colors border border-transparent hover:border-white/5 group">
                     <div class="md:w-32 flex-shrink-0">
-                        <span class="font-mono text-xs text-primary">PRESENT</span>
+                        <span class="font-mono text-xs text-green-400 border border-green-900 bg-green-900/20 px-2 py-1 rounded">PRESENT</span>
                     </div>
                     <div>
-                        <h3 class="text-xl font-bold text-white">Founder</h3>
+                        <h3 class="text-xl font-bold text-white group-hover:text-primary transition-colors">Founder</h3>
                         <div class="text-gray-400 mb-2">Area30</div>
                         <p class="text-gray-500 text-sm">Turning text prompts into native iOS & Android apps. One-shot generation of backend, database, and UI.</p>
                     </div>
