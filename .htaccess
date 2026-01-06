@@ -1,0 +1,11 @@
+# Block directory listing and search indexing for the ERP section
+SetEnvIf Request_URI "^/erp/" NO_INDEX
+<IfModule mod_headers.c>
+    Header set X-Robots-Tag "noindex, nofollow" env=NO_INDEX
+</IfModule>
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    # Optional: Redirect users away or forbid access if that was the intent
+    # RewriteRule ^erp - [F,L]
+</IfModule>
