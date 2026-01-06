@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Reports - Kerala Paints ERP</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        [x-cloak] {
+            display: none !important;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+
+<body class="bg-[#F9FAFB] min-min-h-screen text-gray-800 font-sans antialiased">
+
+<nav class="bg-white border-b border-gray-100 sticky top-0 z-30">
+    <div class="max-w-[1600px] mx-auto px-6 h-16 flex items-center justify-between">
+        <!-- Brand -->
+        <div class="flex items-center gap-8">
+            <div class="flex items-center gap-2">
+                <div class="h-8 w-8 bg-indigo-600 rounded-lg flex items-center justify-center text-white font-bold">O</div>
+                <span class="font-bold text-lg text-gray-900 tracking-tight">Outlet POS :</span>
+            </div>
+
+            <!-- Main Navigation -->
+            <div class="hidden md:flex items-center gap-8">
+                <a href="dashboard.html" class="text-sm font-medium text-gray-900 hover:text-black transition-colors">Dashboard</a>
+                
+                <a href="sales_new.html" class="text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors">New Sale (POS)</a>
+
+                <!-- Stock Dropdown -->
+                <div class="relative group">
+                    <button class="text-sm font-medium text-gray-500 group-hover:text-gray-900 flex items-center gap-1 transition-colors">
+                        Stock Management
+                        <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div class="absolute top-full left-0 w-48 bg-white border border-gray-100 rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform translate-y-2 group-hover:translate-y-0 p-2 z-50">
+                        <a href="purchase_request_new.html" class="block px-3 py-2 text-sm text-gray-600 hover:bg-gray-50 hover:text-gray-900 rounded-md">Restock Request</a>
+                        <a href="grn_new.html" class="block px-3 py-2 text-sm text-gray-600 hover:bg-gray-50 hover:text-gray-900 rounded-md">Receive Stock (GRN)</a>
+                         <a href="inventory.html" class="block px-3 py-2 text-sm text-gray-600 hover:bg-gray-50 hover:text-gray-900 rounded-md">Inventory</a>
+                    </div>
+                </div>
+
+                <a href="reports.html" class="text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors">Reports</a>
+            </div>
+        </div>
+
+        <!-- Right Side -->
+        <div class="flex items-center gap-4">
+             <div class="text-right hidden md:block">
+                <div class="text-xs font-bold text-gray-900">Outlet Manager</div>
+                <div class="text-[10px] text-gray-500">Chennai Branch</div>
+            </div>
+            <div class="h-8 w-8 rounded-full bg-gray-200  border border-gray-300">
+                <img src="https://ui-avatars.com/api/?name=Outlet+User&background=indigo" alt="Profile" class="h-full w-full object-cover">
+            </div>
+        </div>
+    </div>
+</nav>
+
+<main class="max-w-[1600px] mx-auto p-6 lg:p-10 space-y-8">
+
+    <!-- Outlet Sidebar -->
+    
+    <!-- Modern Outlet Sidebar -->
+    
+    <!-- Soft UI Sidebar (Outlet) -->
+    
+    <!-- Soft UI Sidebar (Outlet) -->
+    
+    <!-- Soft UI Sidebar (Outlet) -->
+    
+
+
+
+
+
+    <!-- Main Content -->
+    <main class="max-w-8xl mx-auto px-6 py-8 w-full">
+        
+        
+        
+        
+        
+        
+
+
+
+
+
+
+        <div class="flex-1   bg-white p-6">
+            <h1 class="text-3xl font-bold text-gray-800 mb-6">Outlet Reports</h1>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Sales Report Card -->
+                <div
+                    class="bg-white rounded-md p-6  hover: transition-shadow duration-200 border border-gray-100/50 hover: transition-all cursor-pointer group">
+                    <div
+                        class="h-10 w-10 rounded-lg bg-green-50 text-green-600 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-800">Daily Sales Register</h3>
+                    <p class="text-sm text-gray-500 mt-2">View daily sales transactions and totals.</p>
+                    <div
+                        class="mt-4 pt-4 border-t flex justify-between items-center text-sm font-medium text-green-600">
+                        <span>Download PDF</span>
+                        <span>&rarr;</span>
+                    </div>
+                </div>
+
+                <!-- Stock Report Card -->
+                <div
+                    class="bg-white rounded-md p-6  hover: transition-shadow duration-200 border border-gray-100/50 hover: transition-all cursor-pointer group">
+                    <div
+                        class="h-10 w-10 rounded-lg bg-white text-indigo-600 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10">
+                            </path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-800">Stock Movement Report</h3>
+                    <p class="text-sm text-gray-500 mt-2">Inward/Outward stock movement history.</p>
+                    <div
+                        class="mt-4 pt-4 border-t flex justify-between items-center text-sm font-medium text-indigo-600">
+                        <span>Download PDF</span>
+                        <span>&rarr;</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</main>
+</body>
+
+</html>

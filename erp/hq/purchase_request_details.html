@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PR-001 Details - Kerala Paints ERP</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        [x-cloak] {
+            display: none !important;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+
+<body class="bg-[#F9FAFB] min-min-h-screen text-gray-800 font-sans antialiased">
+
+<nav class="bg-white border-b border-gray-100 sticky top-0 z-30">
+    <div class="max-w-[1600px] mx-auto px-6 h-16 flex items-center justify-between">
+        <!-- Brand -->
+        <div class="flex items-center gap-8">
+            <div class="flex items-center gap-2">
+                <div class="h-8 w-8 bg-gray-900 rounded-lg flex items-center justify-center text-white font-bold">K</div>
+                <span class="font-bold text-lg text-gray-900 tracking-tight">Kerala Paints :</span>
+            </div>
+
+            <!-- Main Navigation -->
+            <div class="hidden md:flex items-center gap-8">
+                <a href="dashboard.html" class="text-sm font-medium text-gray-900 hover:text-black transition-colors">Dashboard</a>
+                
+                <!-- Operations Dropdown -->
+                <div class="relative group">
+                    <button class="text-sm font-medium text-gray-500 group-hover:text-gray-900 flex items-center gap-1 transition-colors">
+                        Operations
+                        <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div class="absolute top-full left-0 w-48 bg-white border border-gray-100 rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform translate-y-2 group-hover:translate-y-0 p-2 z-50">
+                        <a href="purchase_requests.html" class="block px-3 py-2 text-sm text-gray-600 hover:bg-gray-50 hover:text-gray-900 rounded-md">Purchase Requests</a>
+                        <a href="purchase_orders.html" class="block px-3 py-2 text-sm text-gray-600 hover:bg-gray-50 hover:text-gray-900 rounded-md">Purchase Orders</a>
+                        <a href="grn.html" class="block px-3 py-2 text-sm text-gray-600 hover:bg-gray-50 hover:text-gray-900 rounded-md">GRN / Stock In</a>
+                        <a href="invoices.html" class="block px-3 py-2 text-sm text-gray-600 hover:bg-gray-50 hover:text-gray-900 rounded-md">Invoices</a>
+                    </div>
+                </div>
+
+                <!-- Finance Dropdown -->
+                <div class="relative group">
+                    <button class="text-sm font-medium text-gray-500 group-hover:text-gray-900 flex items-center gap-1 transition-colors">
+                        Financials
+                        <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div class="absolute top-full left-0 w-48 bg-white border border-gray-100 rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform translate-y-2 group-hover:translate-y-0 p-2 z-50">
+                        <a href="quotations.html" class="block px-3 py-2 text-sm text-gray-600 hover:bg-gray-50 hover:text-gray-900 rounded-md">Quotations</a>
+                        <a href="notes.html" class="block px-3 py-2 text-sm text-gray-600 hover:bg-gray-50 hover:text-gray-900 rounded-md">Credit Notes</a>
+                        <a href="commission.html" class="block px-3 py-2 text-sm text-gray-600 hover:bg-gray-50 hover:text-gray-900 rounded-md">Commissions</a>
+                    </div>
+                </div>
+
+                <!-- Management Dropdown -->
+                <div class="relative group">
+                    <button class="text-sm font-medium text-gray-500 group-hover:text-gray-900 flex items-center gap-1 transition-colors">
+                        Management
+                        <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div class="absolute top-full left-0 w-48 bg-white border border-gray-100 rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform translate-y-2 group-hover:translate-y-0 p-2 z-50">
+                        <a href="inventory.html" class="block px-3 py-2 text-sm text-gray-600 hover:bg-gray-50 hover:text-gray-900 rounded-md">Inventory</a>
+                        <a href="customers.html" class="block px-3 py-2 text-sm text-gray-600 hover:bg-gray-50 hover:text-gray-900 rounded-md">Customers</a>
+                        <a href="outlets.html" class="block px-3 py-2 text-sm text-gray-600 hover:bg-gray-50 hover:text-gray-900 rounded-md">Outlets</a>
+                        <a href="hr.html" class="block px-3 py-2 text-sm text-gray-600 hover:bg-gray-50 hover:text-gray-900 rounded-md">Employees (HR)</a>
+                    </div>
+                </div>
+
+                <a href="reports.html" class="text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors">Reports</a>
+            </div>
+        </div>
+
+        <!-- Right Side -->
+        <div class="flex items-center gap-4">
+            <button class="hidden md:flex items-center gap-2 px-3 py-1.5 text-xs font-semibold text-gray-700 bg-gray-100 rounded-md hover:bg-gray-200 transition-colors">
+                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                Generate Report
+            </button>
+            <div class="h-8 w-8 rounded-full bg-gray-200  border border-gray-300">
+                <img src="https://ui-avatars.com/api/?name=Admin+User&background=random" alt="Profile" class="h-full w-full object-cover">
+            </div>
+        </div>
+    </div>
+</nav>
+
+<main class="max-w-[1600px] mx-auto p-6 lg:p-10 space-y-8">
+
+    <!-- Sidebar -->
+    
+    <!-- Modern HQ Sidebar -->
+    
+    <!-- Soft UI Sidebar -->
+    
+    <!-- Soft UI Sidebar -->
+    
+    <!-- Soft UI Sidebar -->
+    
+
+
+
+
+
+    <!-- Main Content -->
+    <main class="max-w-8xl mx-auto px-6 py-8 w-full">
+        <!-- Header -->
+        
+        
+        
+        
+        
+        
+
+
+
+
+
+
+        <div class="flex-1   bg-white p-6">
+            <div class="flex items-center justify-between mb-6">
+                <h1 class="text-3xl font-bold text-gray-800">Purchase Request Details <span
+                        class="text-gray-500 font-normal">#PR-001</span></h1>
+                <a href="purchase_requests.html" class="text-indigo-600 hover:text-indigo-800">Back to List</a>
+            </div>
+
+            <div class="bg-white rounded-md  hover: transition-shadow duration-200 border border-gray-100/50  mb-6">
+                <div class="px-6 py-5 border-b border-gray-100 bg-white flex justify-between items-center">
+                    <div>
+                        <p class="text-sm font-medium text-gray-500">Outlet</p>
+                        <p class="text-lg font-bold text-gray-900">Chennai Outlet</p>
+                    </div>
+                    <div>
+                        <p class="text-sm font-medium text-gray-500 text-right">Request Date</p>
+                        <p class="text-lg font-bold text-gray-900">01/05/2026</p>
+                    </div>
+                    <div>
+                        <p class="text-sm font-medium text-gray-500 text-right">Status</p>
+                        <span
+                            class="px-3 py-1 inline-flex text-sm leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">Pending</span>
+                    </div>
+                    <div>
+                        <p class="text-sm font-medium text-gray-500 text-right">Total Amount</p>
+                        <p class="text-lg font-bold text-gray-900">₹ 25,000</p>
+                    </div>
+                </div>
+
+                <div class="p-6">
+                    <h3 class="text-lg font-bold text-gray-800 mb-4">Items Requested</h3>
+                    <table class="min-w-full divide-y divide-gray-200 border border-gray-100/50 rounded-lg">
+                        <thead class="bg-white">
+                            <tr>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Product Name
+                                </th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Quantity
+                                </th>
+                                <th class="px-4 py-2 text-left text-xs font-medium text-gray-500 uppercase">Unit Price
+                                </th>
+                                <th class="px-4 py-2 text-right text-xs font-medium text-gray-500 uppercase">Line Total
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200">
+                            <tr>
+                                <td class="px-4 py-3 text-sm text-gray-900">ENL BLACK 1L</td>
+                                <td class="px-4 py-3 text-sm text-gray-900">12</td>
+                                <td class="px-4 py-3 text-sm text-gray-900">₹ 500</td>
+                                <td class="px-4 py-3 text-sm text-gray-900 text-right">₹ 6,000</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-3 text-sm text-gray-900">ENL BLUE 1L</td>
+                                <td class="px-4 py-3 text-sm text-gray-900">8</td>
+                                <td class="px-4 py-3 text-sm text-gray-900">₹ 600</td>
+                                <td class="px-4 py-3 text-sm text-gray-900 text-right">₹ 4,800</td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-3 text-sm text-gray-900">D13 THINNER</td>
+                                <td class="px-4 py-3 text-sm text-gray-900">18</td>
+                                <td class="px-4 py-3 text-sm text-gray-900">₹ 400</td>
+                                <td class="px-4 py-3 text-sm text-gray-900 text-right">₹ 7,200</td>
+                            </tr>
+                            <!-- Totals Row -->
+                            <tr class="bg-white font-bold">
+                                <td class="px-4 py-3 text-sm text-gray-900" colspan="3">Grand Total</td>
+                                <td class="px-4 py-3 text-lg text-gray-900 text-right">₹ 25,000</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Approval Section -->
+            <div class="bg-white rounded-md  hover: transition-shadow duration-200 border border-gray-100/50 p-6">
+                <h3 class="text-lg font-bold text-gray-800 mb-4">Approval Action</h3>
+                <div class="space-y-4">
+                    <div>
+                        <label for="notes" class="block text-sm font-medium text-gray-700 mb-1">Approval Notes</label>
+                        <textarea id="notes" rows="3"
+                            class=" hover: transition-shadow duration-200 focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
+                            placeholder="Enter any notes for the outlet manager..."></textarea>
+                    </div>
+                    <div class="flex space-x-3">
+                        <button
+                            onclick="alert('Purchase Request Approved! Sales Order created.'); window.location.href='purchase_requests.html'"
+                            class="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700  transition-all font-medium">
+                            Approve Request
+                        </button>
+                        <button
+                            onclick="if(confirm('Are you sure you want to reject this request?')) { alert('Request Rejected'); window.location.href='purchase_requests.html' }"
+                            class="bg-red-600 text-white px-6 py-2 rounded-lg hover:bg-red-700  transition-all font-medium">
+                            Reject Request
+                        </button>
+                        <button onclick="window.location.href='purchase_requests.html'"
+                            class="bg-white border border-gray-300 text-gray-700 px-6 py-2 rounded-lg hover:bg-white  hover: transition-shadow duration-200 transition-all font-medium">
+                            Back
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+</main>
+</body>
+
+</html>

@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reports - Kerala Paints ERP</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        [x-cloak] {
+            display: none !important;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+
+<body class="bg-[#F9FAFB] min-min-h-screen text-gray-800 font-sans antialiased">
+
+<nav class="bg-white border-b border-gray-100 sticky top-0 z-30">
+    <div class="max-w-[1600px] mx-auto px-6 h-16 flex items-center justify-between">
+        <!-- Brand -->
+        <div class="flex items-center gap-8">
+            <div class="flex items-center gap-2">
+                <div class="h-8 w-8 bg-gray-900 rounded-lg flex items-center justify-center text-white font-bold">K</div>
+                <span class="font-bold text-lg text-gray-900 tracking-tight">Kerala Paints :</span>
+            </div>
+
+            <!-- Main Navigation -->
+            <div class="hidden md:flex items-center gap-8">
+                <a href="dashboard.html" class="text-sm font-medium text-gray-900 hover:text-black transition-colors">Dashboard</a>
+                
+                <!-- Operations Dropdown -->
+                <div class="relative group">
+                    <button class="text-sm font-medium text-gray-500 group-hover:text-gray-900 flex items-center gap-1 transition-colors">
+                        Operations
+                        <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div class="absolute top-full left-0 w-48 bg-white border border-gray-100 rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform translate-y-2 group-hover:translate-y-0 p-2 z-50">
+                        <a href="purchase_requests.html" class="block px-3 py-2 text-sm text-gray-600 hover:bg-gray-50 hover:text-gray-900 rounded-md">Purchase Requests</a>
+                        <a href="purchase_orders.html" class="block px-3 py-2 text-sm text-gray-600 hover:bg-gray-50 hover:text-gray-900 rounded-md">Purchase Orders</a>
+                        <a href="grn.html" class="block px-3 py-2 text-sm text-gray-600 hover:bg-gray-50 hover:text-gray-900 rounded-md">GRN / Stock In</a>
+                        <a href="invoices.html" class="block px-3 py-2 text-sm text-gray-600 hover:bg-gray-50 hover:text-gray-900 rounded-md">Invoices</a>
+                    </div>
+                </div>
+
+                <!-- Finance Dropdown -->
+                <div class="relative group">
+                    <button class="text-sm font-medium text-gray-500 group-hover:text-gray-900 flex items-center gap-1 transition-colors">
+                        Financials
+                        <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div class="absolute top-full left-0 w-48 bg-white border border-gray-100 rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform translate-y-2 group-hover:translate-y-0 p-2 z-50">
+                        <a href="quotations.html" class="block px-3 py-2 text-sm text-gray-600 hover:bg-gray-50 hover:text-gray-900 rounded-md">Quotations</a>
+                        <a href="notes.html" class="block px-3 py-2 text-sm text-gray-600 hover:bg-gray-50 hover:text-gray-900 rounded-md">Credit Notes</a>
+                        <a href="commission.html" class="block px-3 py-2 text-sm text-gray-600 hover:bg-gray-50 hover:text-gray-900 rounded-md">Commissions</a>
+                    </div>
+                </div>
+
+                <!-- Management Dropdown -->
+                <div class="relative group">
+                    <button class="text-sm font-medium text-gray-500 group-hover:text-gray-900 flex items-center gap-1 transition-colors">
+                        Management
+                        <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div class="absolute top-full left-0 w-48 bg-white border border-gray-100 rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform translate-y-2 group-hover:translate-y-0 p-2 z-50">
+                        <a href="inventory.html" class="block px-3 py-2 text-sm text-gray-600 hover:bg-gray-50 hover:text-gray-900 rounded-md">Inventory</a>
+                        <a href="customers.html" class="block px-3 py-2 text-sm text-gray-600 hover:bg-gray-50 hover:text-gray-900 rounded-md">Customers</a>
+                        <a href="outlets.html" class="block px-3 py-2 text-sm text-gray-600 hover:bg-gray-50 hover:text-gray-900 rounded-md">Outlets</a>
+                        <a href="hr.html" class="block px-3 py-2 text-sm text-gray-600 hover:bg-gray-50 hover:text-gray-900 rounded-md">Employees (HR)</a>
+                    </div>
+                </div>
+
+                <a href="reports.html" class="text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors">Reports</a>
+            </div>
+        </div>
+
+        <!-- Right Side -->
+        <div class="flex items-center gap-4">
+            <button class="hidden md:flex items-center gap-2 px-3 py-1.5 text-xs font-semibold text-gray-700 bg-gray-100 rounded-md hover:bg-gray-200 transition-colors">
+                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                Generate Report
+            </button>
+            <div class="h-8 w-8 rounded-full bg-gray-200  border border-gray-300">
+                <img src="https://ui-avatars.com/api/?name=Admin+User&background=random" alt="Profile" class="h-full w-full object-cover">
+            </div>
+        </div>
+    </div>
+</nav>
+
+<main class="max-w-[1600px] mx-auto p-6 lg:p-10 space-y-8">
+
+    <!-- Sidebar  -->
+    
+    <!-- Modern HQ Sidebar -->
+    
+    <!-- Soft UI Sidebar -->
+    
+    <!-- Soft UI Sidebar -->
+    
+    <!-- Soft UI Sidebar -->
+    
+
+
+
+
+
+    <!-- Main Content -->
+    <main class="max-w-8xl mx-auto px-6 py-8 w-full">
+        
+        
+        
+        
+        
+        
+
+
+
+
+
+
+        <div class="flex-1   bg-white p-6">
+            <div class="flex flex-col md:flex-row md:items-center justify-between mb-6">
+                <h1 class="text-3xl font-bold text-gray-800">Reports Hub</h1>
+                <div class="flex space-x-2 mt-4 md:mt-0">
+                    <select
+                        class="border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+                        <option>Last 30 Days</option>
+                        <option>This Month</option>
+                        <option>This Year</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Sales Report Card -->
+                <div
+                    class="bg-white rounded-md p-6  hover: transition-shadow duration-200 border border-gray-100/50 hover: transition-all cursor-pointer group">
+                    <div
+                        class="h-10 w-10 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-800">Sales Report</h3>
+                    <p class="text-sm text-gray-500 mt-2">Detailed breakdown of sales by outlet, product, and region.
+                    </p>
+                    <div class="mt-4 pt-4 border-t flex justify-between items-center text-sm font-medium text-blue-600">
+                        <span>View Report</span>
+                        <span>&rarr;</span>
+                    </div>
+                </div>
+
+                <!-- Purchase Report Card -->
+                <div
+                    class="bg-white rounded-md p-6  hover: transition-shadow duration-200 border border-gray-100/50 hover: transition-all cursor-pointer group">
+                    <div
+                        class="h-10 w-10 rounded-lg bg-orange-50 text-orange-600 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10">
+                            </path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-800">Inventory Report</h3>
+                    <p class="text-sm text-gray-500 mt-2">Stock levels, valuations, and movement history.</p>
+                    <div
+                        class="mt-4 pt-4 border-t flex justify-between items-center text-sm font-medium text-orange-600">
+                        <span>View Report</span>
+                        <span>&rarr;</span>
+                    </div>
+                </div>
+
+                <!-- Commission Report Card -->
+                <div class="bg-white rounded-md p-6  hover: transition-shadow duration-200 border border-gray-100/50 hover: transition-all cursor-pointer group"
+                    onclick="window.location.href='commission.html'">
+                    <div
+                        class="h-10 w-10 rounded-lg bg-purple-50 text-purple-600 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z">
+                            </path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-800">Commission Report</h3>
+                    <p class="text-sm text-gray-500 mt-2">Calculate and view commission payouts for outlets.</p>
+                    <div
+                        class="mt-4 pt-4 border-t flex justify-between items-center text-sm font-medium text-purple-600">
+                        <span>View Report</span>
+                        <span>&rarr;</span>
+                    </div>
+                </div>
+
+                <!-- Tax Report Card -->
+                <div
+                    class="bg-white rounded-md p-6  hover: transition-shadow duration-200 border border-gray-100/50 hover: transition-all cursor-pointer group">
+                    <div
+                        class="h-10 w-10 rounded-lg bg-red-50 text-red-600 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+                            </path>
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-bold text-gray-800">GST Report</h3>
+                    <p class="text-sm text-gray-500 mt-2">Input/Output tax reports for filing.</p>
+                    <div class="mt-4 pt-4 border-t flex justify-between items-center text-sm font-medium text-red-600">
+                        <span>View Report</span>
+                        <span>&rarr;</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</main>
+</body>
+
+</html>

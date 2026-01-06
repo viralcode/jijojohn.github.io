@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Purchase Order - Kerala Paints ERP</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        [x-cloak] {
+            display: none !important;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+
+<body class="bg-[#F9FAFB] min-min-h-screen text-gray-800 font-sans antialiased">
+
+<nav class="bg-white border-b border-gray-100 sticky top-0 z-30">
+    <div class="max-w-[1600px] mx-auto px-6 h-16 flex items-center justify-between">
+        <!-- Brand -->
+        <div class="flex items-center gap-8">
+            <div class="flex items-center gap-2">
+                <div class="h-8 w-8 bg-gray-900 rounded-lg flex items-center justify-center text-white font-bold">K</div>
+                <span class="font-bold text-lg text-gray-900 tracking-tight">Kerala Paints :</span>
+            </div>
+
+            <!-- Main Navigation -->
+            <div class="hidden md:flex items-center gap-8">
+                <a href="dashboard.html" class="text-sm font-medium text-gray-900 hover:text-black transition-colors">Dashboard</a>
+                
+                <!-- Operations Dropdown -->
+                <div class="relative group">
+                    <button class="text-sm font-medium text-gray-500 group-hover:text-gray-900 flex items-center gap-1 transition-colors">
+                        Operations
+                        <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div class="absolute top-full left-0 w-48 bg-white border border-gray-100 rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform translate-y-2 group-hover:translate-y-0 p-2 z-50">
+                        <a href="purchase_requests.html" class="block px-3 py-2 text-sm text-gray-600 hover:bg-gray-50 hover:text-gray-900 rounded-md">Purchase Requests</a>
+                        <a href="purchase_orders.html" class="block px-3 py-2 text-sm text-gray-600 hover:bg-gray-50 hover:text-gray-900 rounded-md">Purchase Orders</a>
+                        <a href="grn.html" class="block px-3 py-2 text-sm text-gray-600 hover:bg-gray-50 hover:text-gray-900 rounded-md">GRN / Stock In</a>
+                        <a href="invoices.html" class="block px-3 py-2 text-sm text-gray-600 hover:bg-gray-50 hover:text-gray-900 rounded-md">Invoices</a>
+                    </div>
+                </div>
+
+                <!-- Finance Dropdown -->
+                <div class="relative group">
+                    <button class="text-sm font-medium text-gray-500 group-hover:text-gray-900 flex items-center gap-1 transition-colors">
+                        Financials
+                        <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div class="absolute top-full left-0 w-48 bg-white border border-gray-100 rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform translate-y-2 group-hover:translate-y-0 p-2 z-50">
+                        <a href="quotations.html" class="block px-3 py-2 text-sm text-gray-600 hover:bg-gray-50 hover:text-gray-900 rounded-md">Quotations</a>
+                        <a href="notes.html" class="block px-3 py-2 text-sm text-gray-600 hover:bg-gray-50 hover:text-gray-900 rounded-md">Credit Notes</a>
+                        <a href="commission.html" class="block px-3 py-2 text-sm text-gray-600 hover:bg-gray-50 hover:text-gray-900 rounded-md">Commissions</a>
+                    </div>
+                </div>
+
+                <!-- Management Dropdown -->
+                <div class="relative group">
+                    <button class="text-sm font-medium text-gray-500 group-hover:text-gray-900 flex items-center gap-1 transition-colors">
+                        Management
+                        <svg class="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+                    <div class="absolute top-full left-0 w-48 bg-white border border-gray-100 rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform translate-y-2 group-hover:translate-y-0 p-2 z-50">
+                        <a href="inventory.html" class="block px-3 py-2 text-sm text-gray-600 hover:bg-gray-50 hover:text-gray-900 rounded-md">Inventory</a>
+                        <a href="customers.html" class="block px-3 py-2 text-sm text-gray-600 hover:bg-gray-50 hover:text-gray-900 rounded-md">Customers</a>
+                        <a href="outlets.html" class="block px-3 py-2 text-sm text-gray-600 hover:bg-gray-50 hover:text-gray-900 rounded-md">Outlets</a>
+                        <a href="hr.html" class="block px-3 py-2 text-sm text-gray-600 hover:bg-gray-50 hover:text-gray-900 rounded-md">Employees (HR)</a>
+                    </div>
+                </div>
+
+                <a href="reports.html" class="text-sm font-medium text-gray-500 hover:text-gray-900 transition-colors">Reports</a>
+            </div>
+        </div>
+
+        <!-- Right Side -->
+        <div class="flex items-center gap-4">
+            <button class="hidden md:flex items-center gap-2 px-3 py-1.5 text-xs font-semibold text-gray-700 bg-gray-100 rounded-md hover:bg-gray-200 transition-colors">
+                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                Generate Report
+            </button>
+            <div class="h-8 w-8 rounded-full bg-gray-200  border border-gray-300">
+                <img src="https://ui-avatars.com/api/?name=Admin+User&background=random" alt="Profile" class="h-full w-full object-cover">
+            </div>
+        </div>
+    </div>
+</nav>
+
+<main class="max-w-[1600px] mx-auto p-6 lg:p-10 space-y-8">
+
+    <!-- Sidebar (Same as others) -->
+    
+    <!-- Modern HQ Sidebar -->
+    
+    <!-- Soft UI Sidebar -->
+    
+    <!-- Soft UI Sidebar -->
+    
+    <!-- Soft UI Sidebar -->
+    
+
+
+
+
+
+    <!-- Main Content -->
+    <main class="max-w-8xl mx-auto px-6 py-8 w-full">
+        <!-- Header -->
+        
+        
+        
+        
+        
+        
+
+
+
+
+
+
+        <div class="flex-1   bg-white p-6">
+            <div class="bg-white shadow-lg rounded-md max-w-5xl mx-auto border border-gray-100/50 ">
+
+                <!-- Main Title Area -->
+                <div class="text-center bg-white border-b border-gray-100 p-6">
+                    <h1 class="text-3xl font-extrabold text-gray-800 tracking-tight">KERALA PAINTS</h1>
+                    <p class="text-gray-500 font-medium tracking-widest uppercase mt-1">Purchase Order</p>
+                </div>
+
+                <div class="p-8">
+                    <!-- Top Section -->
+                    <div class="flex flex-col md:flex-row justify-between gap-8 mb-8">
+                        <!-- Buyer Details -->
+                        <div class="flex-1 space-y-4">
+                            <h3 class="text-sm font-bold text-gray-500 uppercase tracking-wider border-b pb-1">Buyer
+                                Details</h3>
+                            <div class="grid grid-cols-1 gap-2">
+                                <div>
+                                    <label class="block text-xs font-medium text-gray-500">Name</label>
+                                    <select
+                                        class="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md border">
+                                        <option>MAKEOVER PAINTS</option>
+                                        <option>Other Internal Entity</option>
+                                    </select>
+                                </div>
+                                <div class="text-sm text-gray-700 space-y-1 bg-white p-3 rounded">
+                                    <p><span class="font-semibold">Address:</span> 123 Industrial Area, Kochi, Kerala
+                                    </p>
+                                    <p><span class="font-semibold">Phone:</span> +91 98765 43210</p>
+                                    <p><span class="font-semibold">GSTNO:</span> 32ABCDE1234F1Z5</p>
+                                    <p><span class="font-semibold">State:</span> Kerala</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- PO Details -->
+                        <div class="flex-1 space-y-4">
+                            <h3 class="text-sm font-bold text-gray-500 uppercase tracking-wider border-b pb-1">PO
+                                Details</h3>
+                            <div class="grid grid-cols-1 gap-4">
+                                <div>
+                                    <label class="block text-xs font-medium text-gray-500">PO Number</label>
+                                    <input type="text" value="PO-2026-0045" readonly
+                                        class="mt-1 block w-full border-gray-300 bg-white rounded-md  hover: transition-shadow duration-200 sm:text-sm px-3 py-2 border">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-medium text-gray-500">PO Date</label>
+                                    <input type="date" value="2026-01-05"
+                                        class="mt-1 block w-full border-gray-300 rounded-md  hover: transition-shadow duration-200 sm:text-sm px-3 py-2 border focus:ring-indigo-500 focus:border-indigo-500">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Items Table -->
+                    <div class="mb-8 overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200 border border-gray-100/50">
+                            <thead class="bg-white">
+                                <tr>
+                                    <th class="px-3 py-2 text-left text-xs font-semibold text-gray-600 uppercase">SI
+                                    </th>
+                                    <th class="px-3 py-2 text-left text-xs font-semibold text-gray-600 uppercase w-1/4">
+                                        Description</th>
+                                    <th class="px-3 py-2 text-left text-xs font-semibold text-gray-600 uppercase">HSN
+                                    </th>
+                                    <th class="px-3 py-2 text-right text-xs font-semibold text-gray-600 uppercase">Qty
+                                    </th>
+                                    <th class="px-3 py-2 text-right text-xs font-semibold text-gray-600 uppercase">Price
+                                    </th>
+                                    <th class="px-3 py-2 text-right text-xs font-semibold text-gray-600 uppercase">Disc
+                                    </th>
+                                    <th class="px-3 py-2 text-right text-xs font-semibold text-gray-600 uppercase">
+                                        Taxable</th>
+                                    <th class="px-3 py-2 text-right text-xs font-semibold text-gray-600 uppercase">GST%
+                                    </th>
+                                    <th class="px-3 py-2 text-right text-xs font-semibold text-gray-600 uppercase">Total
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-200 bg-white">
+                                <tr>
+                                    <td class="px-3 py-2 text-sm text-gray-500">1</td>
+                                    <td class="px-3 py-2">
+                                        <select class="block w-full text-sm border-gray-300 rounded-md border p-1">
+                                            <option>ENL BLACK 1L</option>
+                                            <option>ENL BLUE 1L</option>
+                                        </select>
+                                    </td>
+                                    <td class="px-3 py-2 text-sm text-gray-500">32089029</td>
+                                    <td class="px-3 py-2"><input type="number" value="12"
+                                            class="w-16 text-right text-sm border border-gray-300 rounded p-1"></td>
+                                    <td class="px-3 py-2"><input type="number" value="500.00"
+                                            class="w-20 text-right text-sm border border-gray-300 rounded p-1"></td>
+                                    <td class="px-3 py-2"><input type="number" value="0.00"
+                                            class="w-16 text-right text-sm border border-gray-300 rounded p-1"></td>
+                                    <td class="px-3 py-2 text-right text-sm text-gray-900">6000.00</td>
+                                    <td class="px-3 py-2 text-right text-sm text-gray-500">18%</td>
+                                    <td class="px-3 py-2 text-right text-sm text-gray-900 font-medium">7080.00</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-3 py-2 text-sm text-gray-500">2</td>
+                                    <td class="px-3 py-2">
+                                        <select class="block w-full text-sm border-gray-300 rounded-md border p-1">
+                                            <option>ENL BLUE 1L</option>
+                                        </select>
+                                    </td>
+                                    <td class="px-3 py-2 text-sm text-gray-500">32089029</td>
+                                    <td class="px-3 py-2"><input type="number" value="12"
+                                            class="w-16 text-right text-sm border border-gray-300 rounded p-1"></td>
+                                    <td class="px-3 py-2"><input type="number" value="500.00"
+                                            class="w-20 text-right text-sm border border-gray-300 rounded p-1"></td>
+                                    <td class="px-3 py-2"><input type="number" value="0.00"
+                                            class="w-16 text-right text-sm border border-gray-300 rounded p-1"></td>
+                                    <td class="px-3 py-2 text-right text-sm text-gray-900">6000.00</td>
+                                    <td class="px-3 py-2 text-right text-sm text-gray-500">18%</td>
+                                    <td class="px-3 py-2 text-right text-sm text-gray-900 font-medium">7080.00</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <button class="mt-2 text-sm text-indigo-600 font-medium hover:text-indigo-800">+ Add
+                            Item</button>
+                    </div>
+
+                    <!-- Summary & Bottom details -->
+                    <div class="flex flex-col md:flex-row gap-8">
+                        <!-- Delivery & Payment - Left -->
+                        <div class="flex-1 space-y-4">
+                            <h3 class="text-sm font-bold text-gray-500 uppercase tracking-wider border-b pb-1">Delivery
+                                & Payment</h3>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="col-span-1">
+                                    <label class="block text-xs font-medium text-gray-500">Date of Delivery</label>
+                                    <input type="text" value="Within 7 days"
+                                        class="mt-1 block w-full border-gray-300 rounded-md  hover: transition-shadow duration-200 sm:text-sm px-3 py-2 border">
+                                </div>
+                                <div class="col-span-1">
+                                    <label class="block text-xs font-medium text-gray-500">Payment Terms</label>
+                                    <input type="text" value="As Usual"
+                                        class="mt-1 block w-full border-gray-300 rounded-md  hover: transition-shadow duration-200 sm:text-sm px-3 py-2 border">
+                                </div>
+                                <div class="col-span-2">
+                                    <label class="block text-xs font-medium text-gray-500">Delivery Contact</label>
+                                    <input type="text" placeholder="Contact Person Name"
+                                        class="mt-1 block w-full border-gray-300 rounded-md  hover: transition-shadow duration-200 sm:text-sm px-3 py-2 border">
+                                </div>
+                                <div class="col-span-2">
+                                    <label class="block text-xs font-medium text-gray-500">Place of Delivery</label>
+                                    <select
+                                        class="mt-1 block w-full border-gray-300 rounded-md  hover: transition-shadow duration-200 sm:text-sm px-3 py-2 border">
+                                        <option>Chennai Outlet</option>
+                                        <option>Mumbai Outlet</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Financial Summary - Right -->
+                        <div class="w-full md:w-1/3 bg-white p-4 rounded-lg border border-gray-100/50">
+                            <div class="space-y-2 text-sm text-gray-700">
+                                <div class="flex justify-between">
+                                    <span>Total Quantity:</span>
+                                    <span class="font-medium">24.00</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span>Subtotal:</span>
+                                    <span class="font-medium">14,160.00</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span>RoundOff:</span>
+                                    <span class="font-medium">-0.00</span>
+                                </div>
+                                <div class="flex justify-between border-t border-gray-300 pt-2 mt-2">
+                                    <span class="font-bold text-base">Bill Amount:</span>
+                                    <span class="font-bold text-base">₹ 14,160.00</span>
+                                </div>
+                            </div>
+                            <div class="mt-4 pt-4 border-t border-gray-100">
+                                <p class="text-xs text-gray-500 uppercase">Amount in Words</p>
+                                <p class="text-sm font-medium italic text-gray-600">Fourteen Thousand One Hundred Sixty
+                                    Rupees Only</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Signatories -->
+                    <div class="mt-12 pt-8 border-t border-gray-100 grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div>
+                            <label class="block text-xs font-medium text-gray-500 mb-1">Prepared By</label>
+                            <input type="text"
+                                class="block w-full border-b border-gray-300 focus:border-indigo-500 focus:outline-none py-1 sm:text-sm"
+                                placeholder="Name & Sign">
+                        </div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-medium text-gray-500 mb-1">Checked By</label>
+                                <select
+                                    class="block w-full border-b border-gray-300 focus:border-indigo-500 focus:outline-none py-1 sm:text-sm bg-transparent">
+                                    <option>Select User</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-medium text-gray-500 mb-1">Approved By</label>
+                                <select
+                                    class="block w-full border-b border-gray-300 focus:border-indigo-500 focus:outline-none py-1 sm:text-sm bg-transparent">
+                                    <option>Select User</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-span-full text-right mt-2">
+                            <p class="text-xs font-bold text-gray-400">For KERALA PAINTS</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Footer Actions -->
+                <div class="bg-white px-8 py-5 flex justify-end space-x-3 border-t border-gray-100">
+                    <button
+                        class="px-4 py-2 border border-gray-300 rounded-md  hover: transition-shadow duration-200 text-sm font-medium text-gray-700 bg-white hover:bg-white focus:outline-none">
+                        Cancel
+                    </button>
+                    <button
+                        class="px-4 py-2 border border-gray-300 rounded-md  hover: transition-shadow duration-200 text-sm font-medium text-gray-700 bg-white hover:bg-white focus:outline-none">
+                        Save as Draft
+                    </button>
+                    <button
+                        class="px-4 py-2 border border-transparent rounded-md  hover: transition-shadow duration-200 text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                        Send to Manufacturer
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+</main>
+</body>
+
+</html>
