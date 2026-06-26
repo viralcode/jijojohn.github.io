@@ -1,0 +1,2117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+<title>HelloScore – Mobile App UI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+/* ─── RESET & BASE ─────────────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html,body{height:100%;font-family:'Inter',sans-serif;background:#eef0f3;-webkit-font-smoothing:antialiased;}
+
+/* ─── CSS VARIABLES ────────────────────────────────── */
+:root{
+  --teal:#00a693;
+  --teal-d:#008577;
+  --teal-l:#e6f7f5;
+  --teal-m:#b3e8e2;
+  --green:#22c55e;
+  --green-l:#dcfce7;
+  --red:#ef4444;
+  --red-l:#fee2e2;
+  --amber:#f59e0b;
+  --amber-l:#fef3c7;
+  --blue:#3b82f6;
+  --blue-l:#dbeafe;
+  --purple:#7c3aed;
+  --purple-l:#ede9fe;
+  --orange:#f97316;
+  --orange-l:#ffedd5;
+  --text1:#111827;
+  --text2:#374151;
+  --text3:#6b7280;
+  --text4:#9ca3af;
+  --border:#e5e7eb;
+  --border-light:#f3f4f6;
+  --bg:#f9fafb;
+  --white:#ffffff;
+  --card-shadow:0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.04);
+  --card-shadow-md:0 4px 12px rgba(0,0,0,.08), 0 2px 4px rgba(0,0,0,.04);
+  --radius:16px;
+  --radius-sm:10px;
+  --radius-xs:8px;
+}
+
+/* ─── LAYOUT WRAPPER ───────────────────────────────── */
+.app-wrapper{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  min-height:100vh;
+  padding:24px 16px 32px;
+  gap:20px;
+}
+
+/* ─── PHONE FRAME (desktop) ────────────────────────── */
+.phone-frame{
+  width:390px;
+  height:844px;
+  background:var(--white);
+  border-radius:50px;
+  box-shadow:0 0 0 10px #1c1c1e, 0 0 0 12px #3a3a3c, 0 30px 80px rgba(0,0,0,.35);
+  overflow:hidden;
+  position:relative;
+  flex-shrink:0;
+}
+.notch{
+  position:absolute;
+  top:0;left:50%;transform:translateX(-50%);
+  width:126px;height:34px;
+  background:#1c1c1e;
+  border-radius:0 0 20px 20px;
+  z-index:100;
+}
+.status-bar{
+  height:50px;
+  display:flex;align-items:flex-end;justify-content:space-between;
+  padding:0 20px 8px;
+  background:var(--white);
+  position:relative;z-index:10;
+}
+.status-time{font-size:15px;font-weight:700;color:var(--text1);}
+.status-icons{display:flex;align-items:center;gap:6px;}
+.status-icons svg{color:var(--text1);}
+
+/* ─── SCREEN SYSTEM ────────────────────────────────── */
+.phone-screen{
+  position:relative;
+  height:calc(844px - 50px);
+  overflow:hidden;
+  background:var(--white);
+}
+.screen{
+  position:absolute;inset:0;
+  display:none;
+  flex-direction:column;
+  background:var(--white);
+}
+.screen.active{display:flex;}
+.scroll-content{
+  flex:1;
+  overflow-y:auto;
+  -webkit-overflow-scrolling:touch;
+  scrollbar-width:none;
+}
+.scroll-content::-webkit-scrollbar{display:none;}
+
+/* ─── BOTTOM TAB BAR ───────────────────────────────── */
+.tab-bar{
+  display:flex;
+  height:72px;
+  border-top:1px solid var(--border);
+  background:var(--white);
+  flex-shrink:0;
+}
+.tab-item{
+  flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:3px;cursor:pointer;color:var(--text4);transition:color .15s;
+  -webkit-tap-highlight-color:transparent;
+}
+.tab-item.active{color:var(--teal);}
+.tab-item span{font-size:10px;font-weight:600;letter-spacing:.2px;}
+
+/* ─── SHARED HEADER ────────────────────────────────── */
+.screen-header{
+  padding:12px 20px 14px;
+  background:var(--white);
+  border-bottom:1px solid var(--border-light);
+  flex-shrink:0;
+}
+.screen-header .logo{height:26px;object-fit:contain;}
+.screen-header h2{font-size:22px;font-weight:800;color:var(--text1);margin-top:2px;}
+.screen-header p{font-size:13px;color:var(--text3);margin-top:2px;line-height:1.4;}
+
+.inner-header{
+  padding:12px 20px 14px;
+  background:var(--white);
+  border-bottom:1px solid var(--border-light);
+  flex-shrink:0;
+}
+.back-btn{
+  display:inline-flex;align-items:center;gap:4px;
+  background:none;border:none;cursor:pointer;
+  font-size:14px;font-weight:600;color:var(--teal);
+  padding:0;margin-bottom:8px;font-family:inherit;
+}
+
+/* ─── CARD ─────────────────────────────────────────── */
+.card{
+  background:var(--white);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:16px;
+  box-shadow:var(--card-shadow);
+}
+.card h3{font-size:15px;font-weight:700;color:var(--text1);margin-bottom:10px;}
+
+/* ─── BUTTON ────────────────────────────────────────── */
+.btn{
+  width:100%;padding:15px;border:none;border-radius:var(--radius-sm);
+  font-size:15px;font-weight:700;cursor:pointer;
+  font-family:inherit;transition:opacity .15s;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+}
+.btn:active{opacity:.85;}
+.btn:disabled{opacity:.4;cursor:not-allowed;}
+.btn-primary{background:var(--teal);color:#fff;}
+.btn-outline{background:var(--white);color:var(--teal);border:1.5px solid var(--teal);}
+.btn-ghost{background:var(--bg);color:var(--text2);border:1px solid var(--border);}
+
+/* ─── INPUT ─────────────────────────────────────────── */
+.input-group{display:flex;flex-direction:column;gap:6px;}
+.input-label{font-size:12px;font-weight:600;color:var(--text2);letter-spacing:.3px;text-transform:uppercase;}
+.input-field{
+  padding:13px 14px;border:1.5px solid var(--border);border-radius:var(--radius-xs);
+  font-size:15px;color:var(--text1);background:var(--white);
+  font-family:inherit;outline:none;transition:border-color .15s;
+}
+.input-field:focus{border-color:var(--teal);}
+.input-field::placeholder{color:var(--text4);}
+
+/* ─── TOGGLE ─────────────────────────────────────────── */
+.toggle{
+  width:44px;height:26px;border-radius:13px;background:var(--teal);
+  position:relative;cursor:pointer;flex-shrink:0;transition:background .2s;
+}
+.toggle::after{
+  content:'';position:absolute;top:3px;left:3px;
+  width:20px;height:20px;border-radius:50%;background:#fff;
+  transition:transform .2s;box-shadow:0 1px 3px rgba(0,0,0,.2);
+}
+.toggle.off{background:var(--border);}
+.toggle.off::after{transform:translateX(0);}
+.toggle:not(.off)::after{transform:translateX(18px);}
+
+/* ─── BADGE ─────────────────────────────────────────── */
+.badge{display:inline-flex;align-items:center;padding:3px 8px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:.2px;}
+.badge-red{background:var(--red-l);color:var(--red);}
+.badge-amber{background:var(--amber-l);color:#b45309;}
+.badge-green{background:var(--green-l);color:#15803d;}
+.badge-blue{background:var(--blue-l);color:#1d4ed8;}
+.badge-teal{background:var(--teal-l);color:var(--teal-d);}
+
+/* ═══════════════════════════════════════════════════════
+   SCREEN 1 – SPLASH
+═══════════════════════════════════════════════════════ */
+#screen-splash{
+  background:var(--white);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;
+}
+.splash-logo{height:52px;object-fit:contain;margin-bottom:8px;}
+.splash-tagline{font-size:14px;color:var(--text3);font-weight:500;letter-spacing:.3px;}
+.splash-dots{display:flex;gap:6px;margin-top:40px;}
+.splash-dot{width:7px;height:7px;border-radius:50%;background:var(--teal-m);}
+.splash-dot.active{background:var(--teal);width:22px;border-radius:4px;}
+
+/* ═══════════════════════════════════════════════════════
+   SCREEN 2 – ONBOARDING
+═══════════════════════════════════════════════════════ */
+#screen-onboarding{background:var(--white);}
+.onboard-header{padding:16px 20px;display:flex;justify-content:space-between;align-items:center;}
+.onboard-skip{font-size:14px;font-weight:600;color:var(--text3);background:none;border:none;cursor:pointer;font-family:inherit;}
+.onboard-viewport{overflow:hidden;flex:1;}
+.onboard-slides{display:flex;transition:transform .35s cubic-bezier(.4,0,.2,1);height:100%;}
+.onboard-slide{
+  min-width:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:20px 32px 0;text-align:center;gap:20px;
+}
+.onboard-illo{
+  width:200px;height:200px;border-radius:32px;background:var(--teal-l);
+  display:flex;align-items:center;justify-content:center;
+}
+.onboard-illo svg{opacity:.85;}
+.onboard-title{font-size:24px;font-weight:800;color:var(--text1);line-height:1.2;}
+.onboard-body{font-size:14px;color:var(--text3);line-height:1.6;}
+.onboard-footer{padding:24px 20px;display:flex;flex-direction:column;gap:14px;flex-shrink:0;}
+.onboard-dots{display:flex;justify-content:center;gap:6px;}
+.onboard-dot{width:7px;height:7px;border-radius:50%;background:var(--border);}
+.onboard-dot.active{background:var(--teal);width:22px;border-radius:4px;}
+
+/* ═══════════════════════════════════════════════════════
+   SCREEN 3 – CONSENT
+═══════════════════════════════════════════════════════ */
+.consent-icon-wrap{
+  width:72px;height:72px;border-radius:20px;background:var(--teal-l);
+  display:flex;align-items:center;justify-content:center;margin:0 auto 16px;
+}
+.consent-check-row{
+  display:flex;align-items:flex-start;gap:12px;padding:14px;
+  background:var(--bg);border-radius:var(--radius-xs);border:1px solid var(--border);cursor:pointer;
+}
+.checkbox{
+  width:22px;height:22px;border-radius:6px;border:2px solid var(--border);
+  background:var(--white);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .15s;
+}
+.checkbox.checked{background:var(--teal);border-color:var(--teal);}
+
+/* ═══════════════════════════════════════════════════════
+   SCREEN 4 – MOBILE OTP
+═══════════════════════════════════════════════════════ */
+.mobile-illo{
+  width:80px;height:80px;border-radius:22px;background:var(--teal-l);
+  display:flex;align-items:center;justify-content:center;margin:0 auto 20px;
+}
+.phone-input-row{
+  display:flex;align-items:center;gap:10px;
+  border:1.5px solid var(--border);border-radius:var(--radius-xs);
+  overflow:hidden;background:var(--white);
+}
+.phone-flag{
+  padding:13px 12px;background:var(--bg);border-right:1px solid var(--border);
+  font-size:14px;font-weight:600;color:var(--text2);white-space:nowrap;
+}
+.phone-input-row input{
+  flex:1;padding:13px 12px;border:none;outline:none;
+  font-size:16px;font-family:inherit;color:var(--text1);background:transparent;
+}
+.otp-boxes{display:flex;gap:8px;justify-content:center;}
+.otp-box{
+  width:46px;height:54px;border:1.5px solid var(--border);border-radius:var(--radius-xs);
+  text-align:center;font-size:22px;font-weight:700;color:var(--text1);
+  font-family:inherit;outline:none;background:var(--white);transition:border-color .15s;
+}
+.otp-box:focus{border-color:var(--teal);}
+.otp-box.filled{border-color:var(--teal);background:var(--teal-l);}
+.resend-link{color:var(--teal);font-weight:600;cursor:pointer;}
+
+/* ═══════════════════════════════════════════════════════
+   SCREEN 5 – KYC FORM
+═══════════════════════════════════════════════════════ */
+.progress-steps{display:flex;align-items:center;gap:0;margin-bottom:4px;}
+.step-dot{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;}
+.step-dot.done{background:var(--teal);color:#fff;}
+.step-dot.active{background:var(--teal-l);color:var(--teal);border:2px solid var(--teal);}
+.step-dot.pending{background:var(--bg);color:var(--text4);border:1.5px solid var(--border);}
+.step-line{flex:1;height:2px;background:var(--border);}
+.step-line.done{background:var(--teal);}
+
+/* ═══════════════════════════════════════════════════════
+   SCREEN 6 – LOADING
+═══════════════════════════════════════════════════════ */
+#screen-loading{background:var(--white);align-items:center;justify-content:center;}
+.loading-logo{height:36px;margin-bottom:32px;}
+.loading-spinner{
+  width:64px;height:64px;border-radius:50%;
+  border:4px solid var(--teal-l);border-top-color:var(--teal);
+  animation:spin 1s linear infinite;margin:0 auto 28px;
+}
+@keyframes spin{to{transform:rotate(360deg);}}
+.loading-step{
+  display:flex;align-items:center;gap:12px;padding:10px 0;
+}
+.loading-step-icon{
+  width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.loading-step-icon.done{background:var(--green-l);}
+.loading-step-icon.active{background:var(--teal-l);}
+.loading-step-icon.pending{background:var(--bg);}
+.loading-step-text{font-size:14px;font-weight:500;}
+.loading-step-text.done{color:var(--text2);}
+.loading-step-text.active{color:var(--teal);font-weight:600;}
+.loading-step-text.pending{color:var(--text4);}
+
+/* ═══════════════════════════════════════════════════════
+   SCREEN 7 – SCORE REVEAL
+═══════════════════════════════════════════════════════ */
+.score-reveal-top{
+  padding:28px 20px 20px;text-align:center;
+  background:var(--white);border-bottom:1px solid var(--border-light);
+}
+.score-reveal-number{font-size:80px;font-weight:900;color:var(--text1);line-height:1;letter-spacing:-3px;}
+.score-reveal-label{
+  display:inline-flex;align-items:center;gap:6px;
+  background:var(--green-l);color:#15803d;
+  padding:5px 14px;border-radius:20px;font-size:13px;font-weight:700;margin-top:10px;
+}
+.score-bar-track{height:8px;background:var(--bg);border-radius:4px;margin:16px 0 6px;overflow:hidden;border:1px solid var(--border);}
+.score-bar-fill{height:100%;border-radius:4px;background:var(--teal);width:68%;}
+.score-bar-labels{display:flex;justify-content:space-between;font-size:11px;color:var(--text4);font-weight:500;}
+.factor-row{
+  display:flex;align-items:center;gap:12px;padding:12px 0;
+  border-bottom:1px solid var(--border-light);
+}
+.factor-row:last-child{border-bottom:none;}
+.factor-icon{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.factor-label{font-size:13px;font-weight:600;color:var(--text1);flex:1;}
+.factor-sub{font-size:12px;color:var(--text3);margin-top:1px;}
+
+/* ═══════════════════════════════════════════════════════
+   SCREEN 8 – HOME DASHBOARD
+═══════════════════════════════════════════════════════ */
+.home-topbar{
+  padding:14px 20px 12px;
+  display:flex;align-items:center;justify-content:space-between;
+  background:var(--white);border-bottom:1px solid var(--border-light);flex-shrink:0;
+}
+.home-greeting{font-size:12px;color:var(--text3);font-weight:500;text-transform:uppercase;letter-spacing:.5px;}
+.home-name{font-size:18px;font-weight:800;color:var(--text1);margin-top:1px;}
+.coins-chip{
+  display:flex;align-items:center;gap:5px;
+  background:var(--amber-l);border:1px solid #fde68a;
+  padding:6px 10px;border-radius:20px;cursor:pointer;
+}
+.coins-chip span{font-size:12px;font-weight:700;color:#92400e;}
+
+.cat-tabs{
+  display:flex;gap:0;padding:14px 16px 12px;
+  overflow-x:auto;scrollbar-width:none;flex-shrink:0;
+  background:var(--white);border-bottom:1px solid var(--border-light);
+}
+.cat-tabs::-webkit-scrollbar{display:none;}
+.cat-tab{
+  display:flex;flex-direction:column;align-items:center;gap:6px;
+  padding:0 14px;cursor:pointer;flex-shrink:0;
+  -webkit-tap-highlight-color:transparent;
+}
+.cat-tab-icon{
+  width:46px;height:46px;border-radius:14px;
+  display:flex;align-items:center;justify-content:center;
+  border:2px solid transparent;transition:all .15s;
+}
+.cat-tab.active .cat-tab-icon{border-color:var(--teal);}
+.cat-tab-label{font-size:10px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.3px;}
+.cat-tab.active .cat-tab-label{color:var(--teal);}
+.cat-tab-dot{width:5px;height:5px;border-radius:50%;background:transparent;}
+.cat-tab.active .cat-tab-dot{background:var(--teal);}
+
+.score-columns{
+  display:flex;gap:12px;padding:16px;
+}
+.score-col{
+  flex:1;background:var(--white);border:1px solid var(--border);border-radius:var(--radius);
+  padding:16px;text-align:center;box-shadow:var(--card-shadow);
+}
+.score-bureau{font-size:11px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;}
+.score-number{font-size:48px;font-weight:900;color:var(--text1);line-height:1;letter-spacing:-2px;margin:4px 0;}
+.score-trend{font-size:12px;color:var(--green);font-weight:600;}
+.score-updated{font-size:11px;color:var(--text4);margin:4px 0;}
+.score-grade{
+  display:inline-block;font-size:12px;font-weight:800;color:var(--teal);
+  border-bottom:2.5px solid var(--teal);padding-bottom:1px;letter-spacing:.5px;
+}
+
+.section-header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:16px 20px 10px;
+}
+.section-title{font-size:16px;font-weight:700;color:var(--text1);}
+.section-sub{font-size:13px;color:var(--text3);margin-top:1px;}
+.section-link{
+  display:flex;align-items:center;gap:2px;
+  font-size:13px;font-weight:600;color:var(--teal);
+  background:none;border:none;cursor:pointer;font-family:inherit;
+}
+
+.issue-card{
+  display:flex;align-items:center;gap:12px;
+  padding:14px 16px;background:var(--white);
+  border:1px solid var(--border);border-radius:var(--radius-sm);
+  margin:0 16px 10px;box-shadow:var(--card-shadow);cursor:pointer;
+  transition:box-shadow .15s;
+}
+.issue-card:active{box-shadow:none;}
+.issue-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.issue-text{flex:1;}
+.issue-title{font-size:14px;font-weight:600;color:var(--text1);}
+.issue-sub{font-size:12px;color:var(--text3);margin-top:2px;}
+
+.suggest-label{
+  font-size:11px;font-weight:700;color:var(--text4);
+  text-transform:uppercase;letter-spacing:.7px;
+  padding:0 20px 10px;
+}
+.suggest-card{
+  margin:0 16px 10px;border-radius:var(--radius);overflow:hidden;
+  border:1px solid var(--border);box-shadow:var(--card-shadow);
+}
+.suggest-card-body{
+  background:#1a1f36;padding:20px;
+  display:flex;align-items:center;gap:14px;
+}
+.suggest-card-chip{
+  width:44px;height:44px;border-radius:10px;background:rgba(255,255,255,.15);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.suggest-card-name{font-size:15px;font-weight:700;color:#fff;}
+.suggest-card-sub{font-size:12px;color:rgba(255,255,255,.6);margin-top:3px;}
+.suggest-card-footer{
+  background:var(--white);padding:12px 16px;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.suggest-card-tag{font-size:12px;color:var(--text3);}
+
+/* ═══════════════════════════════════════════════════════
+   SCREEN 9 – REPORT
+═══════════════════════════════════════════════════════ */
+.report-tabs{
+  display:flex;border-bottom:1px solid var(--border);flex-shrink:0;background:var(--white);
+}
+.report-tab{
+  flex:1;padding:14px;text-align:center;font-size:13px;font-weight:600;
+  color:var(--text3);cursor:pointer;border-bottom:2.5px solid transparent;
+  transition:all .15s;-webkit-tap-highlight-color:transparent;
+}
+.report-tab.active{color:var(--teal);border-bottom-color:var(--teal);}
+
+.summary-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:16px;}
+.summary-tile{
+  background:var(--white);border:1px solid var(--border);border-radius:var(--radius-sm);
+  padding:14px;box-shadow:var(--card-shadow);
+}
+.summary-tile-label{font-size:11px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.4px;}
+.summary-tile-value{font-size:22px;font-weight:800;color:var(--text1);margin-top:4px;}
+.summary-tile-sub{font-size:11px;color:var(--text3);margin-top:2px;}
+
+.paywall-blur{
+  position:relative;margin:0 16px;border-radius:var(--radius);overflow:hidden;
+  border:1px solid var(--border);box-shadow:var(--card-shadow);
+}
+.paywall-content{filter:blur(4px);pointer-events:none;padding:16px;}
+.paywall-overlay{
+  position:absolute;inset:0;
+  background:rgba(255,255,255,.75);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:10px;padding:20px;text-align:center;
+  backdrop-filter:blur(2px);
+}
+.paywall-icon{
+  width:52px;height:52px;border-radius:16px;background:var(--teal-l);
+  display:flex;align-items:center;justify-content:center;
+}
+.paywall-title{font-size:16px;font-weight:800;color:var(--text1);}
+.paywall-sub{font-size:13px;color:var(--text3);line-height:1.5;}
+
+.account-row{
+  display:flex;align-items:center;gap:12px;
+  padding:14px 16px;border-bottom:1px solid var(--border-light);
+}
+.account-row:last-child{border-bottom:none;}
+.account-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.account-name{font-size:14px;font-weight:600;color:var(--text1);}
+.account-meta{font-size:12px;color:var(--text3);margin-top:2px;}
+.dpd-dots{display:flex;gap:3px;margin-top:6px;}
+.dpd-dot{width:12px;height:12px;border-radius:3px;}
+.dpd-ok{background:var(--green-l);border:1px solid #86efac;}
+.dpd-late{background:var(--red-l);border:1px solid #fca5a5;}
+.dpd-na{background:var(--bg);border:1px solid var(--border);}
+
+/* ═══════════════════════════════════════════════════════
+   SCREEN 10 – PLANNER
+═══════════════════════════════════════════════════════ */
+.planner-header{
+  padding:16px 20px;background:var(--white);
+  border-bottom:1px solid var(--border-light);flex-shrink:0;
+}
+.target-chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;}
+.target-chip{
+  padding:7px 14px;border-radius:20px;font-size:13px;font-weight:600;
+  border:1.5px solid var(--border);color:var(--text2);background:var(--white);
+  cursor:pointer;transition:all .15s;-webkit-tap-highlight-color:transparent;
+}
+.target-chip.active{background:var(--teal);color:#fff;border-color:var(--teal);}
+
+.progress-bar-wrap{margin:16px 20px 0;}
+.progress-bar-labels{display:flex;justify-content:space-between;font-size:12px;font-weight:600;color:var(--text2);margin-bottom:6px;}
+.progress-bar-track{height:10px;background:var(--bg);border-radius:5px;overflow:hidden;border:1px solid var(--border);}
+.progress-bar-fill{height:100%;background:var(--teal);border-radius:5px;width:55%;}
+
+.scenario-card{
+  margin:0 16px 12px;padding:16px;
+  background:var(--white);border:1px solid var(--border);border-radius:var(--radius);
+  box-shadow:var(--card-shadow);
+}
+.scenario-header{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;}
+.scenario-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.scenario-title{font-size:14px;font-weight:700;color:var(--text1);}
+.scenario-sub{font-size:12px;color:var(--text3);margin-top:3px;line-height:1.4;}
+.scenario-impact{
+  display:flex;align-items:center;gap:4px;margin-top:10px;
+  padding-top:10px;border-top:1px solid var(--border-light);
+}
+.impact-label{font-size:12px;color:var(--text3);font-weight:500;}
+.impact-value{font-size:13px;font-weight:700;color:var(--green);}
+
+/* ═══════════════════════════════════════════════════════
+   SCREEN 11 – GUIDES
+═══════════════════════════════════════════════════════ */
+.guide-chips{
+  display:flex;gap:8px;padding:14px 16px;
+  overflow-x:auto;scrollbar-width:none;flex-shrink:0;
+  background:var(--white);border-bottom:1px solid var(--border-light);
+}
+.guide-chips::-webkit-scrollbar{display:none;}
+.guide-chip{
+  padding:7px 14px;border-radius:20px;font-size:13px;font-weight:600;
+  border:1.5px solid var(--border);color:var(--text2);background:var(--white);
+  cursor:pointer;white-space:nowrap;flex-shrink:0;transition:all .15s;
+}
+.guide-chip.active{background:var(--teal);color:#fff;border-color:var(--teal);}
+
+.guide-featured{
+  margin:16px;border-radius:var(--radius);overflow:hidden;
+  border:1px solid var(--border);box-shadow:var(--card-shadow-md);
+}
+.guide-featured-img{
+  height:120px;background:var(--teal-l);
+  display:flex;align-items:center;justify-content:center;
+}
+.guide-featured-body{padding:14px;}
+.guide-featured-tag{font-size:11px;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:.5px;}
+.guide-featured-title{font-size:16px;font-weight:800;color:var(--text1);margin-top:4px;line-height:1.3;}
+.guide-featured-meta{display:flex;align-items:center;gap:10px;margin-top:8px;}
+.guide-meta-item{display:flex;align-items:center;gap:4px;font-size:12px;color:var(--text3);}
+
+.guide-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 16px 16px;}
+.guide-card{
+  background:var(--white);border:1px solid var(--border);border-radius:var(--radius-sm);
+  overflow:hidden;box-shadow:var(--card-shadow);
+}
+.guide-card-img{
+  height:70px;display:flex;align-items:center;justify-content:center;
+}
+.guide-card-body{padding:10px;}
+.guide-card-title{font-size:13px;font-weight:700;color:var(--text1);line-height:1.3;}
+.guide-card-meta{display:flex;align-items:center;justify-content:space-between;margin-top:6px;}
+.guide-card-diff{font-size:11px;color:var(--text3);font-weight:500;}
+.guide-card-coins{
+  display:flex;align-items:center;gap:3px;
+  font-size:11px;font-weight:700;color:#92400e;
+}
+
+/* ═══════════════════════════════════════════════════════
+   SCREEN 12 – PROFILE
+═══════════════════════════════════════════════════════ */
+.profile-top{
+  padding:20px;background:var(--white);
+  border-bottom:1px solid var(--border-light);flex-shrink:0;
+  display:flex;align-items:center;gap:14px;
+}
+.avatar{
+  width:60px;height:60px;border-radius:50%;background:var(--teal-l);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  border:2px solid var(--teal-m);
+}
+.profile-name{font-size:18px;font-weight:800;color:var(--text1);}
+.profile-email{font-size:13px;color:var(--text3);margin-top:2px;}
+.premium-badge{
+  display:inline-flex;align-items:center;gap:4px;margin-top:6px;
+  background:var(--amber-l);border:1px solid #fde68a;
+  padding:3px 8px;border-radius:20px;font-size:11px;font-weight:700;color:#92400e;
+}
+
+.sub-card{
+  margin:16px;padding:16px;
+  background:var(--white);border:1.5px solid var(--teal-m);border-radius:var(--radius);
+  box-shadow:var(--card-shadow);display:flex;align-items:center;gap:12px;
+}
+.sub-icon{width:44px;height:44px;border-radius:12px;background:var(--teal-l);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.sub-active{
+  padding:3px 10px;border-radius:20px;background:var(--green-l);
+  color:#15803d;font-size:11px;font-weight:700;flex-shrink:0;
+}
+
+.settings-section{padding:0 16px 8px;}
+.settings-section h3{font-size:12px;font-weight:700;color:var(--text4);text-transform:uppercase;letter-spacing:.6px;padding:14px 0 8px;}
+.settings-group{
+  background:var(--white);border:1px solid var(--border);border-radius:var(--radius);
+  overflow:hidden;box-shadow:var(--card-shadow);
+}
+.settings-row{
+  display:flex;align-items:center;gap:12px;padding:14px 16px;
+  border-bottom:1px solid var(--border-light);cursor:pointer;
+  transition:background .1s;-webkit-tap-highlight-color:transparent;
+}
+.settings-row:last-child{border-bottom:none;}
+.settings-row:active{background:var(--bg);}
+.settings-icon{
+  width:36px;height:36px;border-radius:10px;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.settings-title{font-size:14px;font-weight:600;color:var(--text1);}
+.settings-sub{font-size:12px;color:var(--text3);margin-top:1px;}
+
+/* ═══════════════════════════════════════════════════════
+   SCREEN 13 – EMI CALCULATOR
+═══════════════════════════════════════════════════════ */
+.emi-result-card{
+  background:var(--teal);border-radius:var(--radius);padding:20px;
+  text-align:center;color:#fff;
+}
+.emi-result-label{font-size:12px;font-weight:600;opacity:.8;text-transform:uppercase;letter-spacing:.5px;}
+.emi-result-amount{font-size:44px;font-weight:900;letter-spacing:-2px;margin:4px 0 16px;}
+.emi-breakdown{display:flex;justify-content:space-around;border-top:1px solid rgba(255,255,255,.2);padding-top:14px;}
+.emi-bd-item{text-align:center;}
+.emi-bd-label{font-size:11px;opacity:.7;font-weight:500;}
+.emi-bd-val{font-size:14px;font-weight:700;margin-top:3px;}
+
+.slider-group{display:flex;flex-direction:column;gap:8px;}
+.slider-header{display:flex;justify-content:space-between;align-items:center;}
+.slider-label{font-size:13px;font-weight:600;color:var(--text2);}
+.slider-value{font-size:14px;font-weight:700;color:var(--teal);}
+input[type=range]{
+  -webkit-appearance:none;width:100%;height:4px;
+  border-radius:2px;background:var(--border);outline:none;cursor:pointer;
+}
+input[type=range]::-webkit-slider-thumb{
+  -webkit-appearance:none;width:22px;height:22px;border-radius:50%;
+  background:var(--teal);border:3px solid #fff;box-shadow:0 0 0 1px var(--teal-m);cursor:pointer;
+}
+
+/* ═══════════════════════════════════════════════════════
+   SCREEN 14 – HELLOCOINS
+═══════════════════════════════════════════════════════ */
+.coins-header{
+  padding:20px;background:var(--white);
+  border-bottom:1px solid var(--border-light);flex-shrink:0;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.coins-balance-wrap{display:flex;align-items:center;gap:8px;}
+.coins-balance-num{font-size:32px;font-weight:900;color:var(--text1);letter-spacing:-1px;}
+.coins-balance-label{font-size:12px;color:var(--text3);font-weight:500;margin-top:2px;}
+.coins-actions{display:flex;gap:8px;}
+.coins-action-btn{
+  padding:9px 16px;border-radius:var(--radius-xs);font-size:13px;font-weight:700;
+  cursor:pointer;font-family:inherit;border:none;
+}
+
+.referral-card{
+  background:var(--white);border:1.5px solid var(--teal-m);border-radius:var(--radius);
+  padding:16px;box-shadow:var(--card-shadow);
+}
+.referral-code-row{
+  display:flex;align-items:center;justify-content:space-between;
+  background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-xs);
+  padding:12px 14px;margin-top:12px;
+}
+.ref-code{font-size:18px;font-weight:800;color:var(--text1);letter-spacing:2px;}
+.ref-copy-btn{
+  display:flex;align-items:center;gap:5px;padding:7px 12px;
+  background:var(--teal);color:#fff;border:none;border-radius:var(--radius-xs);
+  font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;
+}
+
+.earn-item{
+  display:flex;align-items:center;gap:12px;padding:12px 0;
+  border-bottom:1px solid var(--border-light);
+}
+.earn-item:last-child{border-bottom:none;}
+.earn-coins-badge{
+  background:var(--amber-l);color:#92400e;
+  padding:4px 8px;border-radius:20px;font-size:11px;font-weight:700;
+  white-space:nowrap;flex-shrink:0;
+}
+
+/* ═══════════════════════════════════════════════════════
+   SCREEN 15 – NOC HELPER
+═══════════════════════════════════════════════════════ */
+.noc-account-item{
+  display:flex;align-items:center;gap:12px;padding:14px;
+  border:1.5px solid var(--border);border-radius:var(--radius-sm);
+  cursor:pointer;transition:all .15s;background:var(--white);
+}
+.noc-account-item.selected{border-color:var(--teal);background:var(--teal-l);}
+.email-preview{
+  background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-sm);
+  padding:14px;
+}
+.email-field{display:flex;gap:8px;padding:6px 0;border-bottom:1px solid var(--border-light);}
+.email-field:last-of-type{border-bottom:none;margin-bottom:10px;}
+.email-field-label{font-size:12px;font-weight:700;color:var(--text3);min-width:52px;}
+.email-field-value{font-size:12px;color:var(--text2);font-weight:500;}
+.email-body-preview{font-size:12px;color:var(--text2);line-height:1.6;padding-top:10px;}
+
+/* ═══════════════════════════════════════════════════════
+   SCREEN 16 – SUPPORT
+═══════════════════════════════════════════════════════ */
+.contact-row{display:flex;gap:10px;padding:0 16px;}
+.contact-btn{
+  flex:1;display:flex;flex-direction:column;align-items:center;gap:8px;
+  padding:16px 8px;background:var(--white);border:1px solid var(--border);
+  border-radius:var(--radius-sm);box-shadow:var(--card-shadow);cursor:pointer;
+}
+.contact-btn-label{font-size:12px;font-weight:600;color:var(--text2);}
+.faq-item{
+  background:var(--white);border:1px solid var(--border);border-radius:var(--radius-sm);
+  overflow:hidden;box-shadow:var(--card-shadow);
+}
+.faq-question{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 16px;cursor:pointer;-webkit-tap-highlight-color:transparent;
+}
+.faq-question svg{transition:transform .2s;flex-shrink:0;}
+.faq-answer{
+  max-height:0;overflow:hidden;transition:max-height .3s ease;
+  font-size:13px;color:var(--text2);line-height:1.6;
+  padding:0 16px;
+}
+.faq-answer.open{max-height:200px;padding:0 16px 14px;}
+
+/* ─── SCREEN NAV BUTTONS (desktop) ─────────────────── */
+.screen-nav{
+  display:flex;flex-wrap:wrap;gap:6px;justify-content:center;
+  max-width:500px;
+}
+.screen-btn{
+  padding:7px 13px;border-radius:20px;font-size:12px;font-weight:600;
+  background:var(--white);border:1.5px solid var(--border);color:var(--text2);
+  cursor:pointer;font-family:inherit;transition:all .15s;
+}
+.screen-btn:hover{border-color:var(--teal);color:var(--teal);}
+.screen-btn.active{background:var(--teal);color:#fff;border-color:var(--teal);}
+
+/* ─── MOBILE RESPONSIVE ─────────────────────────────── */
+@media (max-width: 480px) {
+  body{background:var(--white);}
+  .app-wrapper{padding:0;background:var(--white);gap:0;}
+  .phone-frame{
+    width:100%;height:100vh;height:100dvh;
+    border-radius:0;box-shadow:none;
+  }
+  .notch{display:none;}
+  .status-bar{height:44px;padding:0 16px 6px;}
+  .phone-screen{height:calc(100vh - 44px);height:calc(100dvh - 44px);}
+  .screen-nav{display:none;}
+}
+</style>
+</head>
+<body>
+<div class="app-wrapper">
+  <div class="phone-frame">
+    <div class="notch"></div>
+    <div class="status-bar">
+      <span class="status-time">9:41</span>
+      <div class="status-icons">
+        <svg width="16" height="12" viewBox="0 0 16 12" fill="currentColor"><rect x="0" y="3" width="3" height="9" rx="1"/><rect x="4.5" y="2" width="3" height="10" rx="1"/><rect x="9" y="0" width="3" height="12" rx="1"/><rect x="13.5" y="1" width="2.5" height="11" rx="1" opacity=".3"/></svg>
+        <svg width="16" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><circle cx="12" cy="20" r="1" fill="currentColor"/></svg>
+        <svg width="25" height="12" viewBox="0 0 25 12" fill="none"><rect x="0" y="1" width="21" height="10" rx="2.5" stroke="currentColor" stroke-width="1.2"/><rect x="1.5" y="2.5" width="15" height="7" rx="1.5" fill="currentColor"/><path d="M22.5 4.5v3a1.5 1.5 0 0 0 0-3z" fill="currentColor"/></svg>
+      </div>
+    </div>
+    <div class="phone-screen">
+
+<!-- ══════════════════════════════════════════
+     S1 – SPLASH
+══════════════════════════════════════════ -->
+<div class="screen active" id="screen-splash" style="align-items:center;justify-content:center;flex-direction:column;">
+  <img src="logo.png" class="splash-logo" alt="helloscore."/>
+  <p class="splash-tagline">Say Hello, Score High.</p>
+  <div class="splash-dots">
+    <div class="splash-dot active"></div>
+    <div class="splash-dot"></div>
+    <div class="splash-dot"></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     S2 – ONBOARDING
+══════════════════════════════════════════ -->
+<div class="screen" id="screen-onboarding" style="flex-direction:column;">
+  <div class="onboard-header">
+    <img src="logo.png" style="height:22px;" alt="helloscore."/>
+    <button class="onboard-skip" onclick="showScreen('screen-consent')">Skip</button>
+  </div>
+  <div class="onboard-viewport">
+    <div class="onboard-slides" id="onboard-slides">
+      <div class="onboard-slide">
+        <div class="onboard-illo">
+          <svg width="90" height="90" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <div>
+          <div class="onboard-title">Know Your Credit Score</div>
+          <p class="onboard-body">Get your free Experian and CRIF credit score in under 2 minutes. No hidden charges, ever.</p>
+        </div>
+      </div>
+      <div class="onboard-slide">
+        <div class="onboard-illo" style="background:var(--blue-l);">
+          <svg width="90" height="90" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        </div>
+        <div>
+          <div class="onboard-title">Understand Your Report</div>
+          <p class="onboard-body">See exactly what's helping or hurting your score. Get a full account-by-account breakdown.</p>
+        </div>
+      </div>
+      <div class="onboard-slide">
+        <div class="onboard-illo" style="background:var(--amber-l);">
+          <svg width="90" height="90" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </div>
+        <div>
+          <div class="onboard-title">Improve &amp; Earn Rewards</div>
+          <p class="onboard-body">Follow personalised action plans, improve your score, and earn HelloCoins along the way.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="onboard-footer">
+    <div class="onboard-dots">
+      <div class="onboard-dot active" id="od0"></div>
+      <div class="onboard-dot" id="od1"></div>
+      <div class="onboard-dot" id="od2"></div>
+    </div>
+    <button class="btn btn-primary" id="onboard-next-btn" onclick="onboardNext()">Next</button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     S3 – CONSENT
+══════════════════════════════════════════ -->
+<div class="screen" id="screen-consent" style="flex-direction:column;">
+  <div class="screen-header">
+    <img src="logo.png" class="logo" alt="helloscore."/>
+    <h2>Before we begin</h2>
+    <p>We need your consent to fetch your credit report from Experian and CRIF bureaus.</p>
+  </div>
+  <div class="scroll-content">
+    <div style="padding:20px;display:flex;flex-direction:column;gap:14px;">
+      <div class="consent-icon-wrap">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      </div>
+      <div class="card" style="display:flex;flex-direction:column;gap:12px;">
+        <div style="display:flex;align-items:flex-start;gap:12px;">
+          <div style="width:36px;height:36px;border-radius:10px;background:var(--teal-l);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          </div>
+          <div><div style="font-size:14px;font-weight:700;color:var(--text1);">Soft inquiry only</div><div style="font-size:13px;color:var(--text3);margin-top:2px;line-height:1.5;">Checking your score here does not affect it in any way.</div></div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:12px;">
+          <div style="width:36px;height:36px;border-radius:10px;background:var(--blue-l);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          </div>
+          <div><div style="font-size:14px;font-weight:700;color:var(--text1);">Your data is safe</div><div style="font-size:13px;color:var(--text3);margin-top:2px;line-height:1.5;">256-bit encryption. We never sell your data to third parties.</div></div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:12px;">
+          <div style="width:36px;height:36px;border-radius:10px;background:var(--green-l);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          </div>
+          <div><div style="font-size:14px;font-weight:700;color:var(--text1);">RBI compliant</div><div style="font-size:13px;color:var(--text3);margin-top:2px;line-height:1.5;">We are a registered bureau access partner, fully compliant with RBI guidelines.</div></div>
+        </div>
+      </div>
+      <div class="consent-check-row" onclick="toggleConsent()">
+        <div class="checkbox" id="consent-checkbox">
+          <svg id="consent-check-svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="display:none;"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <p style="font-size:13px;color:var(--text2);line-height:1.5;">I agree to allow HelloScore to fetch my credit report from Experian and CRIF on my behalf.</p>
+      </div>
+      <button class="btn btn-primary" id="consent-btn" disabled onclick="showScreen('screen-mobile')">Continue</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     S4 – MOBILE + OTP
+══════════════════════════════════════════ -->
+<div class="screen" id="screen-mobile" style="flex-direction:column;">
+  <div class="screen-header">
+    <img src="logo.png" class="logo" alt="helloscore."/>
+    <h2>Verify your number</h2>
+    <p>We'll send a one-time password to confirm your identity.</p>
+  </div>
+  <div class="scroll-content">
+    <div style="padding:20px;display:flex;flex-direction:column;gap:16px;">
+      <div id="mobile-step">
+        <div class="mobile-illo">
+          <svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18" stroke-width="2.5"/></svg>
+        </div>
+        <div class="input-group">
+          <div class="input-label">Mobile Number</div>
+          <div class="phone-input-row">
+            <div class="phone-flag">🇮🇳 +91</div>
+            <input type="tel" id="mobile-input" maxlength="10" placeholder="Enter 10-digit number" oninput="checkMobile()"/>
+          </div>
+        </div>
+        <button class="btn btn-primary" id="get-otp-btn" disabled onclick="showOTPStep()" style="margin-top:16px;">Get OTP</button>
+      </div>
+      <div id="otp-step" style="display:none;flex-direction:column;gap:16px;">
+        <div style="text-align:center;">
+          <div style="font-size:15px;font-weight:600;color:var(--text1);">Enter OTP sent to</div>
+          <div style="font-size:15px;font-weight:700;color:var(--teal);margin-top:2px;">+91 98765 43210</div>
+        </div>
+        <div class="otp-boxes">
+          <input class="otp-box" type="tel" maxlength="1" oninput="otpInput(this,0)" onkeyup="otpKey(event,this,0)"/>
+          <input class="otp-box" type="tel" maxlength="1" oninput="otpInput(this,1)" onkeyup="otpKey(event,this,1)"/>
+          <input class="otp-box" type="tel" maxlength="1" oninput="otpInput(this,2)" onkeyup="otpKey(event,this,2)"/>
+          <input class="otp-box" type="tel" maxlength="1" oninput="otpInput(this,3)" onkeyup="otpKey(event,this,3)"/>
+          <input class="otp-box" type="tel" maxlength="1" oninput="otpInput(this,4)" onkeyup="otpKey(event,this,4)"/>
+          <input class="otp-box" type="tel" maxlength="1" oninput="otpInput(this,5)" onkeyup="otpKey(event,this,5)"/>
+        </div>
+        <p style="text-align:center;font-size:13px;color:var(--text3);" id="resend-timer">Resend OTP in <strong>30s</strong></p>
+        <button class="btn btn-primary" id="verify-btn" disabled onclick="showScreen('screen-kyc')">Verify &amp; Continue</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     S5 – KYC FORM
+══════════════════════════════════════════ -->
+<div class="screen" id="screen-kyc" style="flex-direction:column;">
+  <div class="screen-header">
+    <img src="logo.png" class="logo" alt="helloscore."/>
+    <h2>Your details</h2>
+    <p>We need a few details to fetch your credit report.</p>
+  </div>
+  <div class="scroll-content">
+    <div style="padding:20px;display:flex;flex-direction:column;gap:14px;">
+      <div style="padding:0 0 4px;">
+        <div class="progress-steps">
+          <div class="step-dot done"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <div class="step-line done"></div>
+          <div class="step-dot active">2</div>
+          <div class="step-line"></div>
+          <div class="step-dot pending">3</div>
+        </div>
+        <div style="display:flex;justify-content:space-between;margin-top:6px;font-size:11px;color:var(--text4);font-weight:500;">
+          <span>Verify</span><span style="color:var(--teal);font-weight:700;">Details</span><span>Done</span>
+        </div>
+      </div>
+      <div class="input-group">
+        <div class="input-label">Full Name (as per PAN)</div>
+        <input class="input-field" type="text" placeholder="e.g. Rahul Sharma" value="Rahul Sharma"/>
+      </div>
+      <div class="input-group">
+        <div class="input-label">Date of Birth</div>
+        <input class="input-field" type="text" placeholder="DD / MM / YYYY" value="15 / 03 / 1992"/>
+      </div>
+      <div class="input-group">
+        <div class="input-label">PAN Number</div>
+        <input class="input-field" type="text" placeholder="e.g. ABCDE1234F" value="ABCRS1234F" style="text-transform:uppercase;letter-spacing:1px;"/>
+      </div>
+      <div class="input-group">
+        <div class="input-label">Email Address</div>
+        <input class="input-field" type="email" placeholder="you@email.com" value="rahul.sharma@gmail.com"/>
+      </div>
+      <div style="background:var(--teal-l);border:1px solid var(--teal-m);border-radius:var(--radius-xs);padding:12px;display:flex;align-items:flex-start;gap:10px;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:1px;"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <p style="font-size:12px;color:var(--teal-d);line-height:1.5;">Your PAN is used only to fetch your credit report. It is never stored on our servers.</p>
+      </div>
+      <button class="btn btn-primary" onclick="showScreen('screen-loading')">Fetch My Score</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     S6 – LOADING
+══════════════════════════════════════════ -->
+<div class="screen" id="screen-loading" style="align-items:center;justify-content:center;flex-direction:column;padding:32px 24px;">
+  <img src="logo.png" class="loading-logo" alt="helloscore."/>
+  <div class="loading-spinner"></div>
+  <div style="font-size:18px;font-weight:800;color:var(--text1);text-align:center;margin-bottom:6px;">Fetching your score...</div>
+  <p style="font-size:13px;color:var(--text3);text-align:center;margin-bottom:28px;">This usually takes 10–15 seconds.</p>
+  <div style="width:100%;max-width:280px;display:flex;flex-direction:column;gap:0;">
+    <div class="loading-step">
+      <div class="loading-step-icon done"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+      <span class="loading-step-text done">Identity verified</span>
+    </div>
+    <div class="loading-step">
+      <div class="loading-step-icon done"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+      <span class="loading-step-text done">Contacting Experian</span>
+    </div>
+    <div class="loading-step">
+      <div class="loading-step-icon active"><div style="width:14px;height:14px;border-radius:50%;border:2px solid var(--teal);border-top-color:transparent;animation:spin .8s linear infinite;"></div></div>
+      <span class="loading-step-text active">Fetching CRIF data...</span>
+    </div>
+    <div class="loading-step">
+      <div class="loading-step-icon pending"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text4)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+      <span class="loading-step-text pending">Analysing your report</span>
+    </div>
+  </div>
+  <button class="btn btn-primary" onclick="showScreen('screen-score-reveal')" style="margin-top:32px;width:auto;padding:12px 28px;">See My Score</button>
+</div>
+
+<!-- ══════════════════════════════════════════
+     S7 – SCORE REVEAL
+══════════════════════════════════════════ -->
+<div class="screen" id="screen-score-reveal" style="flex-direction:column;">
+  <div class="score-reveal-top">
+    <img src="logo.png" style="height:22px;margin-bottom:16px;" alt="helloscore."/>
+    <div style="font-size:13px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;">Your Experian Score</div>
+    <div class="score-reveal-number">742</div>
+    <div class="score-reveal-label">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
+      GOOD
+    </div>
+    <div class="score-bar-track"><div class="score-bar-fill"></div></div>
+    <div class="score-bar-labels"><span>300 Poor</span><span>550 Fair</span><span>700 Good</span><span>800 Excellent</span></div>
+  </div>
+  <div class="scroll-content">
+    <div style="padding:16px;display:flex;flex-direction:column;gap:12px;">
+      <div class="card">
+        <h3>What's helping your score</h3>
+        <div class="factor-row">
+          <div class="factor-icon" style="background:var(--green-l);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+          <div><div class="factor-label">On-time payments</div><div class="factor-sub">98% payment history</div></div>
+          <span class="badge badge-green">+High</span>
+        </div>
+        <div class="factor-row">
+          <div class="factor-icon" style="background:var(--blue-l);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></div>
+          <div><div class="factor-label">Credit mix</div><div class="factor-sub">Loans + credit cards</div></div>
+          <span class="badge badge-blue">+Medium</span>
+        </div>
+      </div>
+      <div class="card">
+        <h3>What's hurting your score</h3>
+        <div class="factor-row">
+          <div class="factor-icon" style="background:var(--red-l);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+          <div><div class="factor-label">High credit utilisation</div><div class="factor-sub">Using 68% of limit</div></div>
+          <span class="badge badge-red">-High</span>
+        </div>
+        <div class="factor-row">
+          <div class="factor-icon" style="background:var(--amber-l);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div>
+          <div><div class="factor-label">Recent hard inquiries</div><div class="factor-sub">3 in last 6 months</div></div>
+          <span class="badge badge-amber">-Medium</span>
+        </div>
+      </div>
+      <button class="btn btn-primary" onclick="showScreen('screen-home')">View Full Dashboard</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     S8 – HOME DASHBOARD
+══════════════════════════════════════════ -->
+<div class="screen" id="screen-home" style="flex-direction:column;">
+  <div class="home-topbar">
+    <div>
+      <div class="home-greeting">Good Morning</div>
+      <div class="home-name">Rahul Sharma</div>
+    </div>
+    <div style="display:flex;align-items:center;gap:8px;">
+      <div class="coins-chip" onclick="showScreen('screen-coins')">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        <span>1,240 coins</span>
+      </div>
+      <img src="logo.png" style="height:20px;" alt="helloscore."/>
+    </div>
+  </div>
+  <div class="cat-tabs">
+    <div class="cat-tab active">
+      <div class="cat-tab-icon" style="background:var(--teal-l);">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+      </div>
+      <span class="cat-tab-label">Credit</span>
+      <div class="cat-tab-dot"></div>
+    </div>
+    <div class="cat-tab" onclick="showScreen('screen-report')">
+      <div class="cat-tab-icon" style="background:var(--blue-l);">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+      </div>
+      <span class="cat-tab-label">Accounts</span>
+      <div class="cat-tab-dot"></div>
+    </div>
+    <div class="cat-tab" onclick="showScreen('screen-emi')">
+      <div class="cat-tab-icon" style="background:var(--amber-l);">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+      </div>
+      <span class="cat-tab-label">EMI Calc</span>
+      <div class="cat-tab-dot"></div>
+    </div>
+    <div class="cat-tab" onclick="showScreen('screen-guides')">
+      <div class="cat-tab-icon" style="background:var(--purple-l);">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--purple)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+      </div>
+      <span class="cat-tab-label">Guides</span>
+      <div class="cat-tab-dot"></div>
+    </div>
+    <div class="cat-tab" onclick="showScreen('screen-coins')">
+      <div class="cat-tab-icon" style="background:var(--amber-l);">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+      </div>
+      <span class="cat-tab-label">Coins</span>
+      <div class="cat-tab-dot"></div>
+    </div>
+  </div>
+  <div class="scroll-content">
+    <div class="score-columns">
+      <div class="score-col">
+        <div class="score-bureau">Experian</div>
+        <div class="score-number">742</div>
+        <div class="score-trend">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline;vertical-align:middle;"><polyline points="18 15 12 9 6 15"/></svg>
+          +1 this month
+        </div>
+        <div class="score-updated">Updated Jun 25</div>
+        <div class="score-grade">GOOD</div>
+      </div>
+      <div class="score-col">
+        <div class="score-bureau">CRIF</div>
+        <div class="score-number">738</div>
+        <div class="score-trend">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:inline;vertical-align:middle;"><polyline points="18 15 12 9 6 15"/></svg>
+          +2 this month
+        </div>
+        <div class="score-updated">Updated Jun 25</div>
+        <div class="score-grade">GOOD</div>
+      </div>
+    </div>
+
+    <div class="section-header">
+      <div>
+        <div class="section-title">More to look at</div>
+        <div class="section-sub">3 things need your attention</div>
+      </div>
+      <button class="section-link">
+        All
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+    </div>
+
+    <div class="issue-card">
+      <div class="issue-icon" style="background:var(--red-l);">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+      </div>
+      <div class="issue-text">
+        <div class="issue-title">High Credit Utilisation</div>
+        <div class="issue-sub">You're using 68% of your card limits</div>
+      </div>
+      <span class="badge badge-red">High</span>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text4)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+    </div>
+
+    <div class="issue-card">
+      <div class="issue-icon" style="background:var(--amber-l);">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </div>
+      <div class="issue-text">
+        <div class="issue-title">Multiple Recent Inquiries</div>
+        <div class="issue-sub">3 hard inquiries in last 6 months</div>
+      </div>
+      <span class="badge badge-amber">Medium</span>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text4)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+    </div>
+
+    <div class="issue-card">
+      <div class="issue-icon" style="background:var(--blue-l);">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      </div>
+      <div class="issue-text">
+        <div class="issue-title">Short Credit History</div>
+        <div class="issue-sub">Oldest account is 3 years old</div>
+      </div>
+      <span class="badge badge-blue">Low</span>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text4)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+    </div>
+
+    <div class="suggest-label">SUGGESTED FOR YOUR CREDIT</div>
+    <div class="suggest-card">
+      <div class="suggest-card-body">
+        <div class="suggest-card-chip">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+        </div>
+        <div>
+          <div class="suggest-card-name">HDFC Regalia</div>
+          <div class="suggest-card-sub">Pre-approved · No annual fee · 5% cashback</div>
+        </div>
+      </div>
+      <div class="suggest-card-footer">
+        <span class="suggest-card-tag">Pre-approved for you</span>
+        <button class="btn btn-primary" style="width:auto;padding:8px 16px;font-size:12px;">Apply</button>
+      </div>
+    </div>
+
+    <div class="suggest-card" style="margin-bottom:20px;">
+      <div class="suggest-card-body" style="background:#0f2744;">
+        <div class="suggest-card-chip">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+        </div>
+        <div>
+          <div class="suggest-card-name">Axis Magnus</div>
+          <div class="suggest-card-sub">Reward points · Travel benefits · ₹10K limit</div>
+        </div>
+      </div>
+      <div class="suggest-card-footer">
+        <span class="suggest-card-tag">Good match for you</span>
+        <button class="btn btn-primary" style="width:auto;padding:8px 16px;font-size:12px;">Apply</button>
+      </div>
+    </div>
+  </div>
+  <div class="tab-bar">
+    <div class="tab-item active" onclick="switchTab('home')">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      <span>Home</span>
+    </div>
+    <div class="tab-item" onclick="switchTab('report')">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+      <span>Report</span>
+    </div>
+    <div class="tab-item" onclick="switchTab('planner')">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+      <span>Planner</span>
+    </div>
+    <div class="tab-item" onclick="switchTab('guides')">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+      <span>Guides</span>
+    </div>
+    <div class="tab-item" onclick="switchTab('profile')">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      <span>Profile</span>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     S9 – REPORT
+══════════════════════════════════════════ -->
+<div class="screen" id="screen-report" style="flex-direction:column;">
+  <div class="screen-header">
+    <img src="logo.png" class="logo" alt="helloscore."/>
+    <h2>Credit Report</h2>
+  </div>
+  <div class="report-tabs">
+    <div class="report-tab active" id="tab-free" onclick="switchReportTab('free')">Summary (Free)</div>
+    <div class="report-tab" id="tab-premium" onclick="switchReportTab('premium')">Full Report</div>
+  </div>
+  <!-- FREE VIEW -->
+  <div id="report-free" style="display:flex;flex-direction:column;flex:1;overflow:hidden;">
+    <div class="scroll-content">
+      <div class="summary-grid">
+        <div class="summary-tile">
+          <div class="summary-tile-label">Score</div>
+          <div class="summary-tile-value" style="color:var(--teal);">742</div>
+          <div class="summary-tile-sub">Experian · Good</div>
+        </div>
+        <div class="summary-tile">
+          <div class="summary-tile-label">Accounts</div>
+          <div class="summary-tile-value">8</div>
+          <div class="summary-tile-sub">4 active · 4 closed</div>
+        </div>
+        <div class="summary-tile">
+          <div class="summary-tile-label">On-time</div>
+          <div class="summary-tile-value" style="color:var(--green);">98%</div>
+          <div class="summary-tile-sub">Payment history</div>
+        </div>
+        <div class="summary-tile">
+          <div class="summary-tile-label">Utilisation</div>
+          <div class="summary-tile-value" style="color:var(--red);">68%</div>
+          <div class="summary-tile-sub">Should be below 30%</div>
+        </div>
+      </div>
+      <div style="padding:0 16px 16px;">
+        <div class="paywall-blur">
+          <div class="paywall-content">
+            <div style="height:120px;background:var(--bg);border-radius:10px;margin-bottom:10px;"></div>
+            <div style="height:80px;background:var(--bg);border-radius:10px;"></div>
+          </div>
+          <div class="paywall-overlay">
+            <div class="paywall-icon">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            </div>
+            <div class="paywall-title">Unlock Full Report</div>
+            <p class="paywall-sub">See all accounts, DPD history, hard inquiries, and dispute errors.</p>
+            <button class="btn btn-primary" style="width:auto;padding:12px 24px;" onclick="switchReportTab('premium')">Unlock for ₹99/mo</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- PREMIUM VIEW -->
+  <div id="report-premium" style="display:none;flex-direction:column;flex:1;overflow:hidden;">
+    <div class="scroll-content">
+      <div class="summary-grid">
+        <div class="summary-tile"><div class="summary-tile-label">Score</div><div class="summary-tile-value" style="color:var(--teal);">742</div><div class="summary-tile-sub">Experian · Good</div></div>
+        <div class="summary-tile"><div class="summary-tile-label">Accounts</div><div class="summary-tile-value">8</div><div class="summary-tile-sub">4 active · 4 closed</div></div>
+        <div class="summary-tile"><div class="summary-tile-label">On-time</div><div class="summary-tile-value" style="color:var(--green);">98%</div><div class="summary-tile-sub">Payment history</div></div>
+        <div class="summary-tile"><div class="summary-tile-label">Hard Inquiries</div><div class="summary-tile-value" style="color:var(--amber);">3</div><div class="summary-tile-sub">Last 6 months</div></div>
+      </div>
+      <div style="padding:0 16px 8px;"><div style="font-size:12px;font-weight:700;color:var(--text4);text-transform:uppercase;letter-spacing:.6px;">Active Accounts</div></div>
+      <div style="margin:0 16px 12px;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:var(--card-shadow);">
+        <div class="account-row">
+          <div class="account-icon" style="background:var(--blue-l);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></div>
+          <div style="flex:1;">
+            <div class="account-name">HDFC Credit Card</div>
+            <div class="account-meta">Limit ₹1,50,000 · Used ₹1,02,000</div>
+            <div class="dpd-dots"><div class="dpd-dot dpd-ok"></div><div class="dpd-dot dpd-ok"></div><div class="dpd-dot dpd-ok"></div><div class="dpd-dot dpd-ok"></div><div class="dpd-dot dpd-ok"></div><div class="dpd-dot dpd-ok"></div></div>
+          </div>
+          <span class="badge badge-green">Active</span>
+        </div>
+        <div class="account-row">
+          <div class="account-icon" style="background:var(--teal-l);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></div>
+          <div style="flex:1;">
+            <div class="account-name">SBI Home Loan</div>
+            <div class="account-meta">Outstanding ₹28,40,000</div>
+            <div class="dpd-dots"><div class="dpd-dot dpd-ok"></div><div class="dpd-dot dpd-ok"></div><div class="dpd-dot dpd-late"></div><div class="dpd-dot dpd-ok"></div><div class="dpd-dot dpd-ok"></div><div class="dpd-dot dpd-ok"></div></div>
+          </div>
+          <span class="badge badge-green">Active</span>
+        </div>
+        <div class="account-row" style="border-bottom:none;">
+          <div class="account-icon" style="background:var(--purple-l);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--purple)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+          <div style="flex:1;">
+            <div class="account-name">ICICI Personal Loan</div>
+            <div class="account-meta">Outstanding ₹1,20,000</div>
+            <div class="dpd-dots"><div class="dpd-dot dpd-ok"></div><div class="dpd-dot dpd-ok"></div><div class="dpd-dot dpd-ok"></div><div class="dpd-dot dpd-ok"></div><div class="dpd-dot dpd-na"></div><div class="dpd-dot dpd-na"></div></div>
+          </div>
+          <span class="badge badge-green">Active</span>
+        </div>
+      </div>
+      <div style="padding:0 16px 8px;"><div style="font-size:12px;font-weight:700;color:var(--text4);text-transform:uppercase;letter-spacing:.6px;">Closed Accounts</div></div>
+      <div style="margin:0 16px 16px;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:var(--card-shadow);">
+        <div class="account-row" style="border-bottom:none;">
+          <div class="account-icon" style="background:var(--bg);"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--text3)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+          <div style="flex:1;">
+            <div class="account-name">Bajaj Auto Loan</div>
+            <div class="account-meta">Closed Jun 2024 · Fully paid</div>
+          </div>
+          <span class="badge badge-teal">Closed</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="tab-bar">
+    <div class="tab-item" onclick="switchTab('home')"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span>Home</span></div>
+    <div class="tab-item active" onclick="switchTab('report')"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg><span>Report</span></div>
+    <div class="tab-item" onclick="switchTab('planner')"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg><span>Planner</span></div>
+    <div class="tab-item" onclick="switchTab('guides')"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg><span>Guides</span></div>
+    <div class="tab-item" onclick="switchTab('profile')"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>Profile</span></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     S10 – PLANNER
+══════════════════════════════════════════ -->
+<div class="screen" id="screen-planner" style="flex-direction:column;">
+  <div class="planner-header">
+    <img src="logo.png" style="height:22px;" alt="helloscore."/>
+    <div style="font-size:22px;font-weight:800;color:var(--text1);margin-top:8px;">Score Planner</div>
+    <p style="font-size:13px;color:var(--text3);margin-top:2px;">Set a target and follow your personalised action plan.</p>
+    <div class="target-chips">
+      <div class="target-chip">750</div>
+      <div class="target-chip active">775</div>
+      <div class="target-chip">800</div>
+      <div class="target-chip">825+</div>
+    </div>
+    <div class="progress-bar-wrap">
+      <div class="progress-bar-labels"><span>742 Now</span><span>775 Target</span></div>
+      <div class="progress-bar-track"><div class="progress-bar-fill"></div></div>
+      <div style="font-size:12px;color:var(--text3);margin-top:5px;">33 points to go · Est. 4–6 months</div>
+    </div>
+  </div>
+  <div class="scroll-content">
+    <div style="padding:16px 0 16px;">
+      <div class="scenario-card">
+        <div class="scenario-header">
+          <div class="scenario-icon" style="background:var(--red-l);">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+          </div>
+          <div style="flex:1;">
+            <div class="scenario-title">Reduce Credit Card Utilisation</div>
+            <div class="scenario-sub">Pay down your HDFC card balance from ₹1,02,000 to below ₹45,000.</div>
+          </div>
+        </div>
+        <div class="scenario-impact">
+          <span class="impact-label">Estimated impact:</span>
+          <span class="impact-value">+20 to +30 points</span>
+          <span class="badge badge-red" style="margin-left:auto;">High Priority</span>
+        </div>
+      </div>
+      <div class="scenario-card">
+        <div class="scenario-header">
+          <div class="scenario-icon" style="background:var(--amber-l);">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          </div>
+          <div style="flex:1;">
+            <div class="scenario-title">Avoid New Loan Applications</div>
+            <div class="scenario-sub">Each application adds a hard inquiry. Wait 6 months before applying again.</div>
+          </div>
+        </div>
+        <div class="scenario-impact">
+          <span class="impact-label">Estimated impact:</span>
+          <span class="impact-value">+8 to +12 points</span>
+          <span class="badge badge-amber" style="margin-left:auto;">Medium</span>
+        </div>
+      </div>
+      <div class="scenario-card">
+        <div class="scenario-header">
+          <div class="scenario-icon" style="background:var(--green-l);">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          </div>
+          <div style="flex:1;">
+            <div class="scenario-title">Set Up Auto-Pay</div>
+            <div class="scenario-sub">Never miss a due date. Set up auto-debit for all your EMIs and credit card bills.</div>
+          </div>
+        </div>
+        <div class="scenario-impact">
+          <span class="impact-label">Estimated impact:</span>
+          <span class="impact-value">+5 to +10 points</span>
+          <span class="badge badge-green" style="margin-left:auto;">Easy Win</span>
+        </div>
+      </div>
+      <div class="scenario-card">
+        <div class="scenario-header">
+          <div class="scenario-icon" style="background:var(--blue-l);">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          </div>
+          <div style="flex:1;">
+            <div class="scenario-title">Request a Credit Limit Increase</div>
+            <div class="scenario-sub">A higher limit lowers your utilisation ratio without spending more.</div>
+          </div>
+        </div>
+        <div class="scenario-impact">
+          <span class="impact-label">Estimated impact:</span>
+          <span class="impact-value">+10 to +15 points</span>
+          <span class="badge badge-blue" style="margin-left:auto;">Smart Move</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="tab-bar">
+    <div class="tab-item" onclick="switchTab('home')"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span>Home</span></div>
+    <div class="tab-item" onclick="switchTab('report')"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg><span>Report</span></div>
+    <div class="tab-item active" onclick="switchTab('planner')"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg><span>Planner</span></div>
+    <div class="tab-item" onclick="switchTab('guides')"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg><span>Guides</span></div>
+    <div class="tab-item" onclick="switchTab('profile')"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>Profile</span></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     S11 – GUIDES
+══════════════════════════════════════════ -->
+<div class="screen" id="screen-guides" style="flex-direction:column;">
+  <div class="screen-header">
+    <img src="logo.png" class="logo" alt="helloscore."/>
+    <h2>Credit Guides</h2>
+    <p>Learn how to build and protect your credit score.</p>
+  </div>
+  <div class="guide-chips">
+    <div class="guide-chip active">All</div>
+    <div class="guide-chip">Score Basics</div>
+    <div class="guide-chip">Loans</div>
+    <div class="guide-chip">Credit Cards</div>
+    <div class="guide-chip">Disputes</div>
+  </div>
+  <div class="scroll-content">
+    <div class="guide-featured">
+      <div class="guide-featured-img">
+        <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+      </div>
+      <div class="guide-featured-body">
+        <div class="guide-featured-tag">Featured Guide</div>
+        <div class="guide-featured-title">The Complete Guide to Credit Utilisation</div>
+        <div class="guide-featured-meta">
+          <div class="guide-meta-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            8 min read
+          </div>
+          <div class="guide-meta-item">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            +80 coins
+          </div>
+          <span class="badge badge-green">Beginner</span>
+        </div>
+      </div>
+    </div>
+    <div style="padding:4px 16px 10px;font-size:13px;font-weight:700;color:var(--text1);">More Guides</div>
+    <div class="guide-grid">
+      <div class="guide-card">
+        <div class="guide-card-img" style="background:var(--blue-l);">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+        </div>
+        <div class="guide-card-body">
+          <div class="guide-card-title">How Credit Cards Affect Your Score</div>
+          <div class="guide-card-meta">
+            <span class="guide-card-diff">5 min</span>
+            <div class="guide-card-coins">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+              +50
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="guide-card">
+        <div class="guide-card-img" style="background:var(--amber-l);">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        </div>
+        <div class="guide-card-body">
+          <div class="guide-card-title">How to Dispute Report Errors</div>
+          <div class="guide-card-meta">
+            <span class="guide-card-diff">6 min</span>
+            <div class="guide-card-coins">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+              +60
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="guide-card">
+        <div class="guide-card-img" style="background:var(--purple-l);">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--purple)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        </div>
+        <div class="guide-card-body">
+          <div class="guide-card-title">Personal Loan vs Credit Card</div>
+          <div class="guide-card-meta">
+            <span class="guide-card-diff">4 min</span>
+            <div class="guide-card-coins">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+              +40
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="guide-card">
+        <div class="guide-card-img" style="background:var(--green-l);">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        </div>
+        <div class="guide-card-body">
+          <div class="guide-card-title">Building Credit from Scratch</div>
+          <div class="guide-card-meta">
+            <span class="guide-card-diff">7 min</span>
+            <div class="guide-card-coins">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+              +70
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="tab-bar">
+    <div class="tab-item" onclick="switchTab('home')"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span>Home</span></div>
+    <div class="tab-item" onclick="switchTab('report')"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg><span>Report</span></div>
+    <div class="tab-item" onclick="switchTab('planner')"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg><span>Planner</span></div>
+    <div class="tab-item active
+" onclick="switchTab('guides')"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg><span>Guides</span></div>
+    <div class="tab-item" onclick="switchTab('profile')"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>Profile</span></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     S12 – PROFILE
+══════════════════════════════════════════ -->
+<div class="screen" id="screen-profile" style="flex-direction:column;">
+  <div style="padding:14px 20px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border-light);flex-shrink:0;">
+    <img src="logo.png" style="height:22px;" alt="helloscore."/>
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--text2)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+  </div>
+  <div class="scroll-content">
+    <div class="profile-top">
+      <div class="avatar">
+        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      </div>
+      <div>
+        <div class="profile-name">Rahul Sharma</div>
+        <div class="profile-email">rahul.sharma@gmail.com</div>
+        <div class="premium-badge">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          Premium Member
+        </div>
+      </div>
+    </div>
+    <div class="sub-card">
+      <div class="sub-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      </div>
+      <div style="flex:1;">
+        <div style="font-size:14px;font-weight:700;color:var(--text1);">HelloScore Premium</div>
+        <div style="font-size:12px;color:var(--text3);margin-top:2px;">Full report · Score alerts · Priority support</div>
+        <div style="font-size:12px;color:var(--text4);margin-top:2px;">Renews Jul 26, 2026</div>
+      </div>
+      <span class="sub-active">Active</span>
+    </div>
+    <div class="settings-section">
+      <h3>Account</h3>
+      <div class="settings-group">
+        <div class="settings-row">
+          <div class="settings-icon" style="background:var(--teal-l);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+          <div style="flex:1;"><div class="settings-title">Personal Details</div><div class="settings-sub">Name, DOB, PAN</div></div>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text4)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </div>
+        <div class="settings-row">
+          <div class="settings-icon" style="background:var(--blue-l);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18" stroke-width="2.5"/></svg></div>
+          <div style="flex:1;"><div class="settings-title">Contact Info</div><div class="settings-sub">Mobile, email</div></div>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text4)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </div>
+        <div class="settings-row">
+          <div class="settings-icon" style="background:var(--purple-l);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--purple)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+          <div style="flex:1;"><div class="settings-title">Security</div><div class="settings-sub">PIN, biometrics</div></div>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text4)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </div>
+      </div>
+      <h3>Preferences</h3>
+      <div class="settings-group">
+        <div class="settings-row">
+          <div class="settings-icon" style="background:var(--green-l);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></div>
+          <div style="flex:1;"><div class="settings-title">Score Alerts</div><div class="settings-sub">Notify when score changes</div></div>
+          <div class="toggle"></div>
+        </div>
+        <div class="settings-row">
+          <div class="settings-icon" style="background:var(--amber-l);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+          <div style="flex:1;"><div class="settings-title">Email Updates</div><div class="settings-sub">Monthly report digest</div></div>
+          <div class="toggle off"></div>
+        </div>
+        <div class="settings-row">
+          <div class="settings-icon" style="background:var(--blue-l);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18" stroke-width="2.5"/></svg></div>
+          <div style="flex:1;"><div class="settings-title">Push Notifications</div><div class="settings-sub">Tips, reminders, offers</div></div>
+          <div class="toggle"></div>
+        </div>
+      </div>
+      <h3>More</h3>
+      <div class="settings-group">
+        <div class="settings-row" onclick="showScreen('screen-noc')">
+          <div class="settings-icon" style="background:var(--orange-l);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--orange)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
+          <div style="flex:1;"><div class="settings-title">NOC Helper</div><div class="settings-sub">Request No Objection Certificate</div></div>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text4)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </div>
+        <div class="settings-row" onclick="showScreen('screen-support')">
+          <div class="settings-icon" style="background:var(--teal-l);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17" stroke-width="2.5"/></svg></div>
+          <div style="flex:1;"><div class="settings-title">Help &amp; Support</div><div class="settings-sub">FAQs, contact us</div></div>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text4)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </div>
+        <div class="settings-row">
+          <div class="settings-icon" style="background:var(--red-l);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></div>
+          <div style="flex:1;"><div class="settings-title" style="color:var(--red);">Log Out</div></div>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text4)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </div>
+      </div>
+      <p style="font-size:11px;color:var(--text4);text-align:center;padding:16px 0 8px;">HelloScore v2.4.1 · © 2026 HelloScore Pvt Ltd</p>
+    </div>
+  </div>
+  <div class="tab-bar">
+    <div class="tab-item" onclick="switchTab('home')"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span>Home</span></div>
+    <div class="tab-item" onclick="switchTab('report')"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg><span>Report</span></div>
+    <div class="tab-item" onclick="switchTab('planner')"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg><span>Planner</span></div>
+    <div class="tab-item" onclick="switchTab('guides')"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg><span>Guides</span></div>
+    <div class="tab-item active" onclick="switchTab('profile')"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>Profile</span></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     S13 – EMI CALCULATOR
+══════════════════════════════════════════ -->
+<div class="screen" id="screen-emi" style="flex-direction:column;">
+  <div class="inner-header">
+    <button class="back-btn" onclick="showScreen('screen-home')">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      Back
+    </button>
+    <div style="display:flex;justify-content:space-between;align-items:center;">
+      <div style="font-size:22px;font-weight:800;color:var(--text1);">EMI Calculator</div>
+      <img src="logo.png" style="height:20px;" alt="helloscore."/>
+    </div>
+    <p style="font-size:13px;color:var(--text3);margin-top:2px;">Calculate your monthly instalment instantly.</p>
+  </div>
+  <div class="scroll-content">
+    <div style="padding:16px;display:flex;flex-direction:column;gap:14px;">
+      <div class="emi-result-card">
+        <div class="emi-result-label">Monthly EMI</div>
+        <div class="emi-result-amount">₹<span id="emi-amount">12,734</span></div>
+        <div class="emi-breakdown">
+          <div class="emi-bd-item"><div class="emi-bd-label">Principal</div><div class="emi-bd-val">₹<span id="emi-principal">5,00,000</span></div></div>
+          <div class="emi-bd-item"><div class="emi-bd-label">Interest</div><div class="emi-bd-val">₹<span id="emi-interest">1,11,232</span></div></div>
+          <div class="emi-bd-item"><div class="emi-bd-label">Total</div><div class="emi-bd-val">₹<span id="emi-total">6,11,232</span></div></div>
+        </div>
+      </div>
+      <div class="card" style="display:flex;flex-direction:column;gap:20px;">
+        <div class="slider-group">
+          <div class="slider-header">
+            <span class="slider-label">Loan Amount</span>
+            <span class="slider-value">₹<span id="loan-display">5,00,000</span></span>
+          </div>
+          <input type="range" id="loan-slider" min="50000" max="5000000" step="50000" value="500000" oninput="calcEMI()"/>
+          <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text4);font-weight:500;"><span>₹50K</span><span>₹50L</span></div>
+        </div>
+        <div class="slider-group">
+          <div class="slider-header">
+            <span class="slider-label">Interest Rate (p.a.)</span>
+            <span class="slider-value"><span id="rate-display">10.5</span>%</span>
+          </div>
+          <input type="range" id="rate-slider" min="6" max="24" step="0.5" value="10.5" oninput="calcEMI()"/>
+          <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text4);font-weight:500;"><span>6%</span><span>24%</span></div>
+        </div>
+        <div class="slider-group">
+          <div class="slider-header">
+            <span class="slider-label">Tenure</span>
+            <span class="slider-value"><span id="tenure-display">48</span> months</span>
+          </div>
+          <input type="range" id="tenure-slider" min="6" max="360" step="6" value="48" oninput="calcEMI()"/>
+          <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text4);font-weight:500;"><span>6 mo</span><span>360 mo</span></div>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Loan Eligibility</h3>
+        <p style="font-size:13px;color:var(--text3);margin-bottom:12px;">With your score of <strong style="color:var(--text1);">742</strong>, you qualify for:</p>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:11px 14px;background:var(--green-l);border-radius:var(--radius-xs);border:1px solid #86efac;">
+            <span style="font-size:13px;font-weight:600;color:var(--text1);">Personal Loan</span>
+            <span style="font-size:13px;font-weight:700;color:#15803d;">Up to ₹15L @ 10.5%</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:11px 14px;background:var(--blue-l);border-radius:var(--radius-xs);border:1px solid #93c5fd;">
+            <span style="font-size:13px;font-weight:600;color:var(--text1);">Home Loan</span>
+            <span style="font-size:13px;font-weight:700;color:#1d4ed8;">Up to ₹75L @ 8.5%</span>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:11px 14px;background:var(--amber-l);border-radius:var(--radius-xs);border:1px solid #fde68a;">
+            <span style="font-size:13px;font-weight:600;color:var(--text1);">Car Loan</span>
+            <span style="font-size:13px;font-weight:700;color:#b45309;">Up to ₹20L @ 9.0%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     S14 – HELLOCOINS
+══════════════════════════════════════════ -->
+<div class="screen" id="screen-coins" style="flex-direction:column;">
+  <div class="coins-header">
+    <div>
+      <img src="logo.png" style="height:20px;margin-bottom:8px;display:block;" alt="helloscore."/>
+      <div class="coins-balance-wrap">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        <div>
+          <div class="coins-balance-num">1,240</div>
+          <div class="coins-balance-label">HelloCoins Balance</div>
+        </div>
+      </div>
+    </div>
+    <div class="coins-actions">
+      <button class="coins-action-btn btn-primary" style="background:var(--teal);color:#fff;">Redeem</button>
+      <button class="coins-action-btn btn-ghost" style="background:var(--bg);color:var(--text2);border:1px solid var(--border);">History</button>
+    </div>
+  </div>
+  <div class="scroll-content">
+    <div style="padding:16px;display:flex;flex-direction:column;gap:14px;">
+      <div class="referral-card">
+        <div style="display:flex;align-items:center;gap:10px;">
+          <div style="width:38px;height:38px;border-radius:10px;background:var(--teal-l);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <div>
+            <div style="font-size:15px;font-weight:700;color:var(--text1);">Refer &amp; Earn</div>
+            <div style="font-size:12px;color:var(--text3);margin-top:2px;">Earn 500 coins for every friend who joins</div>
+          </div>
+        </div>
+        <div class="referral-code-row">
+          <span class="ref-code">RAHUL500</span>
+          <div style="display:flex;gap:6px;">
+            <button class="ref-copy-btn">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              Copy
+            </button>
+            <button class="ref-copy-btn" style="background:var(--bg);color:var(--teal);border:1.5px solid var(--teal-m);">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+              Share
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Ways to Earn</h3>
+        <div class="earn-item">
+          <div style="width:38px;height:38px;border-radius:10px;background:var(--teal-l);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></div>
+          <div style="flex:1;"><div style="font-size:14px;font-weight:600;color:var(--text1);">Read a Guide</div><div style="font-size:12px;color:var(--text3);margin-top:2px;">Complete any credit guide</div></div>
+          <span class="earn-coins-badge">+30–100</span>
+        </div>
+        <div class="earn-item">
+          <div style="width:38px;height:38px;border-radius:10px;background:var(--green-l);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+          <div style="flex:1;"><div style="font-size:14px;font-weight:600;color:var(--text1);">Score Improves</div><div style="font-size:12px;color:var(--text3);margin-top:2px;">Every 10-point increase</div></div>
+          <span class="earn-coins-badge">+200</span>
+        </div>
+        <div class="earn-item">
+          <div style="width:38px;height:38px;border-radius:10px;background:var(--purple-l);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--purple)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+          <div style="flex:1;"><div style="font-size:14px;font-weight:600;color:var(--text1);">Refer a Friend</div><div style="font-size:12px;color:var(--text3);margin-top:2px;">When they complete signup</div></div>
+          <span class="earn-coins-badge">+500</span>
+        </div>
+        <div class="earn-item" style="border-bottom:none;">
+          <div style="width:38px;height:38px;border-radius:10px;background:var(--amber-l);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+          <div style="flex:1;"><div style="font-size:14px;font-weight:600;color:var(--text1);">Daily Check-in</div><div style="font-size:12px;color:var(--text3);margin-top:2px;">Open the app every day</div></div>
+          <span class="earn-coins-badge">+10/day</span>
+        </div>
+      </div>
+      <div style="display:flex;gap:10px;">
+        <div class="card" style="flex:1;text-align:center;display:flex;flex-direction:column;align-items:center;gap:8px;">
+          <div style="width:44px;height:44px;border-radius:12px;background:var(--amber-l);display:flex;align-items:center;justify-content:center;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+          <div style="font-size:13px;font-weight:700;color:var(--text1);">Premium Month</div>
+          <div style="font-size:12px;color:var(--text3);">2,000 coins</div>
+        </div>
+        <div class="card" style="flex:1;text-align:center;display:flex;flex-direction:column;align-items:center;gap:8px;">
+          <div style="width:44px;height:44px;border-radius:12px;background:var(--green-l);display:flex;align-items:center;justify-content:center;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+          <div style="font-size:13px;font-weight:700;color:var(--text1);">Amazon Voucher</div>
+          <div style="font-size:12px;color:var(--text3);">5,000 coins</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     S15 – NOC HELPER
+══════════════════════════════════════════ -->
+<div class="screen" id="screen-noc" style="flex-direction:column;">
+  <div class="inner-header">
+    <button class="back-btn" onclick="showScreen('screen-profile')">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      Back
+    </button>
+    <div style="display:flex;justify-content:space-between;align-items:center;">
+      <div style="font-size:22px;font-weight:800;color:var(--text1);">NOC Request</div>
+      <img src="logo.png" style="height:20px;" alt="helloscore."/>
+    </div>
+    <p style="font-size:13px;color:var(--text3);margin-top:2px;">Request a No Objection Certificate from your lender.</p>
+  </div>
+  <div class="scroll-content">
+    <div style="padding:16px;display:flex;flex-direction:column;gap:14px;">
+      <div style="font-size:13px;font-weight:700;color:var(--text2);">Select Account</div>
+      <div class="noc-account-item selected">
+        <div style="width:40px;height:40px;border-radius:10px;background:var(--teal-l);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+        <div style="flex:1;"><div style="font-size:14px;font-weight:700;color:var(--text1);">Bajaj Auto Loan</div><div style="font-size:12px;color:var(--text3);margin-top:2px;">Closed · Jun 2024</div></div>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <div class="noc-account-item">
+        <div style="width:40px;height:40px;border-radius:10px;background:var(--bg);display:flex;align-items:center;justify-content:center;flex-shrink:0;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--text3)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></div>
+        <div style="flex:1;"><div style="font-size:14px;font-weight:600;color:var(--text1);">HDFC Credit Card</div><div style="font-size:12px;color:var(--text3);margin-top:2px;">Active</div></div>
+      </div>
+      <div style="font-size:13px;font-weight:700;color:var(--text2);">Email Preview</div>
+      <div class="email-preview">
+        <div class="email-field"><span class="email-field-label">To:</span><span class="email-field-value">noc@bajajfinserv.in</span></div>
+        <div class="email-field"><span class="email-field-label">Subject:</span><span class="email-field-value">NOC Request – Loan A/C #BFL2019XXXX</span></div>
+        <div class="email-body-preview">Dear Sir/Madam,<br/><br/>I, <strong>Rahul Sharma</strong>, request a No Objection Certificate for my Auto Loan (A/C #BFL2019XXXX) which was fully repaid on 15 June 2024.<br/><br/>Kindly issue the NOC at your earliest convenience.<br/><br/>Regards,<br/>Rahul Sharma · +91 98765 43210</div>
+      </div>
+      <button class="btn btn-primary">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        Open in Email App
+      </button>
+      <button class="btn btn-ghost">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        Copy Email Text
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     S16 – SUPPORT
+══════════════════════════════════════════ -->
+<div class="screen" id="screen-support" style="flex-direction:column;">
+  <div class="inner-header">
+    <button class="back-btn" onclick="showScreen('screen-profile')">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      Back
+    </button>
+    <div style="display:flex;justify-content:space-between;align-items:center;">
+      <div style="font-size:22px;font-weight:800;color:var(--text1);">Help &amp; Support</div>
+      <img src="logo.png" style="height:20px;" alt="helloscore."/>
+    </div>
+  </div>
+  <div class="scroll-content">
+    <div style="padding:16px;display:flex;flex-direction:column;gap:14px;">
+      <div class="contact-row">
+        <div class="contact-btn">
+          <div style="width:44px;height:44px;border-radius:12px;background:#dcfce7;display:flex;align-items:center;justify-content:center;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+          <div class="contact-btn-label">WhatsApp</div>
+        </div>
+        <div class="contact-btn">
+          <div style="width:44px;height:44px;border-radius:12px;background:var(--blue-l);display:flex;align-items:center;justify-content:center;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+          <div class="contact-btn-label">Call Us</div>
+        </div>
+        <div class="contact-btn">
+          <div style="width:44px;height:44px;border-radius:12px;background:var(--red-l);display:flex;align-items:center;justify-content:center;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+          <div class="contact-btn-label">Email</div>
+        </div>
+      </div>
+      <div style="font-size:15px;font-weight:700;color:var(--text1);">Frequently Asked Questions</div>
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFAQ(this)">
+            <span style="font-size:14px;font-weight:600;color:var(--text1);">Does checking my score affect it?</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text3)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+          <div class="faq-answer">No. HelloScore uses a soft inquiry which does not affect your credit score. Only hard inquiries from lenders impact your score.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFAQ(this)">
+            <span style="font-size:14px;font-weight:600;color:var(--text1);">How often is my score updated?</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text3)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+          <div class="faq-answer">Your Experian score is refreshed every 30 days. You'll get a push notification as soon as your new score is ready.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFAQ(this)">
+            <span style="font-size:14px;font-weight:600;color:var(--text1);">How do I dispute an error on my report?</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text3)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+          <div class="faq-answer">Go to Report, tap on the incorrect account, then tap Raise Dispute. We'll guide you through the process with Experian.</div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFAQ(this)">
+            <span style="font-size:14px;font-weight:600;color:var(--text1);">What is included in Premium?</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--text3)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+          <div class="faq-answer">Premium includes full credit report, DPD history, hard inquiry details, score alerts, dispute assistance, and priority customer support.</div>
+        </div>
+      </div>
+      <div class="card" style="display:flex;flex-direction:column;gap:12px;">
+        <h3>Raise a Ticket</h3>
+        <div class="input-group">
+          <div class="input-label">Subject</div>
+          <input type="text" class="input-field" placeholder="e.g. Wrong account on my report"/>
+        </div>
+        <div class="input-group">
+          <div class="input-label">Description</div>
+          <textarea class="input-field" rows="3" placeholder="Describe your issue..." style="resize:none;font-family:inherit;"></textarea>
+        </div>
+        <button class="btn btn-primary">Submit Ticket</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+    </div><!-- /phone-screen -->
+  </div><!-- /phone-frame -->
+
+  <!-- Screen jump navigation (desktop only) -->
+  <div class="screen-nav">
+    <button class="screen-btn active" onclick="jumpTo('screen-splash',this)">Splash</button>
+    <button class="screen-btn" onclick="jumpTo('screen-onboarding',this)">Onboarding</button>
+    <button class="screen-btn" onclick="jumpTo('screen-consent',this)">Consent</button>
+    <button class="screen-btn" onclick="jumpTo('screen-mobile',this)">Mobile OTP</button>
+    <button class="screen-btn" onclick="jumpTo('screen-kyc',this)">KYC Form</button>
+    <button class="screen-btn" onclick="jumpTo('screen-loading',this)">Loading</button>
+    <button class="screen-btn" onclick="jumpTo('screen-score-reveal',this)">Score Reveal</button>
+    <button class="screen-btn" onclick="jumpTo('screen-home',this)">Home</button>
+    <button class="screen-btn" onclick="jumpTo('screen-report',this)">Report</button>
+    <button class="screen-btn" onclick="jumpTo('screen-planner',this)">Planner</button>
+    <button class="screen-btn" onclick="jumpTo('screen-guides',this)">Guides</button>
+    <button class="screen-btn" onclick="jumpTo('screen-profile',this)">Profile</button>
+    <button class="screen-btn" onclick="jumpTo('screen-emi',this)">EMI Calc</button>
+    <button class="screen-btn" onclick="jumpTo('screen-coins',this)">HelloCoins</button>
+    <button class="screen-btn" onclick="jumpTo('screen-noc',this)">NOC Helper</button>
+    <button class="screen-btn" onclick="jumpTo('screen-support',this)">Support</button>
+  </div>
+</div>
+
+<script>
+// ── SCREEN NAVIGATION ──────────────────────────────
+function showScreen(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  const el=document.getElementById(id);
+  if(el){
+    el.classList.add('active');
+    const sc=el.querySelector('.scroll-content');
+    if(sc) sc.scrollTop=0;
+  }
+}
+function jumpTo(id,btn){
+  showScreen(id);
+  document.querySelectorAll('.screen-btn').forEach(b=>b.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+}
+
+// ── TAB BAR ───────────────────────────────────────
+const tabMap={home:'screen-home',report:'screen-report',planner:'screen-planner',guides:'screen-guides',profile:'screen-profile'};
+function switchTab(tab){
+  showScreen(tabMap[tab]);
+  document.querySelectorAll('.tab-item').forEach(t=>t.classList.remove('active'));
+}
+
+// ── ONBOARDING ────────────────────────────────────
+let onboardIdx=0;
+function onboardNext(){
+  const slides=document.getElementById('onboard-slides');
+  const btn=document.getElementById('onboard-next-btn');
+  onboardIdx=Math.min(onboardIdx+1,2);
+  slides.style.transform=`translateX(-${onboardIdx*100}%)`;
+  document.querySelectorAll('.onboard-dot').forEach((d,i)=>{
+    d.classList.toggle('active',i===onboardIdx);
+  });
+  if(onboardIdx===2){
+    btn.textContent='Get Started';
+    btn.onclick=()=>showScreen('screen-consent');
+  }
+}
+
+// ── CONSENT ───────────────────────────────────────
+let consentChecked=false;
+function toggleConsent(){
+  consentChecked=!consentChecked;
+  const cb=document.getElementById('consent-checkbox');
+  const svg=document.getElementById('consent-check-svg');
+  cb.classList.toggle('checked',consentChecked);
+  svg.style.display=consentChecked?'block':'none';
+  document.getElementById('consent-btn').disabled=!consentChecked;
+}
+
+// ── MOBILE / OTP ──────────────────────────────────
+function checkMobile(){
+  const v=document.getElementById('mobile-input').value.replace(/\D/g,'');
+  document.getElementById('get-otp-btn').disabled=v.length!==10;
+}
+function showOTPStep(){
+  document.getElementById('mobile-step').style.display='none';
+  document.getElementById('otp-step').style.display='flex';
+  startResendTimer();
+}
+function otpInput(el,idx){
+  const boxes=document.querySelectorAll('.otp-box');
+  el.classList.toggle('filled',el.value.length>0);
+  if(el.value&&idx<5) boxes[idx+1].focus();
+  const filled=[...boxes].every(b=>b.value.length===1);
+  document.getElementById('verify-btn').disabled=!filled;
+}
+function otpKey(e,el,idx){
+  if(e.key==='Backspace'&&!el.value&&idx>0){
+    const boxes=document.querySelectorAll('.otp-box');
+    boxes[idx-1].focus();
+    boxes[idx-1].value='';
+    boxes[idx-1].classList.remove('filled');
+  }
+}
+function startResendTimer(){
+  let t=30;
+  const el=document.getElementById('resend-timer');
+  const iv=setInterval(()=>{
+    t--;
+    if(t>0){
+      el.innerHTML=`Resend OTP in <strong>${t}s</strong>`;
+    } else {
+      el.innerHTML=`<span class="resend-link" onclick="startResendTimer()">Resend OTP</span>`;
+      clearInterval(iv);
+    }
+  },1000);
+}
+
+// ── REPORT TABS ───────────────────────────────────
+function switchReportTab(tab){
+  document.getElementById('report-free').style.display=tab==='free'?'flex':'none';
+  document.getElementById('report-premium').style.display=tab==='premium'?'flex':'none';
+  document.getElementById('tab-free').classList.toggle('active',tab==='free');
+  document.getElementById('tab-premium').classList.toggle('active',tab==='premium');
+}
+
+// ── EMI CALCULATOR ────────────────────────────────
+function calcEMI(){
+  const P=+document.getElementById('loan-slider').value;
+  const r=+document.getElementById('rate-slider').value/12/100;
+  const n=+document.getElementById('tenure-slider').value;
+  const emi=r>0 ? P*r*Math.pow(1+r,n)/(Math.pow(1+r,n)-1) : P/n;
+  const totalPay=emi*n;
+  const interest=totalPay-P;
+  const fmt=v=>Math.round(v).toLocaleString('en-IN');
+  document.getElementById('emi-amount').textContent=fmt(emi);
+  document.getElementById('emi-principal').textContent=fmt(P);
+  document.getElementById('emi-interest').textContent=fmt(interest);
+  document.getElementById('emi-total').textContent=fmt(totalPay);
+  document.getElementById('loan-display').textContent=fmt(P);
+  document.getElementById('rate-display').textContent=(+document.getElementById('rate-slider').value).toFixed(1);
+  document.getElementById('tenure-display').textContent=n;
+}
+calcEMI();
+
+// ── FAQ ───────────────────────────────────────────
+function toggleFAQ(header){
+  const answer=header.nextElementSibling;
+  answer.classList.toggle('open');
+  const icon=header.querySelector('svg');
+  icon.style.transform=answer.classList.contains('open')?'rotate(180deg)':'rotate(0)';
+  icon.style.transition='transform .2s';
+}
+</script>
+</body>
+</html>
